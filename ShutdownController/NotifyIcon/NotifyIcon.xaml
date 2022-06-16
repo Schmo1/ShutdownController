@@ -1,0 +1,17 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:tb="http://www.hardcodet.net/taskbar"
+                    xmlns:ViewModels="clr-namespace:ShutdownController.ViewModels">
+
+    <tb:TaskbarIcon x:Key="WPFTaskbar"
+                    IconSource="/Images/Icons/Shutdown 32x32.ico"
+                  ToolTipText="hello world" >
+        
+        <!-- self-assign a data context (could also be done programmatically) -->
+        <tb:TaskbarIcon.DataContext>
+            <ViewModels:NotifyIconViewModel />
+        </tb:TaskbarIcon.DataContext>
+    </tb:TaskbarIcon>
+
+
+</ResourceDictionary>

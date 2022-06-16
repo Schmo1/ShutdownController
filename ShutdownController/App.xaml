@@ -1,0 +1,40 @@
+﻿<Application x:Class="ShutdownController.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:viewModels="clr-namespace:ShutdownController.ViewModels"                  
+             xmlns:local="clr-namespace:ShutdownController"
+             xmlns:view="clr-namespace:ShutdownController.Views">
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <!-- Own Themes-->
+                <ResourceDictionary Source="Styles/OptionButtonStyle.xaml"/>
+                <ResourceDictionary Source="Styles/BorderStyles.xaml"/>
+                <ResourceDictionary Source="Styles/TextStyles.xaml"/>
+                <ResourceDictionary Source="Styles/SliderStyles.xaml"/>
+                <ResourceDictionary Source="Styles/ButtonStyles.xaml"/>
+                
+                
+                <ResourceDictionary Source="NotifyIcon/NotifyIcon.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+            <DataTemplate DataType="{x:Type viewModels:TimerViewModel}">
+                <view:TimerView/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type viewModels:ClockViewModel}">
+                <view:ClockView/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type viewModels:DownUploadViewModel}">
+                <view:DownUploadView/>
+            </DataTemplate>
+            
+            <DataTemplate DataType="{x:Type viewModels:DiskViewModel}">
+                <view:DownUploadView/>
+            </DataTemplate>
+
+
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

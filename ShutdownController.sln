@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.32319.34
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShutdownController", "ShutdownController\ShutdownController.csproj", "{FC9938EA-9E6A-44CD-B912-498EABF82274}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FC9938EA-9E6A-44CD-B912-498EABF82274}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FC9938EA-9E6A-44CD-B912-498EABF82274}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FC9938EA-9E6A-44CD-B912-498EABF82274}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FC9938EA-9E6A-44CD-B912-498EABF82274}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5191BD73-E3BF-44BA-88BB-97A20BDB2175}
+	EndGlobalSection
+EndGlobal
