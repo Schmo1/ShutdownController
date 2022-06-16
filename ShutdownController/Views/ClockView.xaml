@@ -17,8 +17,31 @@
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
 
-        <Border Style="{StaticResource borderbrightBlueTheme}" Grid.ColumnSpan="2" Grid.RowSpan="2" Margin="70 90 70 15">
-            
+        <!--Border for Sliders-->
+        <Border Style="{StaticResource borderbrightBlueTheme}" Grid.ColumnSpan="2" Grid.RowSpan="2" Margin="70 140 70 15">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <StackPanel>
+                    <Slider Style="{DynamicResource SliderStyleModern}" Orientation="Vertical" Height="100" HorizontalAlignment="Center" Margin="0,70,0,0" 
+                            x:Name="HourSlider" IsSelectionRangeEnabled="True" SelectionEnd="{Binding ElementName=HourSlider, Path=Value}"/>
+                    <TextBlock Text="hrs" HorizontalAlignment="Center" Style="{StaticResource textBlockSlider}"/>
+                </StackPanel>
+                <StackPanel Grid.Column="1">
+                    <Slider Style="{DynamicResource SliderStyleModern}" Orientation="Vertical" Height="100" HorizontalAlignment="Center" Margin="0,70,0,0" 
+                            x:Name="MinuteSlider" IsSelectionRangeEnabled="True" SelectionEnd="{Binding ElementName=MinuteSlider, Path=Value}"/>
+                    <TextBlock Text="min" HorizontalAlignment="Center" Style="{StaticResource textBlockSlider}"/>
+                </StackPanel>
+                <StackPanel Grid.Column="2">
+                    <Slider Style="{DynamicResource SliderStyleModern}" Orientation="Vertical" Height="100" HorizontalAlignment="Center" Margin="0,70,0,0" 
+                            x:Name="SecondSlider" IsSelectionRangeEnabled="True" SelectionEnd="{Binding ElementName=SecondSlider, Path=Value}"/>
+                    <TextBlock Text="sec" HorizontalAlignment="Center" Style="{StaticResource textBlockSlider}"/>
+                </StackPanel>
+            </Grid>
         </Border>
         
 
@@ -34,11 +57,11 @@
                 </Grid.ColumnDefinitions>
 
 
-                <TextBlock Text="{Binding ClockHours}" Style="{StaticResource textBlockCounter}" HorizontalAlignment="Right" Grid.Column="1" VerticalAlignment="Center" FontSize="28"/>
+                <TextBlock Text="{Binding Path=ClockHours, FallbackValue=00}" Style="{StaticResource textBlockCounter}" HorizontalAlignment="Right" Grid.Column="1" VerticalAlignment="Center" FontSize="28"/>
                 <TextBlock Text=":" Style="{StaticResource textBlockCounter}" Grid.Column="2" VerticalAlignment="Center" FontSize="28"/>
-                <TextBlock Text="{Binding ClockMinutes}" Style="{StaticResource textBlockCounter}" Grid.Column="3" VerticalAlignment="Center" FontSize="28" MinWidth="34.2" />
+                <TextBlock Text="{Binding Path=ClockMinutes, FallbackValue=00}" Style="{StaticResource textBlockCounter}" Grid.Column="3" VerticalAlignment="Center" FontSize="28" MinWidth="34.2" />
                 <TextBlock Text=":" Style="{StaticResource textBlockCounter}" Grid.Column="4" VerticalAlignment="Center" FontSize="28"/>
-                <TextBlock Text="{Binding ClockSeconds}" Style="{StaticResource textBlockCounter}" Grid.Column="5" VerticalAlignment="Center" FontSize="28" />
+                <TextBlock Text="{Binding Path=ClockSeconds, FallbackValue=00}" Style="{StaticResource textBlockCounter}" Grid.Column="5" VerticalAlignment="Center" FontSize="28" />
 
             </Grid>
         </Border>
@@ -80,8 +103,8 @@
                         <Setter Property="Background">
                             <Setter.Value>
                                 <LinearGradientBrush StartPoint="0.3,0" EndPoint="0.6,1">
-                                    <GradientStop Color="#00ee00" Offset="0.0" />
-                                    <GradientStop Color="#00ff00" Offset="1.0" />
+                                    <GradientStop Color="#5050ee" Offset="0.0" />
+                                    <GradientStop Color="#6060ee" Offset="1.0" />
                                 </LinearGradientBrush>
                             </Setter.Value>
                         </Setter>

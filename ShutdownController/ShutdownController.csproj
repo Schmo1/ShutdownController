@@ -85,6 +85,7 @@
     <Compile Include="Converters\BoolInvertConverter.cs" />
     <Compile Include="Core\ObservableObject.cs" />
     <Compile Include="Models\Clock.cs" />
+    <Compile Include="Utility\ShutdownOptions.cs" />
     <Compile Include="ViewModels\NotifyIconViewModel.cs" />
     <Compile Include="ViewModels\ClockViewModel.cs" />
     <Compile Include="ViewModels\DiskViewModel.cs" />
@@ -131,7 +132,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Styles\SliderStyles.xaml">
+    <Page Include="Styles\SliderStyle.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

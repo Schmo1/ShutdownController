@@ -23,7 +23,7 @@
         </Grid.RowDefinitions>
 
         <Border Style="{StaticResource borderbrightBlueTheme}"  Grid.Row="0" Grid.RowSpan="2" Margin="70 90 70 15" >
-            <Grid>
+            <Grid Margin="60,23,60,0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
@@ -31,30 +31,21 @@
                     
                 </Grid.ColumnDefinitions>
 
-                <Canvas Margin="0,0,0,120" VerticalAlignment="Bottom">
-                    <Slider Height="30" Width="150" Name="slider1" Style="{DynamicResource SliderStyle1}" IsSelectionRangeEnabled="True" Value="{Binding ElementName=infoCard,Path=Amount}" SelectionEnd="{Binding ElementName=slider1, Path=Value}">
-                    <Slider.RenderTransform>
-                            <RotateTransform CenterX="75" CenterY="15" Angle="270" />
-                        </Slider.RenderTransform>
-                    </Slider>
-                </Canvas>
-
-                <Canvas Margin="0,0,0,120" VerticalAlignment="Bottom" Grid.Column="1" HorizontalAlignment="Center">
-                    <Slider Height="30" Width="150" Name="slider2" Style="{DynamicResource SliderStyle1}" IsSelectionRangeEnabled="True" Value="{Binding ElementName=infoCard,Path=Amount}" SelectionEnd="{Binding ElementName=slider2, Path=Value}">
-                        <Slider.RenderTransform>
-                            <RotateTransform CenterX="0" CenterY="0" Angle="270" />
-                        </Slider.RenderTransform>
-                    </Slider>
-                </Canvas>
-                
-                <Canvas Margin="0,0,0,120" VerticalAlignment="Bottom" Grid.Column="2">
-                    <Slider Height="30" Width="150" Name="slider3" Style="{DynamicResource SliderStyle1}" IsSelectionRangeEnabled="True" Value="{Binding ElementName=infoCard,Path=Amount}" SelectionEnd="{Binding ElementName=slider3, Path=Value}">
-                        <Slider.RenderTransform>
-                            <RotateTransform CenterX="75" CenterY="15" Angle="270" />
-                        </Slider.RenderTransform>
-                    </Slider>
-                </Canvas>
-
+                <StackPanel>
+                    <Slider Style="{DynamicResource SliderStyleModern}" Orientation="Vertical" Height="120" HorizontalAlignment="Center" Margin="0,70,0,0" 
+                            x:Name="HourSlider" IsSelectionRangeEnabled="True" SelectionEnd="{Binding ElementName=HourSlider, Path=Value}"/>
+                    <TextBlock Text="hrs" HorizontalAlignment="Center" Style="{StaticResource textBlockSlider}"/>
+                </StackPanel>
+                <StackPanel Grid.Column="1">
+                    <Slider Style="{DynamicResource SliderStyleModern}" Orientation="Vertical" Height="120" HorizontalAlignment="Center" Margin="0,70,0,0" 
+                            x:Name="MinuteSlider" IsSelectionRangeEnabled="True" SelectionEnd="{Binding ElementName=MinuteSlider, Path=Value}"/>
+                    <TextBlock Text="min" HorizontalAlignment="Center" Style="{StaticResource textBlockSlider}"/>
+                </StackPanel>
+                <StackPanel Grid.Column="2">
+                    <Slider Style="{DynamicResource SliderStyleModern}" Orientation="Vertical" Height="120" HorizontalAlignment="Center" Margin="0,70,0,0" 
+                            x:Name="SecondSlider" IsSelectionRangeEnabled="True" SelectionEnd="{Binding ElementName=SecondSlider, Path=Value}"/>
+                    <TextBlock Text="sec" HorizontalAlignment="Center" Style="{StaticResource textBlockSlider}"/>
+                </StackPanel>
 
 
             </Grid>

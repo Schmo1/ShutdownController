@@ -11,7 +11,7 @@
                 <ResourceDictionary Source="Styles/OptionButtonStyle.xaml"/>
                 <ResourceDictionary Source="Styles/BorderStyles.xaml"/>
                 <ResourceDictionary Source="Styles/TextStyles.xaml"/>
-                <ResourceDictionary Source="Styles/SliderStyles.xaml"/>
+                <ResourceDictionary Source="Styles/SliderStyle.xaml"/>
                 <ResourceDictionary Source="Styles/ButtonStyles.xaml"/>
                 
                 
@@ -26,6 +26,7 @@
                 <view:ClockView/>
             </DataTemplate>
 
+ 
             <DataTemplate DataType="{x:Type viewModels:DownUploadViewModel}">
                 <view:DownUploadView/>
             </DataTemplate>
