@@ -4,8 +4,16 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ShutdownController.Views"
+             xmlns:converters="clr-namespace:ShutdownController.Converters"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="500">
+
+    <UserControl.Resources>
+        <converters:StringToIntConverter x:Key="MyStringToIntConverter"/>
+    </UserControl.Resources>
+    
+    
+    
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto"/>
@@ -28,17 +36,20 @@
                 </Grid.ColumnDefinitions>
                 <StackPanel>
                     <Slider Style="{DynamicResource SliderStyleModern}" Orientation="Vertical" Height="100" HorizontalAlignment="Center" Margin="0,70,0,0" 
-                            x:Name="HourSlider" IsSelectionRangeEnabled="True" SelectionEnd="{Binding ElementName=HourSlider, Path=Value}"/>
+                            x:Name="HourSlider" IsSelectionRangeEnabled="True" SelectionEnd="{Binding ElementName=HourSlider, Path=Value}" IsMoveToPointEnabled="True"
+                            Value="{Binding ClockSetHours}" Maximum="23"/>
                     <TextBlock Text="hrs" HorizontalAlignment="Center" Style="{StaticResource textBlockSlider}"/>
                 </StackPanel>
                 <StackPanel Grid.Column="1">
                     <Slider Style="{DynamicResource SliderStyleModern}" Orientation="Vertical" Height="100" HorizontalAlignment="Center" Margin="0,70,0,0" 
-                            x:Name="MinuteSlider" IsSelectionRangeEnabled="True" SelectionEnd="{Binding ElementName=MinuteSlider, Path=Value}"/>
+                            x:Name="MinuteSlider" IsSelectionRangeEnabled="True" SelectionEnd="{Binding ElementName=MinuteSlider, Path=Value}" IsMoveToPointEnabled="True"
+                            Value="{Binding ClockSetMinutes}" Maximum="59"/>
                     <TextBlock Text="min" HorizontalAlignment="Center" Style="{StaticResource textBlockSlider}"/>
                 </StackPanel>
                 <StackPanel Grid.Column="2">
                     <Slider Style="{DynamicResource SliderStyleModern}" Orientation="Vertical" Height="100" HorizontalAlignment="Center" Margin="0,70,0,0" 
-                            x:Name="SecondSlider" IsSelectionRangeEnabled="True" SelectionEnd="{Binding ElementName=SecondSlider, Path=Value}"/>
+                            x:Name="SecondSlider" IsSelectionRangeEnabled="True" SelectionEnd="{Binding ElementName=SecondSlider, Path=Value}" IsMoveToPointEnabled="True"
+                            Value="{Binding ClockSetSeconds}" Maximum="59" />
                     <TextBlock Text="sec" HorizontalAlignment="Center" Style="{StaticResource textBlockSlider}"/>
                 </StackPanel>
             </Grid>
@@ -78,17 +89,17 @@
                 </Grid.ColumnDefinitions>
 
 
-                <TextBox Text="00" Style="{StaticResource textBoxCounter}" HorizontalAlignment="Right" VerticalAlignment="Center" 
-                         PreviewTextInput="PreviewTextInputOnlyNumbers" DataObject.Pasting="TextBoxPasting" />
+                <TextBox Text="{Binding Path=ClockSetHours,Converter={StaticResource MyStringToIntConverter}, FallbackValue=00}" Style="{StaticResource textBoxCounter}" HorizontalAlignment="Right" VerticalAlignment="Center" 
+                         PreviewTextInput="PreviewTextInputOnlyNumbers" DataObject.Pasting="TextBoxPasting"/>
                 
                 <TextBlock Text=":" Style="{StaticResource textBlockCounter}" Grid.Column="1" VerticalAlignment="Center"/>
-                
-                <TextBox Text="00" Style="{StaticResource textBoxCounter}" Grid.Column="2" VerticalAlignment="Center" MinWidth="68.7" 
+
+                <TextBox Text="{Binding Path=ClockSetMinutes,Converter={StaticResource MyStringToIntConverter}, FallbackValue=00}" Style="{StaticResource textBoxCounter}" Grid.Column="2" VerticalAlignment="Center" MinWidth="68.7" 
                          PreviewTextInput="PreviewTextInputOnlyNumbers" DataObject.Pasting="TextBoxPasting"/>
                 
                 <TextBlock Text=":" Style="{StaticResource textBlockCounter}" Grid.Column="3" VerticalAlignment="Center"/>
-                
-                <TextBox Text="00" Style="{StaticResource textBoxCounter}" Grid.Column="4" VerticalAlignment="Center" 
+
+                <TextBox Text="{Binding Path=ClockSetSeconds,Converter={StaticResource MyStringToIntConverter}, FallbackValue=00}" Style="{StaticResource textBoxCounter}" Grid.Column="4" VerticalAlignment="Center" 
                          
                          PreviewTextInput="PreviewTextInputOnlyNumbers" DataObject.Pasting="TextBoxPasting"/>
                
@@ -169,7 +180,7 @@
                                     <Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsMouseOver}" Value="True"/>
                                 </MultiDataTrigger.Conditions>
                                 <MultiDataTrigger.Setters>
-                                    <Setter Property="Background" Value="#50ff50" />
+                                    <Setter Property="Background" Value="#7070ee" />
                                 </MultiDataTrigger.Setters>
                             </MultiDataTrigger>
                         </Style.Triggers>

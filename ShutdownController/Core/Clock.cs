@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Threading;
 
-namespace ShutdownController.Models
+namespace ShutdownController.Core
 {
 
 

@@ -44,5 +44,6 @@ namespace ShutdownController.Views
         {
             return !regex.IsMatch(text);
         }
+
     }
 }

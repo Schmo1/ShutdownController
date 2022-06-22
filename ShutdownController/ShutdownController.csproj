@@ -83,8 +83,9 @@
     <Compile Include="Commands\DelegateCommand.cs" />
     <Compile Include="Commands\OptionButtonCommand.cs" />
     <Compile Include="Converters\BoolInvertConverter.cs" />
+    <Compile Include="Converters\StringToIntConverter.cs" />
     <Compile Include="Core\ObservableObject.cs" />
-    <Compile Include="Models\Clock.cs" />
+    <Compile Include="Core\Clock.cs" />
     <Compile Include="Utility\ShutdownOptions.cs" />
     <Compile Include="ViewModels\NotifyIconViewModel.cs" />
     <Compile Include="ViewModels\ClockViewModel.cs" />

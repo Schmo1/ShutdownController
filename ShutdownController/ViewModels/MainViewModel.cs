@@ -1,7 +1,9 @@
-﻿using ShutdownController.Commands;
-using ShutdownController.Core;
+﻿using System;
 using System.Runtime.CompilerServices;
 using System.Windows;
+using ShutdownController.Commands;
+using ShutdownController.Core;
+using ShutdownController.Utility;
 
 namespace ShutdownController.ViewModels
 {
@@ -73,12 +75,12 @@ namespace ShutdownController.ViewModels
             CreateViewModels();
             CurrentView = LoadViewSettings();
 
-
+            //Shutdown Option Buttons
             ShutdownButtonCommand = new OptionButtonCommand(ShutdownIsPressed);
             RestartButtonCommand = new OptionButtonCommand(RestartIsPressed);
             SleepButtonCommand = new OptionButtonCommand(SleepIsPressed);
 
-
+            //Create View CommandHandler
             TimerViewCommand = new CommandHandler(() => CurrentView = TimerVM, () => CurrentView != TimerVM);
             ClockViewCommand = new CommandHandler(() => CurrentView = ClockVM, () => CurrentView != ClockVM);
             DownUploadViewCommand = new CommandHandler(() => CurrentView = UpDownloadVM, () => CurrentView != UpDownloadVM);
@@ -86,7 +88,10 @@ namespace ShutdownController.ViewModels
 
             CloseCommand = new CommandHandler(() => Application.Current.Shutdown(), () => true);
 
-            SetSleepRestartShutdownDefault();
+            SetSleepRestartShutdownDefault(); //Sets to default, if nothing is selected
+
+            //Events
+            TimerVM.TimerExpiredEvent += new EventHandler(TriggerShutdownAction);
         }
 
         private void SetSleepRestartShutdownDefault()
@@ -134,6 +139,16 @@ namespace ShutdownController.ViewModels
 
             }
             return TimerVM;
+        }
+
+        private void TriggerShutdownAction(Object myObject, EventArgs myEventArgs)
+        {
+            if (IsShutdownSelected)
+                ShutdownOptions.Instance.Shutdown();
+            else if (IsRestartSelected)
+                ShutdownOptions.Instance.Restart();
+            else
+                ShutdownOptions.Instance.Sleep();
         }
 
 

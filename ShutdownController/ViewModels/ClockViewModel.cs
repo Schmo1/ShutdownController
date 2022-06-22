@@ -1,7 +1,6 @@
 ﻿using System;
-using System.Windows.Input;
+using System.Runtime.CompilerServices;
 using ShutdownController.Core;
-using ShutdownController.Models;
 
 
 namespace ShutdownController.ViewModels
@@ -14,10 +13,47 @@ namespace ShutdownController.ViewModels
         private string _clockSeconds;
 
 
-        public bool ClockActive { get { return _isClockActive; } set { _isClockActive = value; OnPropertyChanged(); } }
-        public string ClockHours { get { return _clockHours; } set { _clockHours = value; OnPropertyChanged(); } }
-        public string ClockMinutes { get { return _clockMinutes; } set { _clockMinutes = value; OnPropertyChanged(); } }
-        public string ClockSeconds { get { return _clockSeconds; } set { _clockSeconds = value; OnPropertyChanged(); } }
+
+        public bool ClockActive { get { return _isClockActive; } set { _isClockActive = value; base.OnPropertyChanged(); } }
+        public string ClockHours { get { return _clockHours; } set { _clockHours = value; base.OnPropertyChanged(); } }
+        public string ClockMinutes { get { return _clockMinutes; } set { _clockMinutes = value; base.OnPropertyChanged(); } }
+        public string ClockSeconds { get { return _clockSeconds; } set { _clockSeconds = value; base.OnPropertyChanged(); } }
+
+
+        public int ClockSetHours { 
+            get { return Properties.Settings.Default.ClockSetHours; } 
+            set 
+            {   
+                if (value > 23)
+                    Properties.Settings.Default.ClockSetHours = 23; 
+                else
+                    Properties.Settings.Default.ClockSetHours = value;
+
+                OnPropertyChanged(); 
+            } 
+        }
+        public int ClockSetMinutes { 
+            get { return Properties.Settings.Default.ClockSetMinutes; } 
+            set {
+                if (value > 59)
+                    Properties.Settings.Default.ClockSetMinutes = 59;
+                else
+                    Properties.Settings.Default.ClockSetMinutes = value;
+
+                OnPropertyChanged(); 
+            } 
+        }
+        public int ClockSetSeconds { 
+            get { return Properties.Settings.Default.ClockSetSeconds; } 
+            set {
+                if (value > 59)
+                    Properties.Settings.Default.ClockSetSeconds = 59;
+                else
+                    Properties.Settings.Default.ClockSetSeconds = value;
+
+                OnPropertyChanged(); 
+            } 
+        }
 
 
         public CommandHandler ClockStartCommand { get; set; }
@@ -48,6 +84,12 @@ namespace ShutdownController.ViewModels
                 return "0" + time;
 
             return time;
+        }
+
+        public override void OnPropertyChanged([CallerMemberName] string name = null)
+        {
+            Properties.Settings.Default.Save();
+            base.OnPropertyChanged(name);
         }
 
 

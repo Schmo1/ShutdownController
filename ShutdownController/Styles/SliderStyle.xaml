@@ -131,7 +131,7 @@
     </ControlTemplate>
     <ControlTemplate x:Key="SliderThumbVerticalDefault" TargetType="{x:Type Thumb}">
         <Grid HorizontalAlignment="Center" UseLayoutRounding="True" VerticalAlignment="Center">
-            <Ellipse Fill="#3253f1" Width="30" Height="30" StrokeThickness="20" >
+            <Ellipse Fill="#3253f1" Width="40" Height="40" StrokeThickness="20" >
                 <Ellipse.Stroke>
                     <SolidColorBrush Color="#3253f1" Opacity="0.1" />
                 </Ellipse.Stroke>
@@ -187,8 +187,8 @@
                 </Grid.ColumnDefinitions>
                 <TickBar x:Name="TopTick" Grid.Column="0" Fill="{TemplateBinding Foreground}" Margin="0,0,2,0" Placement="Left" Visibility="Collapsed" Width="4"/>
                 <TickBar x:Name="BottomTick" Grid.Column="2" Fill="{TemplateBinding Foreground}" Margin="2,0,0,0" Placement="Right" Visibility="Collapsed" Width="4"/>
-                <Border x:Name="TrackBackground" Background="{StaticResource SliderThumb.Track.Background}" CornerRadius="3" BorderThickness="0" Margin="0,13" Grid.Column="1" HorizontalAlignment="center" Width="6">
-                    <Border x:Name="PART_SelectionRange" CornerRadius="0 0 3 3" VerticalAlignment="Bottom" Width="6">
+                <Border x:Name="TrackBackground" Background="{StaticResource SliderThumb.Track.Background}" CornerRadius="5" BorderThickness="0" Margin="0,13" Grid.Column="1" HorizontalAlignment="center" Width="10">
+                    <Border x:Name="PART_SelectionRange" CornerRadius="0 0 5 5" VerticalAlignment="Bottom" Width="10">
                         <Border.Background>
                             <LinearGradientBrush>
                                 <GradientStop Color="#9191f1" Offset="0" />
@@ -205,7 +205,7 @@
                         <RepeatButton Command="{x:Static Slider.IncreaseLarge}" Style="{StaticResource RepeatButtonTransparent}"/>
                     </Track.IncreaseRepeatButton>
                     <Track.Thumb>
-                        <Thumb x:Name="Thumb" Focusable="False" Height="30" OverridesDefaultStyle="True" Template="{StaticResource SliderThumbVerticalDefault}" VerticalAlignment="Top" Width="30"/>
+                        <Thumb x:Name="Thumb" Focusable="False" Height="40" OverridesDefaultStyle="True" Template="{StaticResource SliderThumbVerticalDefault}" VerticalAlignment="Top" Width="40"/>
                     </Track.Thumb>
                 </Track>
             </Grid>
