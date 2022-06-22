@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
 using ShutdownController.Core;
-
+using ShutdownController.Utility;
 
 namespace ShutdownController.ViewModels
 {
@@ -15,49 +15,40 @@ namespace ShutdownController.ViewModels
 
 
         public bool ClockActive { get { return _isClockActive; } set { _isClockActive = value; base.OnPropertyChanged(); } }
+
+        //Actual time
         public string ClockHours { get { return _clockHours; } set { _clockHours = value; base.OnPropertyChanged(); } }
         public string ClockMinutes { get { return _clockMinutes; } set { _clockMinutes = value; base.OnPropertyChanged(); } }
         public string ClockSeconds { get { return _clockSeconds; } set { _clockSeconds = value; base.OnPropertyChanged(); } }
 
 
+        //User set time
         public int ClockSetHours { 
             get { return Properties.Settings.Default.ClockSetHours; } 
-            set 
-            {   
-                if (value > 23)
-                    Properties.Settings.Default.ClockSetHours = 23; 
-                else
-                    Properties.Settings.Default.ClockSetHours = value;
-
-                OnPropertyChanged(); 
-            } 
+            set { Properties.Settings.Default.ClockSetHours= Math.Min(value, 23); OnPropertyChanged(); } 
         }
+
         public int ClockSetMinutes { 
             get { return Properties.Settings.Default.ClockSetMinutes; } 
-            set {
-                if (value > 59)
-                    Properties.Settings.Default.ClockSetMinutes = 59;
-                else
-                    Properties.Settings.Default.ClockSetMinutes = value;
-
-                OnPropertyChanged(); 
-            } 
+            set { Properties.Settings.Default.ClockSetMinutes = Math.Min(value, 59); OnPropertyChanged(); } 
         }
+
         public int ClockSetSeconds { 
             get { return Properties.Settings.Default.ClockSetSeconds; } 
-            set {
-                if (value > 59)
-                    Properties.Settings.Default.ClockSetSeconds = 59;
-                else
-                    Properties.Settings.Default.ClockSetSeconds = value;
-
-                OnPropertyChanged(); 
-            } 
+            set { Properties.Settings.Default.ClockSetSeconds = Math.Min(value, 59); OnPropertyChanged(); } 
         }
 
 
+
+        //Commands
         public CommandHandler ClockStartCommand { get; set; }
 
+
+        //Events
+        public event EventHandler ClockRunsOutEvent;
+
+
+        //Constructor
         public ClockViewModel()
         {
 
@@ -73,6 +64,14 @@ namespace ShutdownController.ViewModels
             ClockHours = SetNumberTo2Char(Clock.Instance.ActualTime.Hour.ToString());
             ClockMinutes = SetNumberTo2Char(Clock.Instance.ActualTime.Minute.ToString());
             ClockSeconds = SetNumberTo2Char(Clock.Instance.ActualTime.Second.ToString());
+
+            if (TimeRunsOut() && ClockActive)
+            {
+                MyLogger.Instance().Info("Clock time run's out");
+                ClockActive = false;
+                ClockRunsOutEvent?.Invoke(this, EventArgs.Empty);
+            }
+            
         }
 
         private string SetNumberTo2Char(string time)
@@ -88,10 +87,18 @@ namespace ShutdownController.ViewModels
 
         public override void OnPropertyChanged([CallerMemberName] string name = null)
         {
+            //OnPropertyChanged save Usersettings
             Properties.Settings.Default.Save();
             base.OnPropertyChanged(name);
         }
 
+        private bool TimeRunsOut()
+        {
+            if (Clock.Instance.ActualTime.Hour == ClockSetHours && Clock.Instance.ActualTime.Minute == ClockSetMinutes && Clock.Instance.ActualTime.Second == ClockSetSeconds)
+                return true; //Time runs out
+            else
+                return false;
+        }
 
     }
 }

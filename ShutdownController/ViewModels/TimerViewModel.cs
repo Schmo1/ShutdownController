@@ -2,6 +2,7 @@
 using System.Runtime.CompilerServices;
 using System.Windows.Threading;
 using ShutdownController.Core;
+using ShutdownController.Utility;
 
 namespace ShutdownController.ViewModels
 {
@@ -166,10 +167,11 @@ namespace ShutdownController.ViewModels
 
         public void TimerExpired()
         {
+            MyLogger.Instance().Info("Timer expired!");
             TimerStop();
             TimerExpiredEvent?.Invoke(this, EventArgs.Empty);
-
         }
+
         private void TimerStartPause()
         {
             if (!_isTimerStarted)

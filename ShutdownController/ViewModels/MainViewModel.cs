@@ -92,6 +92,7 @@ namespace ShutdownController.ViewModels
 
             //Events
             TimerVM.TimerExpiredEvent += new EventHandler(TriggerShutdownAction);
+            ClockVM.ClockRunsOutEvent += new EventHandler(TriggerShutdownAction);
         }
 
         private void SetSleepRestartShutdownDefault()
