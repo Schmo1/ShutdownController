@@ -1,11 +1,44 @@
-﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+﻿
+    <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:tb="http://www.hardcodet.net/taskbar"
-                    xmlns:ViewModels="clr-namespace:ShutdownController.ViewModels">
+                    xmlns:ViewModels="clr-namespace:ShutdownController.ViewModels"
+                    xmlns:fa="http://schemas.fontawesome.io/icons/">
+
+
+    <ContextMenu x:Shared="false" x:Key="SysTrayMenu">
+        <MenuItem Header="Show Window" Command="{Binding ShowWindowCommand}">
+            <MenuItem.Icon>
+                <Image Width="16"
+                           Height="16"
+                           Source="{Binding ShowIcon}"/>
+            </MenuItem.Icon>
+        </MenuItem>
+
+        <MenuItem Header="Hide Window" Command="{Binding HideWindowCommand}"  >
+            <MenuItem.Icon>
+                <Image Width="16"
+                           Height="16"
+                           Source="{Binding HideIcon}"/>
+            </MenuItem.Icon>
+        </MenuItem>
+
+
+
+        <Separator/>
+        <MenuItem Header="Exit" Command="{Binding ExitApplicationCommand}">
+            <MenuItem.Icon>
+                <Image Width="16"
+                           Height="16"
+                           Source="/Images/Icons/Exit.ico" />
+            </MenuItem.Icon>
+        </MenuItem>
+    </ContextMenu>
 
     <tb:TaskbarIcon x:Key="WPFTaskbar"
                     IconSource="/Images/Icons/Shutdown 32x32.ico"
-                  ToolTipText="hello world" >
+                    ToolTipText="{Binding SystemTrayMenuText}"
+                    ContextMenu="{StaticResource SysTrayMenu}">
         
         <!-- self-assign a data context (could also be done programmatically) -->
         <tb:TaskbarIcon.DataContext>

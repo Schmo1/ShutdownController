@@ -50,7 +50,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>Images\Icons\Shutdown 256x256.ico</ApplicationIcon>
+    <ApplicationIcon>Images\Icons\Shutdown 32x32.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="FontAwesome.WPF, Version=4.7.0.37774, Culture=neutral, PublicKeyToken=0758b07a11a4f466, processorArchitecture=MSIL">
@@ -91,6 +91,7 @@
     <Compile Include="Converters\StringToIntConverter.cs" />
     <Compile Include="Core\ObservableObject.cs" />
     <Compile Include="Core\Clock.cs" />
+    <Compile Include="Utility\AutoStartController.cs" />
     <Compile Include="Utility\ILogger.cs" />
     <Compile Include="Utility\Logger.cs" />
     <Compile Include="Utility\ShutdownOptions.cs" />
@@ -169,20 +170,28 @@
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Properties\Resources.Designer.cs">
+    <Compile Include="Properties\ConstTemplates.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
+      <DependentUpon>ConstTemplates.resx</DependentUpon>
     </Compile>
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <EmbeddedResource Include="Properties\Resources.resx">
+    <EmbeddedResource Include="Properties\ConstTemplates.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <LastGenOutput>ConstTemplates.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <Resource Include="Images\Icons\Exit.ico" />
+    <Resource Include="Images\Icons\Hide.ico" />
+    <Resource Include="Images\Icons\HideDisabled.ico" />
+    <Resource Include="Images\Icons\Settings.ico" />
+    <Resource Include="Images\Icons\Show.ico" />
+    <Resource Include="Images\Icons\ShowDisabled.ico" />
+    <Resource Include="Images\Icons\ShutdownManager.ico" />
+    <Resource Include="Images\Icons\Shutdown 124x124.ico" />
     <Content Include="NLog.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

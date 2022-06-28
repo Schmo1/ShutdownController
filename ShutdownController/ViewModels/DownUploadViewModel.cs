@@ -2,7 +2,7 @@
 
 namespace ShutdownController.ViewModels
 {
-    internal class DownUploadViewModel :ObservableObject
+    public class DownUploadViewModel : ObservableObject
     {
 
     }

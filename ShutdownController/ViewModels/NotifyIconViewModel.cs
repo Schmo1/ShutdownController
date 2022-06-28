@@ -1,26 +1,60 @@
-﻿using ShutdownController.Commands;
+﻿using System.Reflection;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Media;
+using ShutdownController.Commands;
+using ShutdownController.Core;
+using ShutdownController.Utility;
+
 
 namespace ShutdownController.ViewModels
 {
-    public class NotifyIconViewModel
+    public class NotifyIconViewModel : ObservableObject
     {
-            
+
+
+        private string _sysTrayMenuText;
+        private ImageSource _showIcon;
+        private ImageSource _hideIcon;
+
+
+        public NotifyIconViewModel()
+        {
+            SystemTrayMenuText = Assembly.GetExecutingAssembly().GetName().Name;
+        }
+
+
+
         /// <summary>
         /// Shows a window, if none is already open.
         /// </summary>
-        public ICommand ShowWindowCommand
+        public ICommand ShowWindowCommand 
         {
             get
             {
                 return new DelegateCommand
                 {
-                    CanExecuteFunc = () => Application.Current.MainWindow == null,
                     CommandAction = () =>
                     {
+                        MyLogger.Instance().Info("Show Window pressed");
                         Application.Current.MainWindow = new MainWindow();
                         Application.Current.MainWindow.Show();
+                    },
+
+                    CanExecuteFunc = () =>
+                    {
+                        if(Application.Current.MainWindow != null)
+                        {
+                            if (!Application.Current.MainWindow.IsVisible)
+                            {
+                                return true;
+                            }
+                            return false;
+                        }
+                        else
+                        {
+                            return false;
+                        }
                     }
                 };
             }
@@ -35,8 +69,25 @@ namespace ShutdownController.ViewModels
             {
                 return new DelegateCommand
                 {
-                    CommandAction = () => Application.Current.MainWindow.Close(),
-                    CanExecuteFunc = () => Application.Current.MainWindow != null
+                    CommandAction = () => 
+                    { 
+                        MyLogger.Instance().Info("Hide Window pressed");
+                        Application.Current.MainWindow.Close();
+                    },
+                    CanExecuteFunc = () => {
+                        if (Application.Current.MainWindow != null)
+                        {
+                            if (Application.Current.MainWindow.IsVisible)
+                            {
+                                return true;
+                            }
+                            return false;
+                        }
+                        else
+                        {
+                            return true;
+                        }
+                    }
                 };
             }
         }
@@ -49,8 +100,21 @@ namespace ShutdownController.ViewModels
         {
             get
             {
-                return new DelegateCommand { CommandAction = () => Application.Current.Shutdown() };
+                return new DelegateCommand { CommandAction = () => Application.Current.Shutdown()};
             }
         }
+
+
+        public string SystemTrayMenuText
+        {
+            get { return _sysTrayMenuText; }
+            set {_sysTrayMenuText = value; OnPropertyChanged(); }
+        }
+
+
+        public ImageSource ShowIcon { get => _showIcon; private set { _showIcon = value; OnPropertyChanged(); } }
+        public ImageSource HideIcon { get => _hideIcon; private set { _hideIcon = value; OnPropertyChanged(); } }
+
+       
     }
 }

@@ -35,19 +35,19 @@
                 <StackPanel>
                     <Slider Style="{DynamicResource SliderStyleModern}" Orientation="Vertical" Height="120" HorizontalAlignment="Center" Margin="0,70,0,0" 
                             x:Name="HourSlider" IsSelectionRangeEnabled="True" SelectionEnd="{Binding ElementName=HourSlider, Path=Value}"
-                            Value="{Binding Path=TimerSetSliderHours}" Maximum="23"/>
+                            Value="{Binding Path=TimerSetSliderHours}" Maximum="23" IsMoveToPointEnabled="True"/>
                     <TextBlock Text="hrs" HorizontalAlignment="Center" Style="{StaticResource textBlockSlider}"/>
                 </StackPanel>
                 <StackPanel Grid.Column="1">
                     <Slider Style="{DynamicResource SliderStyleModern}" Orientation="Vertical" Height="120" HorizontalAlignment="Center" Margin="0,70,0,0" 
                             x:Name="MinuteSlider" IsSelectionRangeEnabled="True" SelectionEnd="{Binding ElementName=MinuteSlider, Path=Value}"
-                            Value="{Binding Path=TimerSetSliderMinutes}" Maximum="59"/>
+                            Value="{Binding Path=TimerSetSliderMinutes}" Maximum="59" IsMoveToPointEnabled="True"/>
                     <TextBlock Text="min" HorizontalAlignment="Center" Style="{StaticResource textBlockSlider}"/>
                 </StackPanel>
                 <StackPanel Grid.Column="2">
                     <Slider Style="{DynamicResource SliderStyleModern}" Orientation="Vertical" Height="120" HorizontalAlignment="Center" Margin="0,70,0,0" 
                             x:Name="SecondSlider" IsSelectionRangeEnabled="True" SelectionEnd="{Binding ElementName=SecondSlider, Path=Value}"
-                            Value="{Binding Path=TimerSetSliderSeconds}" Maximum="59"/>
+                            Value="{Binding Path=TimerSetSliderSeconds}" Maximum="59" IsMoveToPointEnabled="True"/>
                     <TextBlock Text="sec" HorizontalAlignment="Center" Style="{StaticResource textBlockSlider}"/>
                 </StackPanel>
 

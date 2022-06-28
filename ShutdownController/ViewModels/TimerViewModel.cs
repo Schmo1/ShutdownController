@@ -139,7 +139,6 @@ namespace ShutdownController.ViewModels
 
         private void SupstractSecond(object sender, EventArgs e)
         {
-
             //Check if Timer is zero
             if (TimerSetSeconds <= 0 && TimerSetMinutes <= 0 && TimerSetHours <= 0)
                 TimerExpired();
@@ -162,7 +161,6 @@ namespace ShutdownController.ViewModels
             else
                 TimerSetSeconds -= 1;
             
-
         }
 
         public void TimerExpired()

@@ -36,6 +36,7 @@ namespace ShutdownController.Utility
             if (logger == null)
                 logger = LogManager.GetLogger(theLogger);
             return logger;
+
         }
 
 
@@ -62,6 +63,8 @@ namespace ShutdownController.Utility
             else
                 GetLogger(rulesConfName).Debug(logMessage, arg);
         }
+
+
 
         public void Error(string message, [CallerMemberName] string nameOfCaller = null, [CallerFilePath] string sourceFilePath = null, [CallerLineNumber] int lineNumberOfCaller = 0, string arg = null)
         {

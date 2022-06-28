@@ -3,7 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:viewModels="clr-namespace:ShutdownController.ViewModels"                  
              xmlns:local="clr-namespace:ShutdownController"
-             xmlns:view="clr-namespace:ShutdownController.Views">
+             xmlns:view="clr-namespace:ShutdownController.Views"
+             ShutdownMode="OnExplicitShutdown">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>

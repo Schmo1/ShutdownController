@@ -25,7 +25,7 @@ namespace ShutdownController.ViewModels
         //User set time
         public int ClockSetHours { 
             get { return Properties.Settings.Default.ClockSetHours; } 
-            set { Properties.Settings.Default.ClockSetHours= Math.Min(value, 23); OnPropertyChanged(); } 
+            set { Properties.Settings.Default.ClockSetHours = Math.Min(value, 23); OnPropertyChanged(); } 
         }
 
         public int ClockSetMinutes { 
