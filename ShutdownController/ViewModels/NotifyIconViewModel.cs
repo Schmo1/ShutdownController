@@ -46,15 +46,13 @@ namespace ShutdownController.ViewModels
                         if(Application.Current.MainWindow != null)
                         {
                             if (!Application.Current.MainWindow.IsVisible)
-                            {
                                 return true;
-                            }
+                            
                             return false;
                         }
                         else
-                        {
                             return false;
-                        }
+                        
                     }
                 };
             }
@@ -78,15 +76,13 @@ namespace ShutdownController.ViewModels
                         if (Application.Current.MainWindow != null)
                         {
                             if (Application.Current.MainWindow.IsVisible)
-                            {
                                 return true;
-                            }
+                            
                             return false;
                         }
                         else
-                        {
                             return true;
-                        }
+                        
                     }
                 };
             }
@@ -101,6 +97,24 @@ namespace ShutdownController.ViewModels
             get
             {
                 return new DelegateCommand { CommandAction = () => Application.Current.Shutdown()};
+            }
+        }
+
+        public ICommand ShowWindowDoubleClickCommand
+        {
+            get
+            {
+                return new DelegateCommand
+                {
+                    CanExecuteFunc = () => true,
+
+                    CommandAction = () =>
+                    {
+                        MyLogger.Instance().Info("DoubleClick on TrayIcon Pressed => Open MainWindow");
+                        Application.Current.MainWindow = new MainWindow();
+                        Application.Current.MainWindow.Show();
+                    }
+                };
             }
         }
 

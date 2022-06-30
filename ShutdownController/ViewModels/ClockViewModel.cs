@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
+using Hardcodet.Wpf.TaskbarNotification;
 using ShutdownController.Core;
+using ShutdownController.NotifyIcon;
 using ShutdownController.Utility;
 
 namespace ShutdownController.ViewModels
@@ -65,11 +67,18 @@ namespace ShutdownController.ViewModels
             ClockMinutes = SetNumberTo2Char(Clock.Instance.ActualTime.Minute.ToString());
             ClockSeconds = SetNumberTo2Char(Clock.Instance.ActualTime.Second.ToString());
 
-            if (TimeRunsOut() && ClockActive)
+            if(!ClockActive)
+                return;
+
+
+            if(TimeRunsOut())
             {
                 MyLogger.Instance().Info("Clock time run's out");
                 ClockActive = false;
                 ClockRunsOutEvent?.Invoke(this, EventArgs.Empty);
+            }else if (OneMinuteLeft())
+            {
+                PushMessages.ShowBalloonTip("Clock", "One minute left", BalloonIcon.Info);
             }
             
         }
@@ -96,8 +105,17 @@ namespace ShutdownController.ViewModels
         {
             if (Clock.Instance.ActualTime.Hour == ClockSetHours && Clock.Instance.ActualTime.Minute == ClockSetMinutes && Clock.Instance.ActualTime.Second == ClockSetSeconds)
                 return true; //Time runs out
-            else
-                return false;
+            
+            return false;
+        }
+
+        private bool OneMinuteLeft()
+        {
+            int reducedMin = ClockSetMinutes - 1; //
+            if (Clock.Instance.ActualTime.Hour == ClockSetHours && Clock.Instance.ActualTime.Minute == reducedMin && Clock.Instance.ActualTime.Second == ClockSetSeconds)
+                return true; //Time runs out
+            
+            return false;
         }
 
     }

@@ -68,5 +68,14 @@ namespace ShutdownController.Properties {
                 return ResourceManager.GetString("ArgWithoutUI", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die WPFTaskbar ähnelt.
+        /// </summary>
+        internal static string NameOfTaskbar {
+            get {
+                return ResourceManager.GetString("NameOfTaskbar", resourceCulture);
+            }
+        }
     }
 }

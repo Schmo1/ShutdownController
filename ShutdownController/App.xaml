@@ -36,6 +36,9 @@
                 <view:DownUploadView/>
             </DataTemplate>
 
+            <DataTemplate DataType="{x:Type viewModels:SettingsViewModel}">
+                <view:SettingsView/>
+            </DataTemplate>
 
         </ResourceDictionary>
     </Application.Resources>

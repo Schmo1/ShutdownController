@@ -38,6 +38,7 @@
     <tb:TaskbarIcon x:Key="WPFTaskbar"
                     IconSource="/Images/Icons/Shutdown 32x32.ico"
                     ToolTipText="{Binding SystemTrayMenuText}"
+                    DoubleClickCommand="{Binding ShowWindowDoubleClickCommand}"
                     ContextMenu="{StaticResource SysTrayMenu}">
         
         <!-- self-assign a data context (could also be done programmatically) -->

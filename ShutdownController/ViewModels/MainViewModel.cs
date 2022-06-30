@@ -15,6 +15,7 @@ namespace ShutdownController.ViewModels
         public ClockViewModel ClockVM { get; set; }
         public DownUploadViewModel UpDownloadVM { get; set; }
         public DiskViewModel DiskVM { get; set; }
+        public SettingsViewModel SettingsVM { get; set; }
 
 
         //Menu Button commands
@@ -23,7 +24,8 @@ namespace ShutdownController.ViewModels
         public CommandHandler DownUploadViewCommand { get; set; }
         public CommandHandler DiskViewCommand { get; set; }
         public CommandHandler SettingsViewCommand { get; set; }
-        public CommandHandler CloseCommand { get; set; }   
+        public CommandHandler SettingsCommand { get; set; }
+        public CommandHandler CloseCommand { get; set; }
 
 
 
@@ -75,18 +77,7 @@ namespace ShutdownController.ViewModels
             CreateViewModels();
             CurrentView = LoadViewSettings();
 
-            //Shutdown Option Buttons
-            ShutdownButtonCommand = new OptionButtonCommand(ShutdownIsPressed);
-            RestartButtonCommand = new OptionButtonCommand(RestartIsPressed);
-            SleepButtonCommand = new OptionButtonCommand(SleepIsPressed);
-
-            //Create View CommandHandler
-            TimerViewCommand = new CommandHandler(() => CurrentView = TimerVM, () => CurrentView != TimerVM);
-            ClockViewCommand = new CommandHandler(() => CurrentView = ClockVM, () => CurrentView != ClockVM);
-            DownUploadViewCommand = new CommandHandler(() => CurrentView = UpDownloadVM, () => CurrentView != UpDownloadVM);
-            DiskViewCommand = new CommandHandler(() => CurrentView = DiskVM, () => CurrentView != DiskVM);
-
-            CloseCommand = new CommandHandler(() => Application.Current.Shutdown(), () => true);
+            CreateCommands();
 
             SetSleepRestartShutdownDefault(); //Sets to default, if nothing is selected
 
@@ -103,12 +94,31 @@ namespace ShutdownController.ViewModels
             }
         }
 
+        private void CreateCommands()
+        {
+            //Shutdown Option Buttons
+            ShutdownButtonCommand = new OptionButtonCommand(ShutdownIsPressed);
+            RestartButtonCommand = new OptionButtonCommand(RestartIsPressed);
+            SleepButtonCommand = new OptionButtonCommand(SleepIsPressed);
+
+
+            //Create View CommandHandler
+            TimerViewCommand = new CommandHandler(() => CurrentView = TimerVM, () => CurrentView != TimerVM);
+            ClockViewCommand = new CommandHandler(() => CurrentView = ClockVM, () => CurrentView != ClockVM);
+            DownUploadViewCommand = new CommandHandler(() => CurrentView = UpDownloadVM, () => CurrentView != UpDownloadVM);
+            DiskViewCommand = new CommandHandler(() => CurrentView = DiskVM, () => CurrentView != DiskVM);
+            SettingsViewCommand = new CommandHandler(() => CurrentView = SettingsVM, () => CurrentView != SettingsVM);
+
+            CloseCommand = new CommandHandler(() => CloseWindowCommand() , () => true);
+        }
+
         private void CreateViewModels()
         {
             TimerVM = new TimerViewModel();
             ClockVM = new ClockViewModel();
             UpDownloadVM = new DownUploadViewModel();
             DiskVM = new DiskViewModel();
+            SettingsVM = new SettingsViewModel();
 
         }
 
@@ -137,6 +147,8 @@ namespace ShutdownController.ViewModels
                     return DiskVM;
                 case "DownUploadViewModel":
                     return UpDownloadVM;
+                case "SettingsViewModel":
+                    return SettingsVM;
 
             }
             return TimerVM;
@@ -171,6 +183,20 @@ namespace ShutdownController.ViewModels
             IsShutdownSelected = false;
             IsRestartSelected = false;
             IsSleepSelected = true;
+        }
+
+        private void CloseWindowCommand()
+        {
+            if (Properties.Settings.Default.OnClosingRunInBackground)
+            {
+                MyLogger.Instance().Info("HideWindow pressed on MainWindow"); 
+                Application.Current.MainWindow.Close();
+            }
+            else
+            {
+                MyLogger.Instance().Info("Close Application pressed on MainWindow");
+                Application.Current.Shutdown();
+            }
         }
 
 

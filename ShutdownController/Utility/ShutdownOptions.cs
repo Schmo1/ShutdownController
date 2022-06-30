@@ -1,7 +1,8 @@
 ﻿using System.Windows;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
-
+using ShutdownController.NotifyIcon;
+using Hardcodet.Wpf.TaskbarNotification;
 
 namespace ShutdownController.Utility
 {
@@ -41,7 +42,7 @@ namespace ShutdownController.Utility
             MyLogger.Instance().Info("Execute Action: 'Shutdown' ....");
             if (_testingModeActiv)
             {
-                MessageBox.Show("Shutdown!");
+                PushMessages.ShowBalloonTip("Debug", "Shutdown!", BalloonIcon.Info);
             }
             else
             {
@@ -55,7 +56,7 @@ namespace ShutdownController.Utility
             MyLogger.Instance().Info("Execute Action: 'Restart' ....");
             if (_testingModeActiv)
             {
-                MessageBox.Show("Restart!");
+                PushMessages.ShowBalloonTip("Debug", "Restart!", BalloonIcon.Info);
             }
             else
             {
@@ -68,7 +69,7 @@ namespace ShutdownController.Utility
             MyLogger.Instance().Info("Execute Action: 'Sleep' ....");
             if (_testingModeActiv)
             {
-                MessageBox.Show("Sleep!");
+                PushMessages.ShowBalloonTip("Debug", "Sleep!", BalloonIcon.Info);
             }
             else
             {

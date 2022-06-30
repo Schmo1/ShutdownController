@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows;
 using ShutdownController.Utility;
+using ShutdownController.NotifyIcon;
 using Hardcodet.Wpf.TaskbarNotification;
 
 namespace ShutdownController
@@ -14,30 +15,42 @@ namespace ShutdownController
         public TaskbarIcon TaskbarIcon { get; set; }
 
         public static AutoStartController AutoStartController { get; set; }
+        private static PreventMultipleStarts multipleStarts;
+
+
+        private delegate void OpenMainWindowDel();
 
         public App()
         {
             MyLogger.Instance().Info("App is starting...");
-            AutoStartController AutoStartController = new AutoStartController(" " + ShutdownController.Properties.ConstTemplates.ArgWithoutUI);
+            AutoStartController = new AutoStartController(" " + ShutdownController.Properties.ConstTemplates.ArgWithoutUI);
+            multipleStarts = new PreventMultipleStarts();
+            multipleStarts.OnOpenRequest += OpenGUIRequest; //Timer is over event
+
         }
 
         protected override void OnStartup(StartupEventArgs e)
         {
-
-            MainWindow = new MainWindow();
-
             base.OnStartup(e);
+            if (!IsFirstInstance())
+                return;
 
             CreateTaskBarIcon();
 
-            if(IsWithUserInterface())
-                MainWindow.Show();
 
+            if (IsWithUserInterface())
+            {
+                MainWindow = new MainWindow();
+                MainWindow.Show();
+            }
+            else
+                PushMessages.ShowBalloonTip(null, "App started!", BalloonIcon.Info);
         }
 
         protected override void OnExit(ExitEventArgs e)
         {
-            TaskbarIcon.Dispose();
+            TaskbarIcon?.Dispose();
+            multipleStarts?.StopListening();
             MyLogger.Instance().Info("App is closing...");
             base.OnExit(e);
         }
@@ -46,7 +59,7 @@ namespace ShutdownController
         {
             try
             {
-                TaskbarIcon = (TaskbarIcon)FindResource("WPFTaskbar");
+                TaskbarIcon = (TaskbarIcon)FindResource(ShutdownController.Properties.ConstTemplates.NameOfTaskbar);
             }
             catch (Exception ex)
             {
@@ -58,9 +71,7 @@ namespace ShutdownController
         private bool IsWithUserInterface()
         {
             //Check if its on Startup
-            string[] arguments = Environment.GetCommandLineArgs();
-
-            foreach (string arg in arguments)
+            foreach (string arg in Environment.GetCommandLineArgs())
             {
                 if (arg == ShutdownController.Properties.ConstTemplates.ArgWithoutUI)
                 {
@@ -70,6 +81,48 @@ namespace ShutdownController
             }
             MyLogger.Instance().Debug("Open with User Interface");
             return true;
+        }
+
+        private bool IsFirstInstance()
+        {
+            if (!multipleStarts.IsFirstInstance())
+            {
+                MyLogger.Instance().Debug("App is not first instance ==> shutdown the application");
+                Current.Shutdown();
+                return false;
+            }else
+                multipleStarts.StartListening();
+
+            return true;
+
+        }
+
+        private void OpenGUIRequest(object source, EventArgs args)
+        {
+            Dispatcher.BeginInvoke(new OpenMainWindowDel(OpenMainWindow));
+        }
+
+
+        public void OpenMainWindow()
+        {
+            MyLogger.Instance().Info("Open main window");
+
+            if (MainWindow == null || MainWindow.IsVisible == false)
+            {
+                try
+                {
+                    MainWindow = new MainWindow();
+                    MainWindow.Show();
+                }
+                catch (Exception ex)
+                {
+                    MyLogger.Instance().Error("Open main window. Exception " + ex.Message);
+                }
+
+            }
+
+            MainWindow.WindowState = WindowState.Normal;
+            MainWindow.Activate();
         }
     }
 }

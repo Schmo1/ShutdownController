@@ -120,4 +120,7 @@
   <data name="ArgWithoutUI" xml:space="preserve">
     <value>-WithoutUI</value>
   </data>
+  <data name="NameOfTaskbar" xml:space="preserve">
+    <value>WPFTaskbar</value>
+  </data>
 </root>
