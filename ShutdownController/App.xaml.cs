@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows;
 using ShutdownController.Utility;
+using ShutdownController.ViewModels;
 using ShutdownController.NotifyIcon;
 using Hardcodet.Wpf.TaskbarNotification;
 
@@ -16,6 +17,15 @@ namespace ShutdownController
 
         public static AutoStartController AutoStartController { get; set; }
         private static PreventMultipleStarts multipleStarts;
+
+
+        //ViewModels
+        public static TimerViewModel STimerViewModel { get; set; }
+        public static ClockViewModel SClockViewModel { get; set; }
+        public static DownUploadViewModel SDownUploadViewModel { get; set; }
+        public static DiskViewModel SDiskViewModel { get; set; }
+
+
 
 
         private delegate void OpenMainWindowDel();

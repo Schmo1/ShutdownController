@@ -2,7 +2,7 @@
 
 namespace ShutdownController.ViewModels
 {
-    internal class DiskViewModel:ObservableObject
+    public class DiskViewModel:ObservableObject
     {
 
     }

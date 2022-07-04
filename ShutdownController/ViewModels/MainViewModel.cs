@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
 using System.Windows;
+using Hardcodet.Wpf.TaskbarNotification;
 using ShutdownController.Commands;
 using ShutdownController.Core;
+using ShutdownController.NotifyIcon;
 using ShutdownController.Utility;
 
 namespace ShutdownController.ViewModels
@@ -81,9 +83,6 @@ namespace ShutdownController.ViewModels
 
             SetSleepRestartShutdownDefault(); //Sets to default, if nothing is selected
 
-            //Events
-            TimerVM.TimerExpiredEvent += new EventHandler(TriggerShutdownAction);
-            ClockVM.ClockRunsOutEvent += new EventHandler(TriggerShutdownAction);
         }
 
         private void SetSleepRestartShutdownDefault()
@@ -114,10 +113,26 @@ namespace ShutdownController.ViewModels
 
         private void CreateViewModels()
         {
-            TimerVM = new TimerViewModel();
-            ClockVM = new ClockViewModel();
-            UpDownloadVM = new DownUploadViewModel();
-            DiskVM = new DiskViewModel();
+
+            if (App.STimerViewModel == null)
+                App.STimerViewModel = new TimerViewModel();
+
+            if (App.SClockViewModel == null)
+                App.SClockViewModel = new ClockViewModel();
+
+            if (App.SDownUploadViewModel == null)
+                App.SDownUploadViewModel = new DownUploadViewModel();
+
+            if (App.SDiskViewModel == null)
+                App.SDownUploadViewModel = new DownUploadViewModel();
+
+
+            TimerVM = App.STimerViewModel;
+            ClockVM = App.SClockViewModel;
+            UpDownloadVM = App.SDownUploadViewModel;
+            DiskVM = App.SDiskViewModel;
+
+            //Settings
             SettingsVM = new SettingsViewModel();
 
         }
@@ -128,8 +143,6 @@ namespace ShutdownController.ViewModels
             Properties.Settings.Default.Save();
             base.OnPropertyChanged(name);
         }
-
-        
 
         private void SaveViewToSettings(object view)
         {
@@ -154,15 +167,6 @@ namespace ShutdownController.ViewModels
             return TimerVM;
         }
 
-        private void TriggerShutdownAction(Object myObject, EventArgs myEventArgs)
-        {
-            if (IsShutdownSelected)
-                ShutdownOptions.Instance.Shutdown();
-            else if (IsRestartSelected)
-                ShutdownOptions.Instance.Restart();
-            else
-                ShutdownOptions.Instance.Sleep();
-        }
 
 
         private void ShutdownIsPressed()
@@ -171,7 +175,6 @@ namespace ShutdownController.ViewModels
             IsRestartSelected = false;
             IsSleepSelected = false;
         }
-
         private void RestartIsPressed()
         {
             IsShutdownSelected = false;
@@ -187,7 +190,19 @@ namespace ShutdownController.ViewModels
 
         private void CloseWindowCommand()
         {
-            if (Properties.Settings.Default.OnClosingRunInBackground)
+            if (TimerVM.TimerStarted &! TimerVM.TimerPaused)
+            {
+                MyLogger.Instance().Info("HideWindow because Timer is running");
+                PushMessages.ShowBalloonTip("Timer", "is still active in the background", BalloonIcon.Info);
+                Application.Current.MainWindow.Close();
+            }
+            else if (ClockVM.ClockActive)
+            {
+                MyLogger.Instance().Info("HideWindow because Clock is running");
+                PushMessages.ShowBalloonTip("Clock", "observing is still active in the background", BalloonIcon.Info);
+                Application.Current.MainWindow.Close();
+            }
+            else if (Properties.Settings.Default.OnClosingRunInBackground)
             {
                 MyLogger.Instance().Info("HideWindow pressed on MainWindow"); 
                 Application.Current.MainWindow.Close();
@@ -198,9 +213,6 @@ namespace ShutdownController.ViewModels
                 Application.Current.Shutdown();
             }
         }
-
-
-
 
 
     }

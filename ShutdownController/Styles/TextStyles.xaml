@@ -21,7 +21,7 @@
     </Style>
 
     <Style x:Key="textBlockSlider" TargetType="TextBlock">
-        <Setter Property="FontSize" Value="15"/>
+        <Setter Property="FontSize" Value="17"/>
         <Setter Property="Background" Value="{StaticResource Text.Static.Background}"/>
         <Setter Property="Foreground" Value="{StaticResource Text.Static.Foreground}" />
     </Style>

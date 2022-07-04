@@ -34,7 +34,15 @@ namespace ShutdownController.Utility
         public static ShutdownOptions Instance { get { return instance; } } 
 
 
-
+        public void TriggerSelectedAction()
+        {
+            if (Properties.Settings.Default.IsRestartSelected)
+                Instance.Restart();
+            else if (Properties.Settings.Default.IsShutdownSelected)
+                Instance.Shutdown();
+            else
+                Instance.Sleep();
+        }
 
 
         public void Shutdown()

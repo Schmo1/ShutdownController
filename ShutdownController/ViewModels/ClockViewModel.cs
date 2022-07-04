@@ -7,7 +7,7 @@ using ShutdownController.Utility;
 
 namespace ShutdownController.ViewModels
 {
-    internal class ClockViewModel :ObservableObject
+    public class ClockViewModel :ObservableObject
     {
         private bool _isClockActive;
         private string _clockHours;
@@ -76,7 +76,9 @@ namespace ShutdownController.ViewModels
                 MyLogger.Instance().Info("Clock time run's out");
                 ClockActive = false;
                 ClockRunsOutEvent?.Invoke(this, EventArgs.Empty);
-            }else if (OneMinuteLeft())
+                ShutdownOptions.Instance.TriggerSelectedAction();
+            }
+            else if (OneMinuteLeft())
             {
                 PushMessages.ShowBalloonTip("Clock", "One minute left", BalloonIcon.Info);
             }
@@ -117,6 +119,7 @@ namespace ShutdownController.ViewModels
             
             return false;
         }
+
 
     }
 }

@@ -6,7 +6,7 @@ using ShutdownController.Utility;
 
 namespace ShutdownController.ViewModels
 {
-    internal class TimerViewModel : ObservableObject
+    public class TimerViewModel : ObservableObject
     {
 
         private bool _isTimerStarted;
@@ -168,6 +168,7 @@ namespace ShutdownController.ViewModels
             MyLogger.Instance().Info("Timer expired!");
             TimerStop();
             TimerExpiredEvent?.Invoke(this, EventArgs.Empty);
+            ShutdownOptions.Instance.TriggerSelectedAction();
         }
 
         private void TimerStartPause()

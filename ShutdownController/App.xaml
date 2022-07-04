@@ -27,7 +27,6 @@
                 <view:ClockView/>
             </DataTemplate>
 
- 
             <DataTemplate DataType="{x:Type viewModels:DownUploadViewModel}">
                 <view:DownUploadView/>
             </DataTemplate>
