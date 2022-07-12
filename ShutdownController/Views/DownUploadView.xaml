@@ -3,10 +3,102 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
              xmlns:local="clr-namespace:ShutdownController.Views"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="450" d:DesignWidth="500">
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        
+        <!-- Titles-->
+        <!--<TextBlock Text="Overview" Style="{StaticResource textBlockChart}" Margin="35 25 0 0" />-->
+        
+        <Border Style="{StaticResource borderBlueTheme}" Margin="25,15,15,0" >
             
+            <!-- Main Chart -->
+            <lvc:CartesianChart Margin="15" LegendLocation="None">
+                <lvc:CartesianChart.DataTooltip>
+                    <lvc:DefaultTooltip Background="#b3e6ff" Foreground="#ffffff" BulletSize="0" Opacity="0.7" />
+                </lvc:CartesianChart.DataTooltip>
+
+
+                <!-- X-Axis -->
+                <lvc:CartesianChart.AxisX>
+                    <lvc:Axis Foreground="#aaaaaa" FontSize="14" ShowLabels="True"  >
+                        <lvc:Axis.Separator>
+                            <lvc:Separator StrokeThickness="0" Step="10" />
+                        </lvc:Axis.Separator>
+                    </lvc:Axis>
+                </lvc:CartesianChart.AxisX>
+                
+
+                <!-- Y-Axis -->
+                <lvc:CartesianChart.AxisY>
+                    <lvc:Axis ShowLabels="False" MinValue="0" MaxValue="100">
+                        <lvc:Axis.Separator>
+                            <lvc:Separator StrokeThickness="0" />
+                        </lvc:Axis.Separator>
+                    </lvc:Axis>
+                    
+                </lvc:CartesianChart.AxisY>
+                
+                
+                
+
+                <!-- Download -->
+                <lvc:CartesianChart.Series>
+                    <lvc:LineSeries Fill="Transparent" StrokeThickness="4" PointGeometrySize="0" Values="1,10,5,80,40,50,1,100,20,50,60,60,80,40,50,50,4,87,50,,40,41,42,4,1,10,5,80,40,50,80,48" >
+                        <lvc:LineSeries.Stroke>
+                            <LinearGradientBrush>
+                                <GradientStop Color="Transparent" Offset="0"/>
+                                <GradientStop Color="#709999" Offset="0.23"/>
+                                <GradientStop Color="Transparent" Offset="2.5"/>
+
+                            </LinearGradientBrush>
+                        </lvc:LineSeries.Stroke>
+                    </lvc:LineSeries>
+
+                    <lvc:LineSeries Fill="Transparent" StrokeThickness="4" PointGeometrySize="0" Values="20,10,20,30,30,10,20,20,20,20,30,30,50,20,32,30,50,80,80,70,80,54,54,30,57,40,40,80,93,95,85" >
+                        <lvc:LineSeries.Stroke>
+                            <LinearGradientBrush>
+                                <GradientStop Color="Transparent" Offset="0"/>
+                                <GradientStop Color="#faaa66" Offset="0.23"/>
+                                <GradientStop Color="Transparent" Offset="2.5"/>
+
+                            </LinearGradientBrush>
+                        </lvc:LineSeries.Stroke>
+                    </lvc:LineSeries>
+                    
+                </lvc:CartesianChart.Series>
+
+                <!-- Upload -->
+
+
+
+
+
+
+
+
+
+
+            </lvc:CartesianChart>
+        </Border>
+        
+        
+        
+
+        
+        
+        
+        
+        
+
     </Grid>
 </UserControl>

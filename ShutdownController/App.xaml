@@ -14,8 +14,9 @@
                 <ResourceDictionary Source="Styles/TextStyles.xaml"/>
                 <ResourceDictionary Source="Styles/SliderStyle.xaml"/>
                 <ResourceDictionary Source="Styles/ButtonStyles.xaml"/>
-                
-                
+                <ResourceDictionary Source="Styles/LegendStyle.xaml"/>
+
+
                 <ResourceDictionary Source="NotifyIcon/NotifyIcon.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
