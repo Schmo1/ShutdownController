@@ -32,7 +32,7 @@
             </DataTemplate>
             
             <DataTemplate DataType="{x:Type viewModels:DiskViewModel}">
-                <view:DownUploadView/>
+                <view:DiskView/>
             </DataTemplate>
 
             <DataTemplate DataType="{x:Type viewModels:SettingsViewModel}">

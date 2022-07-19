@@ -16,7 +16,14 @@ namespace ShutdownController.ViewModels
 
 
 
-        public bool ClockActive { get { return _isClockActive; } set { _isClockActive = value; base.OnPropertyChanged(); } }
+        public bool ClockActive 
+        { 
+            get { return _isClockActive; } 
+            set { _isClockActive = value; 
+                if (_isClockActive)
+                    PushMessages.ShowBalloonTip("Clock", "Is active", BalloonIcon.Info);
+                base.OnPropertyChanged(); } 
+        }
 
         //Actual time
         public string ClockHours { get { return _clockHours; } set { _clockHours = value; base.OnPropertyChanged(); } }

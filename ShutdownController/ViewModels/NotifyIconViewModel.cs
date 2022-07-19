@@ -111,8 +111,10 @@ namespace ShutdownController.ViewModels
                     CommandAction = () =>
                     {
                         MyLogger.Instance().Info("DoubleClick on TrayIcon Pressed => Open MainWindow");
-                        Application.Current.MainWindow = new MainWindow();
+                        if (Application.Current.MainWindow == null)
+                            Application.Current.MainWindow = new MainWindow();
                         Application.Current.MainWindow.Show();
+                        Application.Current.MainWindow.Activate(); //Set in foreground
                     }
                 };
             }

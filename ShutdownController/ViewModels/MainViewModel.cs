@@ -124,7 +124,7 @@ namespace ShutdownController.ViewModels
                 App.SDownUploadViewModel = new DownUploadViewModel();
 
             if (App.SDiskViewModel == null)
-                App.SDownUploadViewModel = new DownUploadViewModel();
+                App.SDiskViewModel = new DiskViewModel();
 
 
             TimerVM = App.STimerViewModel;
