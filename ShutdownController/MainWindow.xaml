@@ -113,19 +113,19 @@
 
                 <Grid>
                     <StackPanel>
-                        <Button Style="{StaticResource menuButton}" Margin="15,25,15,20" Command="{Binding TimerViewCommand}">
+                        <Button Style="{StaticResource menuButton}" Margin="15,25,15,20" Command="{Binding TimerViewCommand}" ToolTip="Timer">
                             <Image Source="/Images/timer.png"
                                    Width="23" />
                         </Button>
-                        <Button Style="{StaticResource menuButton}"  Command="{Binding ClockViewCommand}">
+                        <Button Style="{StaticResource menuButton}"  Command="{Binding ClockViewCommand}" ToolTip="Clock">
                             <Image Source="/Images/wall-clock.png"
                                    Width="23" />
                         </Button>
-                        <Button Style="{StaticResource menuButton}"  Command="{Binding DownUploadViewCommand}" >
+                        <Button Style="{StaticResource menuButton}"  Command="{Binding DownUploadViewCommand}" ToolTip="Down- upload observing" >
                             <Image Source="/Images/upside-down.png"
                                    Width="23" />
                         </Button>
-                        <Button Style="{StaticResource menuButton}" Command="{Binding DiskViewCommand}">
+                        <Button Style="{StaticResource menuButton}" Command="{Binding DiskViewCommand}" ToolTip="Read write observing">
                             <Image Source="/Images/hosting.png"
                                    Width="23" />
                         </Button>
@@ -133,12 +133,12 @@
                     </StackPanel>
 
                     <StackPanel VerticalAlignment="Bottom">
-                        <Button Style="{StaticResource menuButton}" Command="{Binding SettingsViewCommand}" >
+                        <Button Style="{StaticResource menuButton}" Command="{Binding SettingsViewCommand}" ToolTip="Settings">
                             <Image Source="/Images/settings.png"
                                    Width="28" />
                         </Button>
 
-                        <Button Style="{StaticResource menuButton}" VerticalAlignment="Bottom" Command="{Binding CloseCommand}">
+                        <Button Style="{StaticResource menuButton}" VerticalAlignment="Bottom" Command="{Binding CloseCommand}" ToolTip="Close">
                             <Image Source="/Images/close.png"
                                    Width="28" />
                         </Button>

@@ -178,5 +178,29 @@ namespace ShutdownController.Properties {
                 this["StartMinimized"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool DownloadObservingActive {
+            get {
+                return ((bool)(this["DownloadObservingActive"]));
+            }
+            set {
+                this["DownloadObservingActive"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool UploadObservingActive {
+            get {
+                return ((bool)(this["UploadObservingActive"]));
+            }
+            set {
+                this["UploadObservingActive"] = value;
+            }
+        }
     }
 }

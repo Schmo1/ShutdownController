@@ -57,6 +57,9 @@ namespace ShutdownController.ViewModels
         private DownUploadController downUploadController = null;
 
 
+        
+
+
         public bool ObserveActive
         {
             get { return _isObserveActive; }
@@ -69,10 +72,33 @@ namespace ShutdownController.ViewModels
             }
         }
 
+        public bool DownloadObservingPressed
+        {
+            get { return Properties.Settings.Default.DownloadObservingActive; }
+            set
+            {
+                Properties.Settings.Default.DownloadObservingActive = value;
+                Properties.Settings.Default.Save();
+                OnPropertyChanged();
+            }
+        }
+
+        public bool UploadObservingPressed
+        {
+            get { return Properties.Settings.Default.UploadObservingActive; }
+            set
+            {
+                Properties.Settings.Default.UploadObservingActive = value;
+                Properties.Settings.Default.Save();
+                OnPropertyChanged();
+            }
+        }
+
 
         //Commands
         public CommandHandler ObserveCommand { get; set; }
-
+        public CommandHandler DownloadObservingCommand { get; set; }
+        public CommandHandler UploadObservingCommand { get; set; }
 
 
         public DownUploadViewModel()
@@ -88,8 +114,34 @@ namespace ShutdownController.ViewModels
             FormatterYAxis = value => value + " MB/s";
             FormatterXAxis = value => value + " s";
 
+            //Create commands
             ObserveCommand = new CommandHandler(() => ObserveActive = !_isObserveActive, () => true);
 
+            DownloadObservingCommand = new CommandHandler(() => DownloadObservingnPressed(), () => !DownloadObservingPressed);
+
+            UploadObservingCommand = new CommandHandler(() => UploadObservingnPressed(), () => !UploadObservingPressed);
+
+
+            if(!DownloadObservingPressed &!UploadObservingPressed)
+                DownloadObservingPressed = true; //if nothin is pressed select download
+            
+            
+
+        }
+
+
+
+        private void DownloadObservingnPressed()
+        {
+            DownloadObservingPressed = true;
+            UploadObservingPressed = false;
+        }
+
+
+        private void UploadObservingnPressed()
+        {
+            DownloadObservingPressed = false;
+            UploadObservingPressed = true;
         }
 
         private void DownUploadController_NewDataEvent(object sender, EventArgs e)
@@ -184,7 +236,6 @@ namespace ShutdownController.ViewModels
 
 
         }
-
 
 
         private int DetermineMaxValueInChart()
