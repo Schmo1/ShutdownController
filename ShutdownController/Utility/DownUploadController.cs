@@ -33,6 +33,7 @@ namespace ShutdownController.Utility
         public event EventHandler NewDataEvent;
 
 
+
         public DownUploadController()
         {
             _timer.Interval = new TimeSpan(0,0,1); //1 second
@@ -45,9 +46,14 @@ namespace ShutdownController.Utility
 
 
         private void TimerTickEvent(object sender, EventArgs e)
-        { 
-        
-            if (!InternetConnectionExist) return;
+        {
+
+            if (!InternetConnectionExist)
+            {
+                NewDataEvent?.Invoke(this, EventArgs.Empty);
+                return;
+            }
+            
 
             SetSentAndReceivedData();
 

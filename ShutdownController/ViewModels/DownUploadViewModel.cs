@@ -1,7 +1,9 @@
 ﻿using System;
 using ShutdownController.Core;
 using ShutdownController.Utility;
+using ShutdownController.NotifyIcon;
 using LiveCharts;
+using Hardcodet.Wpf.TaskbarNotification;
 
 namespace ShutdownController.ViewModels
 {
@@ -13,7 +15,20 @@ namespace ShutdownController.ViewModels
         private ChartValues<double> downloadValues;
         private ChartValues<double> uploadValues;
         private const int _maxValues = 30;
+        private bool _isObserveActive;
+        private bool _internetConnectionExist;
 
+
+
+        public Func<double, string> FormatterYAxis { get; set; }
+        public Func<double, string> FormatterXAxis { get; set; }
+
+
+        public bool InternetConnectionExist 
+        {
+            get { return _internetConnectionExist; }
+            set { _internetConnectionExist = value; OnPropertyChanged(); }
+        }
 
         public int ScalaMax
         {
@@ -42,6 +57,23 @@ namespace ShutdownController.ViewModels
         private DownUploadController downUploadController = null;
 
 
+        public bool ObserveActive
+        {
+            get { return _isObserveActive; }
+            set
+            {
+                _isObserveActive = value;
+                if (_isObserveActive)
+                    PushMessages.ShowBalloonTip("Down/Upload", "Download/Upload observing is active", BalloonIcon.Info);
+                OnPropertyChanged();
+            }
+        }
+
+
+        //Commands
+        public CommandHandler ObserveCommand { get; set; }
+
+
 
         public DownUploadViewModel()
         {
@@ -53,11 +85,26 @@ namespace ShutdownController.ViewModels
             downUploadController = new DownUploadController();
             downUploadController.NewDataEvent += DownUploadController_NewDataEvent;
 
+            FormatterYAxis = value => value + " MB/s";
+            FormatterXAxis = value => value + " s";
+
+            ObserveCommand = new CommandHandler(() => ObserveActive = !_isObserveActive, () => true);
 
         }
 
-        private void DownUploadController_NewDataEvent(object sender, System.EventArgs e)
+        private void DownUploadController_NewDataEvent(object sender, EventArgs e)
         {
+            if (!downUploadController.InternetConnectionExist)
+            {
+                InternetConnectionExist = false;
+                DownloadValues.Clear();
+                UploadValues.Clear();
+                return;
+            }
+
+            InternetConnectionExist = true;
+
+
             if (DownloadValues.Count > _maxValues)
                 DownloadValues.RemoveAt(0);
 
@@ -137,6 +184,8 @@ namespace ShutdownController.ViewModels
 
 
         }
+
+
 
         private int DetermineMaxValueInChart()
         {
