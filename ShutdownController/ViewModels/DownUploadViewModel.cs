@@ -4,6 +4,7 @@ using ShutdownController.Utility;
 using ShutdownController.NotifyIcon;
 using LiveCharts;
 using Hardcodet.Wpf.TaskbarNotification;
+using System.Runtime.CompilerServices;
 
 namespace ShutdownController.ViewModels
 {
@@ -27,38 +28,64 @@ namespace ShutdownController.ViewModels
         public bool InternetConnectionExist 
         {
             get { return _internetConnectionExist; }
-            set { _internetConnectionExist = value; OnPropertyChanged(); }
+            set { _internetConnectionExist = value; base.OnPropertyChanged(); }
         }
 
         public int ScalaMax
         {
             get { return _scaleMax; }
-            set { _scaleMax = value; OnPropertyChanged(); }
+            set { _scaleMax = value; base.OnPropertyChanged(); }
         }
         
         public int YSteps
         {
             get { return _ySteps; }
-            set { _ySteps = value; OnPropertyChanged(); }
+            set { _ySteps = value; base.OnPropertyChanged(); }
         }
 
         public ChartValues<double> DownloadValues
         {
             get { return downloadValues; }
-            set { downloadValues = value; OnPropertyChanged(); }
+            set { downloadValues = value; base.OnPropertyChanged(); }
         }
         public ChartValues<double> UploadValues
         {
             get { return uploadValues; }
-            set { uploadValues = value; OnPropertyChanged(); }
+            set { uploadValues = value; base.OnPropertyChanged(); }
         }
 
 
-        private DownUploadController downUploadController = null;
 
 
-        
+        //Usersettings
+        public int Seconds
+        {
+            get { return Properties.Settings.Default.ObservingSeconds; }
+            set { Properties.Settings.Default.ObservingSeconds = Math.Min(value, 60); OnPropertyChanged(); }
+        }
 
+        public double ObservingSpeed
+        {
+            get { return Properties.Settings.Default.ObservingSpeed; }
+            set 
+            { 
+                Properties.Settings.Default.ObservingSpeed = Math.Round(Math.Min(value, 150), 2); 
+                OnPropertyChanged(); 
+            }
+        }
+
+        public bool DownloadObservingPressed
+        {
+            get { return Properties.Settings.Default.DownloadObservingActive; }
+            set { Properties.Settings.Default.DownloadObservingActive = value; OnPropertyChanged(); }
+        }
+
+        public bool UploadObservingPressed
+        {
+            get { return Properties.Settings.Default.UploadObservingActive; }
+            set { Properties.Settings.Default.UploadObservingActive = value; OnPropertyChanged();
+            }
+        }
 
         public bool ObserveActive
         {
@@ -68,31 +95,13 @@ namespace ShutdownController.ViewModels
                 _isObserveActive = value;
                 if (_isObserveActive)
                     PushMessages.ShowBalloonTip("Down/Upload", "Download/Upload observing is active", BalloonIcon.Info);
-                OnPropertyChanged();
+                base.OnPropertyChanged();
             }
         }
 
-        public bool DownloadObservingPressed
-        {
-            get { return Properties.Settings.Default.DownloadObservingActive; }
-            set
-            {
-                Properties.Settings.Default.DownloadObservingActive = value;
-                Properties.Settings.Default.Save();
-                OnPropertyChanged();
-            }
-        }
 
-        public bool UploadObservingPressed
-        {
-            get { return Properties.Settings.Default.UploadObservingActive; }
-            set
-            {
-                Properties.Settings.Default.UploadObservingActive = value;
-                Properties.Settings.Default.Save();
-                OnPropertyChanged();
-            }
-        }
+
+        private DownUploadController downUploadController = null;
 
 
         //Commands
@@ -264,6 +273,13 @@ namespace ShutdownController.ViewModels
                 return Convert.ToInt32(Math.Ceiling(uploadMax));
 
             
+        }
+
+        public override void OnPropertyChanged([CallerMemberName] string name = null)
+        {
+            //OnPropertyChanged save Usersettings
+            Properties.Settings.Default.Save();
+            base.OnPropertyChanged(name);
         }
     }
 }

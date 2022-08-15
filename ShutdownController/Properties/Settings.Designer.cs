@@ -202,5 +202,29 @@ namespace ShutdownController.Properties {
                 this["UploadObservingActive"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int ObservingSeconds {
+            get {
+                return ((int)(this["ObservingSeconds"]));
+            }
+            set {
+                this["ObservingSeconds"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public double ObservingSpeed {
+            get {
+                return ((double)(this["ObservingSpeed"]));
+            }
+            set {
+                this["ObservingSpeed"] = value;
+            }
+        }
     }
 }

@@ -47,10 +47,10 @@ namespace ShutdownController.Utility
 
         private void TimerTickEvent(object sender, EventArgs e)
         {
-
+            
             if (!InternetConnectionExist)
             {
-                NewDataEvent?.Invoke(this, EventArgs.Empty);
+                NewDataEvent?.Invoke(this, EventArgs.Empty); //Trigger Event for upper class
                 return;
             }
             
