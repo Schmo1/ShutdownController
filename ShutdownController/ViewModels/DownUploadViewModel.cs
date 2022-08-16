@@ -5,6 +5,7 @@ using ShutdownController.NotifyIcon;
 using LiveCharts;
 using Hardcodet.Wpf.TaskbarNotification;
 using System.Runtime.CompilerServices;
+using System.Windows.Media;
 
 namespace ShutdownController.ViewModels
 {
@@ -15,8 +16,12 @@ namespace ShutdownController.ViewModels
         private int _ySteps;
         private ChartValues<double> downloadValues;
         private ChartValues<double> uploadValues;
-        private const int _maxValues = 30;
+        private ChartValues<double> observedDownloadValues = new ChartValues<double>();
+        private ChartValues<double> observedUploadValues = new ChartValues<double>();
+        private const int _maxValuesInChart = 30;
+        private const int _maxSecondsToObserve = 60;
         private bool _isObserveActive;
+        private bool _isValueUnderObservingSpeed;
         private bool _internetConnectionExist;
 
 
@@ -28,9 +33,20 @@ namespace ShutdownController.ViewModels
         public bool InternetConnectionExist 
         {
             get { return _internetConnectionExist; }
-            set { _internetConnectionExist = value; base.OnPropertyChanged(); }
+            set 
+            { 
+                _internetConnectionExist = value;
+                if (_internetConnectionExist)
+                    MyLogger.Instance().Info("Internet Connection Exist");
+                else
+                    MyLogger.Instance().Info("No Internet Connection Exist");
+
+                base.OnPropertyChanged(); 
+            }
         }
 
+
+        //Chart values
         public int ScalaMax
         {
             get { return _scaleMax; }
@@ -55,13 +71,39 @@ namespace ShutdownController.ViewModels
         }
 
 
+        public ChartValues<double> ObservedDownloadValues
+        {
+            get { return observedDownloadValues; }
+            set { observedDownloadValues = value;}
+        }
+        public ChartValues<double> ObservedUploadValues
+        {
+            get { return observedUploadValues; }
+            set { observedUploadValues = value;}
+        }
+        public bool IsValueUnderObservingSpeed
+        {
+            get { return _isValueUnderObservingSpeed; }
+            set { _isValueUnderObservingSpeed = value; base.OnPropertyChanged(); }
+        }
+
+ 
+
+
 
 
         //Usersettings
         public int Seconds
         {
             get { return Properties.Settings.Default.ObservingSeconds; }
-            set { Properties.Settings.Default.ObservingSeconds = Math.Min(value, 60); OnPropertyChanged(); }
+            set 
+            { 
+                if (value < 5)
+                    value = 5;
+                Properties.Settings.Default.ObservingSeconds = Math.Min(value, _maxSecondsToObserve); 
+                
+                OnPropertyChanged(); 
+            }
         }
 
         public double ObservingSpeed
@@ -77,14 +119,13 @@ namespace ShutdownController.ViewModels
         public bool DownloadObservingPressed
         {
             get { return Properties.Settings.Default.DownloadObservingActive; }
-            set { Properties.Settings.Default.DownloadObservingActive = value; OnPropertyChanged(); }
+            set { Properties.Settings.Default.DownloadObservingActive = value; OnPropertyChanged(); ClearObservationValues(); }
         }
 
         public bool UploadObservingPressed
         {
             get { return Properties.Settings.Default.UploadObservingActive; }
-            set { Properties.Settings.Default.UploadObservingActive = value; OnPropertyChanged();
-            }
+            set { Properties.Settings.Default.UploadObservingActive = value; OnPropertyChanged(); ClearObservationValues();   }
         }
 
         public bool ObserveActive
@@ -93,9 +134,21 @@ namespace ShutdownController.ViewModels
             set
             {
                 _isObserveActive = value;
-                if (_isObserveActive)
+
+                if (_isObserveActive) 
+                { 
                     PushMessages.ShowBalloonTip("Down/Upload", "Download/Upload observing is active", BalloonIcon.Info);
+                    ValueUnderObservingSpeed(); 
+                }
+                else
+                {
+                    ClearObservationValues();
+                    IsValueUnderObservingSpeed = false;
+                }
+
+
                 base.OnPropertyChanged();
+
             }
         }
 
@@ -110,10 +163,15 @@ namespace ShutdownController.ViewModels
         public CommandHandler UploadObservingCommand { get; set; }
 
 
+
+
+
+        //Construktor
         public DownUploadViewModel()
         {
             ScalaMax = 10;
             YSteps = 2;
+
             DownloadValues = new ChartValues<double> {};
             UploadValues = new ChartValues<double> {};
 
@@ -157,26 +215,118 @@ namespace ShutdownController.ViewModels
         {
             if (!downUploadController.InternetConnectionExist)
             {
-                InternetConnectionExist = false;
-                DownloadValues.Clear();
-                UploadValues.Clear();
+                NoInternetConnectionExist();
                 return;
             }
 
             InternetConnectionExist = true;
 
+            AddValuesToChart();
 
-            if (DownloadValues.Count > _maxValues)
-                DownloadValues.RemoveAt(0);
+            if (!ObserveActive)
+                return;
 
-            if (UploadValues.Count > _maxValues)
-                UploadValues.RemoveAt(0);
 
-            DownloadValues.Add(downUploadController.ReceivedMBs);
-            UploadValues.Add(downUploadController.SentMBs);
+            AddValuesToObservation();
 
-            UpdateScala(); 
+            ValueUnderObservingSpeed();
 
+            if (ValueAchieved())
+            {
+                ObserveActive = false;
+                ClearObservationValues();
+                MyLogger.Instance().Info("Down Upload is running out");
+                ShutdownOptions.Instance.TriggerSelectedAction();
+            }
+           
+        }
+
+        private bool ValueAchieved()
+        {
+
+            if (DownloadObservingPressed)
+            {
+                if(ObservedDownloadValues.Count < Seconds) //not enough values to calculate
+                    return false;
+
+                int valuesUnderSpeed = 0;
+                for (int i = ObservedDownloadValues.Count - Seconds; i < ObservedDownloadValues.Count; i++) 
+                {
+                    if (ObservedDownloadValues[i] < ObservingSpeed) 
+                        valuesUnderSpeed++;
+                }
+
+                if(valuesUnderSpeed >= Seconds)
+                    return true;
+
+            }
+            else if (UploadObservingPressed)
+            {
+                foreach (double value in ObservedUploadValues)
+                {
+                    if (ObservedUploadValues.Count < Seconds) //not enough values to calculate
+                        return false;
+
+                    int valuesUnderSpeed = 0;
+                    for (int i = ObservedUploadValues.Count - Seconds; i < ObservedUploadValues.Count; i++)
+                    {
+                        if (ObservedUploadValues[i] < ObservingSpeed)
+                            valuesUnderSpeed++;
+                    }
+
+                    if (valuesUnderSpeed >= Seconds)
+                        return true;
+                }
+            }
+            return false;
+        }
+
+        private void ValueUnderObservingSpeed() //Check if last value was under set speed
+        {
+            
+
+            if (DownloadObservingPressed)
+            {
+                if (DownloadValues.Count == 0)
+                    return;
+
+                IsValueUnderObservingSpeed = DownloadValues[DownloadValues.Count - 1] < ObservingSpeed;
+            }
+            else if (UploadObservingPressed)
+            {
+                if (UploadValues.Count == 0)
+                    return;
+
+                IsValueUnderObservingSpeed = UploadValues[UploadValues.Count - 1] < ObservingSpeed;
+            }
+        }
+
+        private void AddValuesToObservation()
+        {
+            if (DownloadObservingPressed)
+            {
+                if (ObservedDownloadValues.Count > _maxSecondsToObserve)
+                    ObservedDownloadValues.RemoveAt(0);
+
+                ObservedDownloadValues.Add(downUploadController.ReceivedMBs);
+
+            }else if (UploadObservingPressed)
+            {
+                if (ObservedUploadValues.Count > _maxSecondsToObserve)
+                    ObservedUploadValues.RemoveAt(0);
+
+                ObservedUploadValues.Add(downUploadController.SentMBs);
+            }
+            else
+            {
+                throw new Exception( "Download or Upload is not selected ");
+            }
+        }
+
+        private void ClearObservationValues()
+        {
+            ObservedDownloadValues.Clear();
+            ObservedUploadValues.Clear();
         }
 
         private void UpdateScala()
@@ -281,5 +431,32 @@ namespace ShutdownController.ViewModels
             Properties.Settings.Default.Save();
             base.OnPropertyChanged(name);
         }
+
+
+        private void NoInternetConnectionExist()
+        {
+            InternetConnectionExist = false;
+            IsValueUnderObservingSpeed = false;
+            DownloadValues.Clear();
+            UploadValues.Clear();
+            ObservedDownloadValues.Clear();
+            ObservedUploadValues.Clear();
+        }
+
+        private void AddValuesToChart()
+        {
+            if (DownloadValues.Count >= _maxValuesInChart)
+                DownloadValues.RemoveAt(0);
+
+            if (UploadValues.Count >= _maxValuesInChart)
+                UploadValues.RemoveAt(0);
+
+            DownloadValues.Add(downUploadController.ReceivedMBs);
+            UploadValues.Add(downUploadController.SentMBs);
+
+            UpdateScala();
+        }
+
+
     }
 }

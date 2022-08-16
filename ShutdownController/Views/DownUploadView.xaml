@@ -32,12 +32,104 @@
                 
                 <!-- Main Chart -->
                 <lvc:CartesianChart Margin="15 35 15 15" LegendLocation="None">
+
+
+                    
                     <lvc:CartesianChart.DataTooltip>
                         <lvc:DefaultTooltip Background="#b3e6ff" Foreground="#ffffff" BulletSize="0" Opacity="0.9" ShowTitle="False" />
                     </lvc:CartesianChart.DataTooltip>
 
+                    
+                    <!--Change color of the Axis section-->
+                    <lvc:CartesianChart.Resources>
+                        
+                        <!--Section Style-->
+                        <Style TargetType="lvc:AxisSection">
+                            <Setter Property="Fill">
+                                <Setter.Value>
+                                    <SolidColorBrush Color="#ffffff" Opacity="0.1"/>
+                                </Setter.Value>
+                            </Setter>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding ObserveActive}" Value="true">
+                                    <Setter Property="Fill">
+                                        <Setter.Value>
+                                            <SolidColorBrush Color="#ed4222" Opacity="0.3"/>
+                                        </Setter.Value>
+                                    </Setter>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding IsValueUnderObservingSpeed}" Value="true">
+                                    <Setter Property="Fill">
+                                        <Setter.Value>
+                                            <SolidColorBrush Color="#2af822" Opacity="0.3"/>
+                                        </Setter.Value>
+                                    </Setter>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                        
+                        <!--Axis Style-->
+                        <!--Download Axis-->
+                        <Style TargetType="lvc:LineSeries" x:Key="DownloadAxisStyle">
+                            <Setter Property="StrokeThickness" Value="4" />
+                            <Setter Property="PointGeometrySize" Value="0" />
+                            <Setter Property="Fill" Value="Transparent"/>
+                            <Setter Property="Visibility" Value="Visible"/>
+                            <Setter Property="Stroke">
+                                <Setter.Value>
+                                    <LinearGradientBrush>
+                                        <GradientStop Color="Transparent" Offset="0"/>
+                                        <GradientStop Color="#709999" Offset="0.23"/>
+                                        <GradientStop Color="Transparent" Offset="2.5"/>
+                                    </LinearGradientBrush>
+                                </Setter.Value>
+                            </Setter>
+                            <!--Set visibility when Download is active-->
+                            <Setter Property="Visibility" Value="Visible"/>
+                            <Style.Triggers>
+                                <MultiDataTrigger>
+                                    <MultiDataTrigger.Conditions>
+                                        <Condition Binding="{Binding Path=UploadObservingPressed}" Value="true" /> <!--AND Condition -->
+                                        <Condition Binding="{Binding Path=ObserveActive}" Value="true" />
+                                    </MultiDataTrigger.Conditions>
+                                    <Setter Property="Visibility" Value="Hidden"/>
+                                </MultiDataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                        <!--Upload Axis-->
+                        <Style TargetType="lvc:LineSeries" x:Key="UploadAxisStyle">
+                            <Setter Property="StrokeThickness" Value="4" />
+                            <Setter Property="PointGeometrySize" Value="0" />
+                            <Setter Property="Fill" Value="Transparent"/>
+                            
+                            <Setter Property="Stroke">
+                                
+                                <Setter.Value>
+                                    <LinearGradientBrush>
+                                        <GradientStop Color="Transparent" Offset="0"/>
+                                        <GradientStop Color="#faaa66" Offset="0.23"/>
+                                        <GradientStop Color="Transparent" Offset="2.5"/>
+                                    </LinearGradientBrush>
+                                </Setter.Value>
+                            </Setter>
+                            
+                            <!--Set visibility when Download is active-->
+                            <Setter Property="Visibility" Value="Visible"/>
+                            <Style.Triggers>
+                                <MultiDataTrigger>
+                                    <MultiDataTrigger.Conditions>
+                                        <Condition Binding="{Binding Path=DownloadObservingPressed}" Value="true" />
+                                        <Condition Binding="{Binding Path=ObserveActive}" Value="true" />
+                                    </MultiDataTrigger.Conditions>
+                                    <Setter Property="Visibility" Value="Hidden"/>
+                                </MultiDataTrigger>
+                            </Style.Triggers>
+                            
+                        </Style>
+                    </lvc:CartesianChart.Resources>
+                    
 
-                    <!-- X-Axis -->
+                    <!-- X-Axis Values -->
                     <lvc:CartesianChart.AxisX>
                         <lvc:Axis Foreground="#aaaaaa" FontSize="14" ShowLabels="True" MaxValue="30" LabelFormatter="{Binding FormatterXAxis}" >
                             <lvc:Axis.Separator>
@@ -47,19 +139,17 @@
                     </lvc:CartesianChart.AxisX>
                 
 
-                    <!-- Y-Axis -->
+                    <!-- Y-Axis Time -->
                     <lvc:CartesianChart.AxisY>
                         <lvc:Axis MinValue="0" MaxValue="{Binding Path=ScalaMax, Mode=OneWay}" ShowLabels="True" LabelFormatter="{Binding FormatterYAxis}">
                             <lvc:Axis.Separator >
                                 <lvc:Separator StrokeThickness="0" Step="{Binding Path=YSteps, Mode=OneWay}"/>
                             </lvc:Axis.Separator>
 
+                            
+                            <!--Observing Speed section-->
                             <lvc:Axis.Sections>
-                                <lvc:AxisSection Value="0" SectionWidth="{Binding ObservingSpeed}" Label="Good" Stroke="#CDCDCD" StrokeThickness="1" Visibility="{Binding Path=ObserveActive, Converter={StaticResource BoolToVis}}" >
-                                    <lvc:AxisSection.Fill>
-                                        <SolidColorBrush Color="#CDCDCD" Opacity=".2"></SolidColorBrush>
-                                    </lvc:AxisSection.Fill>
-                                </lvc:AxisSection>
+                                <lvc:AxisSection Value="0" SectionWidth="{Binding ObservingSpeed}" Label="Good" Stroke="#CDCDCD" StrokeThickness="1" />
                             </lvc:Axis.Sections>
                         </lvc:Axis>
                     
@@ -69,29 +159,12 @@
 
                     <lvc:CartesianChart.Series>
                     <!-- Download -->
-                        <lvc:LineSeries Title="Download" Fill="Transparent" StrokeThickness="4" PointGeometrySize="0" 
-                                        Values="{Binding Path=DownloadValues, Mode=OneWay}" >
-                            <lvc:LineSeries.Stroke>
-                                <LinearGradientBrush>
-                                    <GradientStop Color="Transparent" Offset="0"/>
-                                    <GradientStop Color="#709999" Offset="0.23"/>
-                                    <GradientStop Color="Transparent" Offset="2.5"/>
-
-                                </LinearGradientBrush>
-                            </lvc:LineSeries.Stroke>
+                        <lvc:LineSeries Title="Download" Values="{Binding Path=DownloadValues, Mode=OneWay}" Style="{StaticResource DownloadAxisStyle}">
                         </lvc:LineSeries>
 
                         <!-- Upload -->
-                            <lvc:LineSeries Title="Upload" Fill="Transparent" StrokeThickness="4" PointGeometrySize="0"
-                                            Values="{Binding Path=UploadValues, Mode=OneWay}"  >
-                            <lvc:LineSeries.Stroke>
-                                <LinearGradientBrush>
-                                    <GradientStop Color="Transparent" Offset="0"/>
-                                    <GradientStop Color="#faaa66" Offset="0.23"/>
-                                    <GradientStop Color="Transparent" Offset="2.5"/>
+                        <lvc:LineSeries Title="Upload" Values="{Binding Path=UploadValues, Mode=OneWay}"  Style="{StaticResource UploadAxisStyle}">
 
-                                </LinearGradientBrush>
-                            </lvc:LineSeries.Stroke>
                         </lvc:LineSeries>
                     
                     </lvc:CartesianChart.Series>
@@ -172,7 +245,7 @@
         
         <!-- Startbutton -->
         <StackPanel Grid.Row="2" Grid.ColumnSpan="2">
-            <Button Margin="0 0 0 15" Width="250" Command="{Binding ObserveCommand}" IsEnabled="{Binding InternetConnectionExist}">
+            <Button Margin="0 0 0 20" Width="250" Command="{Binding ObserveCommand}" IsEnabled="{Binding InternetConnectionExist}">
                 <Button.Style>
                     <Style TargetType="Button">
                         <Setter Property="Content" Value="Start"/>

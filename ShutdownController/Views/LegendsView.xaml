@@ -10,7 +10,7 @@
         <TextBlock Text="Download" VerticalAlignment="Center" Margin="7 0 20 0" Foreground="#8ca7ba" />
 
         <Border Width="12" Height="12" Background="#faaa66" CornerRadius="3" />
-        <TextBlock Text="Upload" VerticalAlignment="Center" Margin="7 0 0 0" Foreground="#8ca7ba" />
+        <TextBlock Text="Upload" VerticalAlignment="Center" Margin="7 0 20 0" Foreground="#8ca7ba" />
 
     </StackPanel>
 </UserControl>

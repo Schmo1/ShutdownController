@@ -53,8 +53,6 @@ namespace ShutdownController.ViewModels
         public CommandHandler ClockStartCommand { get; set; }
 
 
-        //Events
-        public event EventHandler ClockRunsOutEvent;
 
 
         //Constructor
@@ -82,7 +80,6 @@ namespace ShutdownController.ViewModels
             {
                 MyLogger.Instance().Info("Clock time run's out");
                 ClockActive = false;
-                ClockRunsOutEvent?.Invoke(this, EventArgs.Empty);
                 ShutdownOptions.Instance.TriggerSelectedAction();
             }
             else if (OneMinuteLeft())
