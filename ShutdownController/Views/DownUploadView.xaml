@@ -14,12 +14,13 @@
     
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="Auto" MinHeight="150"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         
@@ -47,7 +48,12 @@
                         <Style TargetType="lvc:AxisSection">
                             <Setter Property="Fill">
                                 <Setter.Value>
-                                    <SolidColorBrush Color="#ffffff" Opacity="0.1"/>
+                                    <LinearGradientBrush Opacity="0.2">
+                                        <GradientStop Color="Transparent" Offset="0"/>
+                                        <GradientStop Color="#ffffff" Offset="0.4"/>
+                                        <GradientStop Color="#ffffff" Offset="0.6"/>
+                                        <GradientStop Color="Transparent" Offset="1.2"/>
+                                    </LinearGradientBrush>
                                 </Setter.Value>
                             </Setter>
                             <Style.Triggers>
@@ -175,47 +181,54 @@
         </Border>
 
 
+        <!--Combobox for selected Networkinterface-->
+        <ComboBox Style="{DynamicResource ComboBoxStyle1}" Grid.Column="1" Grid.Row="1" Margin="7.5 15 15 7.5">
+            <ComboBoxItem Content="Interface 1" />
+            <ComboBoxItem Content="Interface 2" IsSelected ="True"/>
+            <ComboBoxItem Content="Interface 3" />
+        </ComboBox>
+        
 
-        <!-- Observe value -->
-        <Border Style="{StaticResource borderBlueTheme}" Margin="7.5,15,15,15" Grid.Row="1" Grid.Column="1">
+        <!-- Observe value (Down Upload)-->
+        <Border Style="{StaticResource borderBlueTheme}" Margin="7.5,7.5,15,15" Grid.Row="2" Grid.Column="1">
 
             <Grid>
-                <TextBlock Text="Select observing value" FontSize="13" Style="{StaticResource textBlockChart}" Margin=" 15 5 0 0"/>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                
 
-                <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.RowSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,40,0,0">
-
-                    <!-- Downloadbutton-->
-                    <Button Style="{StaticResource optionButton}" VerticalAlignment="Center" Width="60" Height="60"
-                            Command="{Binding DownloadObservingCommand}">
-
-
-                        <StackPanel>
-                            <Image Source="/Images/Download.png"
-                                        Width="23" Margin="0,5,0,0"/>
-                            <TextBlock Text="Download" Margin="0,5,0,0" Style="{StaticResource optionButtonText}" FontSize="10"/>
-                        </StackPanel>
-
-                    </Button>
-
-                    <!-- Uploadbutton-->
-                    <Button Style="{StaticResource optionButton}"  VerticalAlignment="Center" Width="60" Height="60"
-                            Command="{Binding UploadObservingCommand}">
-
-                        <StackPanel>
-                            <Image Source="/Images/Upload.png"
-                                        Width="23" Margin="0,5,0,0"/>
-                            <TextBlock Text="Upload" Margin="0,5,0,0" Style="{StaticResource optionButtonText}" FontSize="10"/>
-                        </StackPanel>
-
-                    </Button>
+                <!-- Downloadbutton-->
+                <Button Style="{StaticResource optionButton}" VerticalAlignment="Center" Width="60" Height="60" HorizontalAlignment="Center" Margin="10"
+                        Command="{Binding DownloadObservingCommand}">
 
 
-                </StackPanel>
+                    <StackPanel>
+                        <Image Source="/Images/Download.png"
+                                    Width="23" Margin="0,5,0,0"/>
+                        <TextBlock Text="Download" Margin="0,5,0,0" Style="{StaticResource optionButtonText}" FontSize="10"/>
+                    </StackPanel>
+
+                </Button>
+
+                <!-- Uploadbutton-->
+                <Button Style="{StaticResource optionButton}"  VerticalAlignment="Center" Width="60" Height="60" Grid.Column="1" Margin="10"
+                        Command="{Binding UploadObservingCommand}">
+
+                    <StackPanel>
+                        <Image Source="/Images/Upload.png"
+                                    Width="23" Margin="0,5,0,0"/>
+                        <TextBlock Text="Upload" Margin="0,5,0,0" Style="{StaticResource optionButtonText}" FontSize="10"/>
+                    </StackPanel>
+
+                </Button>
+
             </Grid>
         </Border>
 
         <!-- Controll funktions -->
-        <Border Style="{StaticResource borderBlueTheme}" Margin="25,15,7.5,15" Grid.Row="1" Width="270">
+        <Border Style="{StaticResource borderBlueTheme}" Margin="25,15,7.5,15" Grid.Row="1" Grid.RowSpan="2">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
@@ -244,7 +257,7 @@
         
         
         <!-- Startbutton -->
-        <StackPanel Grid.Row="2" Grid.ColumnSpan="2">
+        <StackPanel Grid.Row="3" Grid.ColumnSpan="2">
             <Button Margin="0 0 0 20" Width="250" Command="{Binding ObserveCommand}" IsEnabled="{Binding InternetConnectionExist}">
                 <Button.Style>
                     <Style TargetType="Button">

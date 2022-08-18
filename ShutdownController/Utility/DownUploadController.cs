@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
 using System.Net.NetworkInformation;
 using System.Windows.Threading;
 
@@ -9,22 +11,21 @@ namespace ShutdownController.Utility
 
         //Variables
         private DispatcherTimer _timer = new DispatcherTimer();
-        private long _maxReceivedBytesNew;
-        private long _maxSentBytesNew;
-        private long _maxReceivedBytesOld;
-        private long _maxSentBytesOld;
-        private long _receivedBytesDelta;
-        private long _sentBytesDelta;
+        private int _timerTicks;
         private double _receivedMBs;
         private double _sentMBs;
-
+        private List<PerformanceCounter> _nicReceivedCounters = new List<PerformanceCounter>();
+        private List<PerformanceCounter> _nicSentCounters = new List<PerformanceCounter>();
+        private readonly string MachineName = Environment.MachineName;
 
 
         //Properties
         public bool InternetConnectionExist { get { return NetworkInterface.GetIsNetworkAvailable(); } }
-        public NetworkInterface[] InternetInterfaces { get { return GetInternetConnections(); } }
+        
         public double ReceivedMBs { get { return _receivedMBs; } }
         public double SentMBs { get { return _sentMBs; } }
+
+        public string[] NetworkInterfaces { get; private set; }
 
 
 
@@ -36,6 +37,7 @@ namespace ShutdownController.Utility
 
         public DownUploadController()
         {
+
             _timer.Interval = new TimeSpan(0,0,1); //1 second
             _timer.Tick += TimerTickEvent;
             _timer.Start();
@@ -48,91 +50,70 @@ namespace ShutdownController.Utility
         private void TimerTickEvent(object sender, EventArgs e)
         {
             
+            //Check if internet connection exists
             if (!InternetConnectionExist)
             {
                 NewDataEvent?.Invoke(this, EventArgs.Empty); //Trigger Event for upper class
                 return;
             }
-            
 
-            SetSentAndReceivedData();
-
-
-            //if Firstscan set Old Data
-            if (_maxReceivedBytesOld == 0 & _maxSentBytesOld == 0)
+            //Update all 10s the Interfaces
+            if(_timerTicks % 10 == 0)
             {
-                _maxReceivedBytesOld = _maxReceivedBytesNew;
-                _maxSentBytesOld = _maxSentBytesNew;
-                return;
+                UpdateNetworkInterfaces();
             }
-
-
-
-            //Calculate Data
-            _receivedBytesDelta = _maxReceivedBytesNew  - _maxReceivedBytesOld;
-            _sentBytesDelta     = _maxSentBytesNew      - _maxSentBytesOld;
 
 
             //Convert to MB/s
-            _receivedMBs = BytesToMB(_receivedBytesDelta);   
-            _sentMBs = BytesToMB(_sentBytesDelta); 
+            _receivedMBs = BytesToMB(GetBytes(_nicReceivedCounters));   
+            _sentMBs = BytesToMB(GetBytes(_nicSentCounters)); 
 
-
-            //Set MaxOld
-            _maxReceivedBytesOld = _maxReceivedBytesNew;
-            _maxSentBytesOld = _maxSentBytesNew;
         
             NewDataEvent?.Invoke(this, EventArgs.Empty);
 
-
+            _timerTicks++;
         }
 
-        private double BytesToMB(long value)
+        private double BytesToMB(float value)
         {
-            double dValue = (double)value;
-            return Math.Round(((dValue / 1024.0) / 1024.0), 1 ); // (maxReceived / 1024) /1024 = MB/s
+            value = value / 1024 / 1024;
+            return Math.Round(value, 1 ); // (maxReceived / 1024) /1024 = MB/s
         }
 
-        private void SetSentAndReceivedData()
+
+        private void UpdateNetworkInterfaces()
         {
-            if (InternetInterfaces.Length == 0) return;
+            if (NetworkInterfaces == GetNetworkInterfaces())
+                return;
 
-            //Get Sent and Received Bytes
-            foreach (NetworkInterface ni in InternetInterfaces)
+            NetworkInterfaces = GetNetworkInterfaces();
+
+            foreach (string networkInterface in NetworkInterfaces)
             {
-                long bytesReceived = ni.GetIPStatistics().BytesReceived;
-                long bytesSent = ni.GetIPStatistics().BytesSent;
-
-                if (bytesReceived > _maxReceivedBytesNew) _maxReceivedBytesNew = bytesReceived;
-                if (bytesSent > _maxSentBytesNew) _maxSentBytesNew = bytesSent;
+                _nicReceivedCounters.Add(new PerformanceCounter("Network Interface", "Bytes Received/sec", networkInterface, MachineName));
+                _nicSentCounters.Add(new PerformanceCounter("Network Interface", "Bytes Sent/sec", networkInterface, MachineName));
             }
-
-            //If maxReceived or maxSend was reseted from the pc, Reset the other variables
-            if (_maxReceivedBytesNew == 0 || _maxSentBytesNew == 0 && (_maxReceivedBytesOld != 0 || _maxSentBytesOld != 0))
-            {
-                _maxReceivedBytesOld = 0;
-                _maxSentBytesOld = 0;
-            }
-
 
         }
 
-
-
-        private NetworkInterface[] GetInternetConnections()
+        private float GetBytes(List<PerformanceCounter> _nicCounters)
         {
-            try
+            float bytes = 0;
+            foreach (PerformanceCounter pfCounter in _nicCounters)
             {
-                return NetworkInterface.GetAllNetworkInterfaces();
+                float tempReceived = pfCounter.NextValue();
+                if (tempReceived > bytes)
+                    bytes = tempReceived;
             }
-            catch (Exception e)
-            {
 
-                MyLogger.Instance().Error("GetAllNetworkInterfaces. Exception " + e.Message);
-                return null;
-            }
+            return bytes;
         }
 
+        private string[] GetNetworkInterfaces()
+        {
+            PerformanceCounterCategory performanceCounterCategory = new PerformanceCounterCategory("Network Interface");
+            return performanceCounterCategory.GetInstanceNames();
+        }
 
 
 
@@ -140,8 +121,6 @@ namespace ShutdownController.Utility
         {
             _timer.Stop();
         }
-
-
 
 
     }

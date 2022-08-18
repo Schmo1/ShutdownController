@@ -169,8 +169,8 @@ namespace ShutdownController.ViewModels
         //Construktor
         public DownUploadViewModel()
         {
-            ScalaMax = 10;
-            YSteps = 2;
+
+            SetDefaultValues();
 
             DownloadValues = new ChartValues<double> {};
             UploadValues = new ChartValues<double> {};
@@ -457,6 +457,17 @@ namespace ShutdownController.ViewModels
             UpdateScala();
         }
 
+        private void SetDefaultValues()
+        {
+            ScalaMax = 10;
+            YSteps = 2;
+
+            if (Seconds == 0)
+                Seconds = 10;
+
+            if (ObservingSpeed == 0)
+                ObservingSpeed = 1.5;
+        }
 
     }
 }
