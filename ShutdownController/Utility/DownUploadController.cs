@@ -16,22 +16,27 @@ namespace ShutdownController.Utility
         private double _sentMBs;
         private List<PerformanceCounter> _nicReceivedCounters = new List<PerformanceCounter>();
         private List<PerformanceCounter> _nicSentCounters = new List<PerformanceCounter>();
-        private readonly string MachineName = Environment.MachineName;
+        private readonly string _machineName = Environment.MachineName;
+        private bool _timerTickIsInUse;
 
 
         //Properties
         public bool InternetConnectionExist { get { return NetworkInterface.GetIsNetworkAvailable(); } }
-        
+
         public double ReceivedMBs { get { return _receivedMBs; } }
         public double SentMBs { get { return _sentMBs; } }
 
         public string[] NetworkInterfaces { get; private set; }
+        public string SelectedNetworkInterface { get; set; }
+
+        public bool NoInterfaceSelected { get; private set; }
 
 
 
 
         //Events
-        public event EventHandler NewDataEvent;
+        public event EventHandler NewDownloadUploadData;
+        public event EventHandler NetworkinterfaceHasChanged;
 
 
 
@@ -49,16 +54,20 @@ namespace ShutdownController.Utility
 
         private void TimerTickEvent(object sender, EventArgs e)
         {
-            
+            if (_timerTickIsInUse)
+                return;
+
+            _timerTickIsInUse = true;
+
             //Check if internet connection exists
             if (!InternetConnectionExist)
             {
-                NewDataEvent?.Invoke(this, EventArgs.Empty); //Trigger Event for upper class
+                NewDownloadUploadData?.Invoke(this, EventArgs.Empty); //Trigger Event for upper class
                 return;
             }
 
             //Update all 10s the Interfaces
-            if(_timerTicks % 10 == 0)
+            if(_timerTicks % 30 == 0)
             {
                 UpdateNetworkInterfaces();
             }
@@ -69,9 +78,11 @@ namespace ShutdownController.Utility
             _sentMBs = BytesToMB(GetBytes(_nicSentCounters)); 
 
         
-            NewDataEvent?.Invoke(this, EventArgs.Empty);
+            NewDownloadUploadData?.Invoke(this, EventArgs.Empty);
 
             _timerTicks++;
+            _timerTickIsInUse = false;
+
         }
 
         private double BytesToMB(float value)
@@ -83,36 +94,61 @@ namespace ShutdownController.Utility
 
         private void UpdateNetworkInterfaces()
         {
-            if (NetworkInterfaces == GetNetworkInterfaces())
+            string[] networkInterfaces = GetNetworkInterfaces(); //Added to save performance
+            if (NetworkInterfaces == networkInterfaces)
                 return;
 
-            NetworkInterfaces = GetNetworkInterfaces();
+            NetworkInterfaces = networkInterfaces;
+
+            _nicReceivedCounters.Clear();
+            _nicSentCounters.Clear();
 
             foreach (string networkInterface in NetworkInterfaces)
             {
-                _nicReceivedCounters.Add(new PerformanceCounter("Network Interface", "Bytes Received/sec", networkInterface, MachineName));
-                _nicSentCounters.Add(new PerformanceCounter("Network Interface", "Bytes Sent/sec", networkInterface, MachineName));
+                _nicReceivedCounters.Add(new PerformanceCounter("Network Interface", "Bytes Received/sec", networkInterface, _machineName));
+                _nicSentCounters.Add(new PerformanceCounter("Network Interface", "Bytes Sent/sec", networkInterface, _machineName));
             }
+
+            NetworkinterfaceHasChanged?.Invoke(this, EventArgs.Empty);
 
         }
 
         private float GetBytes(List<PerformanceCounter> _nicCounters)
         {
-            float bytes = 0;
+            
             foreach (PerformanceCounter pfCounter in _nicCounters)
             {
-                float tempReceived = pfCounter.NextValue();
-                if (tempReceived > bytes)
-                    bytes = tempReceived;
+                if (SelectedNetworkInterface == pfCounter.InstanceName)
+                {
+                    NoInterfaceSelected = false;
+                    return pfCounter.NextValue();
+                }
             }
 
-            return bytes;
+            NoInterfaceSelected = true;
+            return 0;
+            
         }
 
         private string[] GetNetworkInterfaces()
         {
-            PerformanceCounterCategory performanceCounterCategory = new PerformanceCounterCategory("Network Interface");
+            PerformanceCounterCategory performanceCounterCategory = new PerformanceCounterCategory("Network Interface", _machineName);
+
+
+            //List<string> result = new List<string>();
+            //foreach (NetworkInterface item in NetworkInterface.GetAllNetworkInterfaces())
+            //{
+
+            //    result.Add(item.Description);
+            //}
+
+            //return result.ToArray();
+  
+
+
+
             return performanceCounterCategory.GetInstanceNames();
+
         }
 
 

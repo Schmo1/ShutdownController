@@ -182,10 +182,7 @@
 
 
         <!--Combobox for selected Networkinterface-->
-        <ComboBox Style="{DynamicResource ComboBoxStyle1}" Grid.Column="1" Grid.Row="1" Margin="7.5 15 15 7.5">
-            <ComboBoxItem Content="Interface 1" />
-            <ComboBoxItem Content="Interface 2" IsSelected ="True"/>
-            <ComboBoxItem Content="Interface 3" />
+        <ComboBox Grid.Column="1" Grid.Row="1" Margin="7.5 15 15 7.5" Style="{DynamicResource ComboBoxStyle1}" ItemsSource="{Binding NetworkInterfaces}" SelectedItem="{Binding SelectedNetworkInterface}">
         </ComboBox>
         
 

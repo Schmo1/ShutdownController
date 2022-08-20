@@ -23,6 +23,7 @@ namespace ShutdownController.ViewModels
         private bool _isObserveActive;
         private bool _isValueUnderObservingSpeed;
         private bool _internetConnectionExist;
+        private string[] _networkInterfaces;
 
 
 
@@ -152,6 +153,24 @@ namespace ShutdownController.ViewModels
             }
         }
 
+        public string[] NetworkInterfaces 
+        {
+            get { return _networkInterfaces; }
+            set { _networkInterfaces = value; base.OnPropertyChanged(); }
+        }
+
+        public string SelectedNetworkInterface 
+        { 
+            get { return Properties.Settings.Default.NetworkInterface; } 
+            set 
+            { 
+                Properties.Settings.Default.NetworkInterface = value;
+                downUploadController.SelectedNetworkInterface = value;
+                ClearObservationValues();
+                ClearScalaValues();
+                OnPropertyChanged(); 
+            } 
+        }
 
 
         private DownUploadController downUploadController = null;
@@ -176,7 +195,10 @@ namespace ShutdownController.ViewModels
             UploadValues = new ChartValues<double> {};
 
             downUploadController = new DownUploadController();
-            downUploadController.NewDataEvent += DownUploadController_NewDataEvent;
+            downUploadController.NewDownloadUploadData += DownUploadController_NewDataEvent;
+            downUploadController.NetworkinterfaceHasChanged += NetworkInterfacesHasChanged;
+
+            NetworkInterfacesHasChanged(this, EventArgs.Empty);
 
             FormatterYAxis = value => value + " MB/s";
             FormatterXAxis = value => value + " s";
@@ -194,6 +216,39 @@ namespace ShutdownController.ViewModels
             
             
 
+        }
+
+        private void NetworkInterfacesHasChanged(object sender, EventArgs e)
+        {
+            NetworkInterfaces = downUploadController.NetworkInterfaces;
+
+            if (NetworkInterfaces.Length == 0)
+            {
+                SelectedNetworkInterface = null;
+                return;
+            }
+
+            if (string.IsNullOrEmpty(SelectedNetworkInterface))
+            {
+                SelectedNetworkInterface = NetworkInterfaces[0];
+            }
+            else
+            {
+                bool interfaceExist = false; //Check if selected interface already exist
+                foreach (string networkInterface in NetworkInterfaces)
+                {
+                    if(networkInterface == SelectedNetworkInterface)
+                    {
+                        interfaceExist = true;
+                    }
+                }
+
+                if(!interfaceExist)
+                    SelectedNetworkInterface = NetworkInterfaces[0];
+
+            }
+
+            downUploadController.SelectedNetworkInterface = SelectedNetworkInterface;
         }
 
 
@@ -329,6 +384,12 @@ namespace ShutdownController.ViewModels
             ObservedUploadValues.Clear();
         }
 
+        private void ClearScalaValues()
+        {
+            DownloadValues.Clear();
+            UploadValues.Clear();
+        }
+
         private void UpdateScala()
         {
 
@@ -437,10 +498,8 @@ namespace ShutdownController.ViewModels
         {
             InternetConnectionExist = false;
             IsValueUnderObservingSpeed = false;
-            DownloadValues.Clear();
-            UploadValues.Clear();
-            ObservedDownloadValues.Clear();
-            ObservedUploadValues.Clear();
+            ClearScalaValues();
+            ClearObservationValues();
         }
 
         private void AddValuesToChart()
