@@ -1,10 +1,10 @@
 ﻿using System;
 using ShutdownController.Core;
 using ShutdownController.Utility;
-using ShutdownController.NotifyIcon;
 using LiveCharts;
-using Hardcodet.Wpf.TaskbarNotification;
 using System.Runtime.CompilerServices;
+using ShutdownController.Models;
+using System.Collections.Generic;
 
 namespace ShutdownController.ViewModels
 {
@@ -28,7 +28,7 @@ namespace ShutdownController.ViewModels
 
         #endregion
 
-
+        private ScalaCalculator scalaCalculator;
 
         public ChartValues<double> ObservedDownloadValues
         {
@@ -199,6 +199,9 @@ namespace ShutdownController.ViewModels
 
             SetDefaultValues();
 
+
+            scalaCalculator = new ScalaCalculator(new List<ChartValues<double>>() { DownloadValues, UploadValues });
+
             downUploadController = new DownUploadController();
             downUploadController.NewDownloadUploadData += DownUploadController_NewDataEvent;
             downUploadController.NetworkinterfaceHasChanged += NetworkInterfacesHasChanged;
@@ -216,9 +219,6 @@ namespace ShutdownController.ViewModels
             UploadObservingCommand = new CommandHandler(() => UploadObservingnPressed(), () => !UploadObservingPressed);
 
 
-
-            
-            
 
         }
 
@@ -399,99 +399,13 @@ namespace ShutdownController.ViewModels
 
         private void UpdateScala()
         {
-
-
-            int scaleMax = DetermineMaxValueInChart();
-
-
-            if (scaleMax > 100)
-            {
-                ScalaMax = 150;
-                YSteps = 20;
-            }
-            else if (scaleMax > 80)
-            {
-                ScalaMax = 100;
-                YSteps = 20;
-            }
-            else if(scaleMax > 50)
-            {
-                ScalaMax = 80;
-                YSteps = 20;
-            }
-            else if(scaleMax > 30)
-            {
-                ScalaMax = 50;
-                YSteps = 10;
-            }
-            else if (scaleMax > 20)
-            {
-                ScalaMax = 30;
-                YSteps = 5;
-            }
-            else if (scaleMax > 15)
-            {
-                ScalaMax = 20;
-                YSteps = 5;
-            }
-            else if (scaleMax > 10)
-            {
-                ScalaMax = 15;
-                YSteps = 3;
-            }
-            else if (scaleMax > 7)
-            {
-                ScalaMax = 10;
-                YSteps = 2;
-            }
-            else if (scaleMax > 4)
-            {
-                ScalaMax = 7;
-                YSteps = 2;
-            }
-            else if (scaleMax > 2)
-            {
-                ScalaMax = 4;
-                YSteps = 1;
-            }
-            else
-            {
-                ScalaMax = 2;
-                YSteps = 1;
-            }
-
-
+            int step;
+            ScalaMax = scalaCalculator.GetChartMax(out step);
+            YSteps = step;
 
         }
 
 
-        private int DetermineMaxValueInChart()
-        {
-            double downloadMax = 0;
-            double uploadMax = 0;
-
-
-            foreach (double value in DownloadValues)
-            {
-                if (value > downloadMax)
-                    downloadMax = value;
-            }
-
-            foreach (double value in UploadValues)
-            {
-                if (value > uploadMax)
-                    uploadMax = value;
-            }
-
-
-
-            if (downloadMax > uploadMax)
-                return Convert.ToInt32(Math.Ceiling(downloadMax));
-            else
-                return Convert.ToInt32(Math.Ceiling(uploadMax));
-
-            
-        }
 
         public override void OnPropertyChanged([CallerMemberName] string name = null)
         {

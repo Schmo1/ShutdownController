@@ -100,6 +100,7 @@
     <Compile Include="Converters\StringToIntConverter.cs" />
     <Compile Include="Core\ObservableObject.cs" />
     <Compile Include="Core\Clock.cs" />
+    <Compile Include="Models\ScalaCalculator.cs" />
     <Compile Include="Utility\AutoStartController.cs" />
     <Compile Include="Utility\DiskObserver.cs" />
     <Compile Include="Utility\DownUploadController.cs" />

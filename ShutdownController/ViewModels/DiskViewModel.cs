@@ -1,8 +1,9 @@
 ﻿using System;
-using System.Diagnostics;
+using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using LiveCharts;
 using ShutdownController.Core;
+using ShutdownController.Models;
 using ShutdownController.Utility;
 
 namespace ShutdownController.ViewModels
@@ -26,6 +27,7 @@ namespace ShutdownController.ViewModels
 
 
         private DiskObserver diskObserver;
+        private ScalaCalculator scalaCalculator;
 
         public ChartValues<double> ObservedReadValues
         {
@@ -83,7 +85,16 @@ namespace ShutdownController.ViewModels
             {
                 _isObserveActive = value;
                 if (_isObserveActive)
+                {
                     MyLogger.Instance().Info("Observe Disk is active. Seconds: " + Seconds.ToString() + " Observing Speed: " + ObservingSpeed.ToString());
+                    ValueUnderObservingSpeed();
+                }
+                else
+                {
+                    IsValueUnderObservingSpeed = false;
+                    ClearObservationValues();
+                }
+                    
                 base.OnPropertyChanged(); 
             } 
         }
@@ -155,6 +166,8 @@ namespace ShutdownController.ViewModels
         {
             SetDefaultValues();
 
+            scalaCalculator = new ScalaCalculator(new List<ChartValues<double>>() { ReadValues, WriteValues });
+
             //Create commands
             ObserveCommand = new CommandHandler(() => ObserveActive = !_isObserveActive, () => true);
 
@@ -205,7 +218,113 @@ namespace ShutdownController.ViewModels
         private void WriteNewDataToChart(object sender, EventArgs e)
         {
             AddValuesToChart();
-            
+            UpdateScala();
+
+            if (!ObserveActive)
+                return;
+
+
+            AddValuesToObservation();
+
+            ValueUnderObservingSpeed();
+
+            if (ValueAchieved())
+            {
+                ObserveActive = false;
+                ClearObservationValues();
+                MyLogger.Instance().Info("Disk observing is running out");
+                ShutdownOptions.Instance.TriggerSelectedAction();
+            }
+        }
+
+
+        private bool ValueAchieved()
+        {
+
+            if (ReadObservingActive)
+            {
+                if (ObservedReadValues.Count < Seconds) //not enough values to calculate
+                    return false;
+
+                int valuesUnderSpeed = 0;
+                for (int i = ObservedReadValues.Count - Seconds; i < ObservedReadValues.Count; i++)
+                {
+                    if (ObservedReadValues[i] < ObservingSpeed)
+                        valuesUnderSpeed++;
+                }
+
+                if (valuesUnderSpeed >= Seconds)
+                    return true;
+
+            }
+            else if (WriteObservingActive)
+            {
+
+                if (ObservedWriteValues.Count < Seconds) //not enough values to calculate
+                    return false;
+
+                int valuesUnderSpeed = 0;
+                for (int i = ObservedWriteValues.Count - Seconds; i < ObservedWriteValues.Count; i++)
+                {
+                    if (ObservedWriteValues[i] < ObservingSpeed)
+                        valuesUnderSpeed++;
+                }
+
+                if (valuesUnderSpeed >= Seconds)
+                    return true;
+
+            }
+            return false;
+        }
+
+        private void ValueUnderObservingSpeed() //Check if last value was under set speed
+        {
+
+            if (ReadObservingActive)
+            {
+                if (ReadValues.Count == 0)
+                    return;
+
+                IsValueUnderObservingSpeed = ReadValues[ReadValues.Count - 1] < ObservingSpeed;
+            }
+            else if (WriteObservingActive)
+            {
+                if (WriteValues.Count == 0)
+                    return;
+
+                IsValueUnderObservingSpeed = WriteValues[WriteValues.Count - 1] < ObservingSpeed;
+            }
+        }
+
+        private void AddValuesToObservation()
+        {
+            if (ReadObservingActive)
+            {
+                if (ObservedReadValues.Count > _maxSecondsToObserve)
+                    ObservedReadValues.RemoveAt(0);
+
+                ObservedReadValues.Add(diskObserver.ReadValue);
+
+            }
+            else if (WriteObservingActive)
+            {
+                if (ObservedWriteValues.Count > _maxSecondsToObserve)
+                    ObservedWriteValues.RemoveAt(0);
+
+                ObservedWriteValues.Add(diskObserver.WriteValue);
+            }
+            else
+            {
+                MyLogger.Instance().Error("Download or Upload is not selected ");
+                throw new Exception("Download or Upload is not selected ");
+            }
+        }
+
+        private void UpdateScala()
+        {
+            int step;
+            ScalaMax = scalaCalculator.GetChartMax(out step);
+            YSteps = step;
         }
         private void AddValuesToChart()
         {
