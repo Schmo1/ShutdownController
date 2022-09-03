@@ -5,17 +5,18 @@ using ShutdownController.NotifyIcon;
 using LiveCharts;
 using Hardcodet.Wpf.TaskbarNotification;
 using System.Runtime.CompilerServices;
-using System.Windows.Media;
 
 namespace ShutdownController.ViewModels
 {
     public class DownUploadViewModel : ObservableObject
     {
 
+        #region Variables
+
         private int _scaleMax;
         private int _ySteps;
-        private ChartValues<double> downloadValues;
-        private ChartValues<double> uploadValues;
+        private ChartValues<double> downloadValues = new ChartValues<double>() ;
+        private ChartValues<double> uploadValues = new ChartValues<double> ();
         private ChartValues<double> observedDownloadValues = new ChartValues<double>();
         private ChartValues<double> observedUploadValues = new ChartValues<double>();
         private const int _maxValuesInChart = 30;
@@ -25,29 +26,48 @@ namespace ShutdownController.ViewModels
         private bool _internetConnectionExist;
         private string[] _networkInterfaces;
 
+        #endregion
 
 
-        public Func<double, string> FormatterYAxis { get; set; }
-        public Func<double, string> FormatterXAxis { get; set; }
+
+        public ChartValues<double> ObservedDownloadValues
+        {
+            get { return observedDownloadValues; }
+            set { observedDownloadValues = value; }
+        }
+        public ChartValues<double> ObservedUploadValues
+        {
+            get { return observedUploadValues; }
+            set { observedUploadValues = value; }
+        }
 
 
         public bool InternetConnectionExist 
         {
             get { return _internetConnectionExist; }
             set 
-            { 
-                _internetConnectionExist = value;
-                if (_internetConnectionExist)
-                    MyLogger.Instance().Info("Internet Connection Exist");
-                else
-                    MyLogger.Instance().Info("No Internet Connection Exist");
+            {
+                if (_internetConnectionExist != value)
+                {
+                    if (value)
+                        MyLogger.Instance().Info("Internet Connection Exist");
+                    else
+                        MyLogger.Instance().Info("No Internet Connection Exist");
+                }
 
+                _internetConnectionExist = value;
                 base.OnPropertyChanged(); 
             }
         }
 
 
-        //Chart values
+        #region Chartvalues
+
+
+        public Func<double, string> FormatterYAxis { get; set; }
+        public Func<double, string> FormatterXAxis { get; set; }
+
+
         public int ScalaMax
         {
             get { return _scaleMax; }
@@ -72,36 +92,23 @@ namespace ShutdownController.ViewModels
         }
 
 
-        public ChartValues<double> ObservedDownloadValues
-        {
-            get { return observedDownloadValues; }
-            set { observedDownloadValues = value;}
-        }
-        public ChartValues<double> ObservedUploadValues
-        {
-            get { return observedUploadValues; }
-            set { observedUploadValues = value;}
-        }
         public bool IsValueUnderObservingSpeed
         {
             get { return _isValueUnderObservingSpeed; }
             set { _isValueUnderObservingSpeed = value; base.OnPropertyChanged(); }
         }
-
- 
-
+        #endregion
 
 
-
-        //Usersettings
+        #region Usersettings
         public int Seconds
         {
-            get { return Properties.Settings.Default.ObservingSeconds; }
+            get { return Properties.Settings.Default.ObservingSecondsDownUp; }
             set 
             { 
                 if (value < 5)
                     value = 5;
-                Properties.Settings.Default.ObservingSeconds = Math.Min(value, _maxSecondsToObserve); 
+                Properties.Settings.Default.ObservingSecondsDownUp = Math.Min(value, _maxSecondsToObserve); 
                 
                 OnPropertyChanged(); 
             }
@@ -109,10 +116,10 @@ namespace ShutdownController.ViewModels
 
         public double ObservingSpeed
         {
-            get { return Properties.Settings.Default.ObservingSpeed; }
+            get { return Properties.Settings.Default.ObservingSpeedDownUp; }
             set 
             { 
-                Properties.Settings.Default.ObservingSpeed = Math.Round(Math.Min(value, 150), 2); 
+                Properties.Settings.Default.ObservingSpeedDownUp = Math.Round(Math.Min(value, 150), 2); 
                 OnPropertyChanged(); 
             }
         }
@@ -138,7 +145,7 @@ namespace ShutdownController.ViewModels
 
                 if (_isObserveActive) 
                 { 
-                    PushMessages.ShowBalloonTip("Down/Upload", "Download/Upload observing is active", BalloonIcon.Info);
+                    MyLogger.Instance().Info("Observe Down/Upload is active. Seconds: " + Seconds.ToString() + " Observing Speed: " + ObservingSpeed.ToString());
                     ValueUnderObservingSpeed(); 
                 }
                 else
@@ -171,16 +178,17 @@ namespace ShutdownController.ViewModels
                 OnPropertyChanged(); 
             } 
         }
-
+        #endregion
 
         private DownUploadController downUploadController = null;
 
 
-        //Commands
+        #region Commands
         public CommandHandler ObserveCommand { get; set; }
         public CommandHandler DownloadObservingCommand { get; set; }
         public CommandHandler UploadObservingCommand { get; set; }
 
+        #endregion
 
 
 
@@ -190,9 +198,6 @@ namespace ShutdownController.ViewModels
         {
 
             SetDefaultValues();
-
-            DownloadValues = new ChartValues<double> {};
-            UploadValues = new ChartValues<double> {};
 
             downUploadController = new DownUploadController();
             downUploadController.NewDownloadUploadData += DownUploadController_NewDataEvent;
@@ -211,8 +216,7 @@ namespace ShutdownController.ViewModels
             UploadObservingCommand = new CommandHandler(() => UploadObservingnPressed(), () => !UploadObservingPressed);
 
 
-            if(!DownloadObservingPressed &!UploadObservingPressed)
-                DownloadObservingPressed = true; //if nothin is pressed select download
+
             
             
 
@@ -221,6 +225,10 @@ namespace ShutdownController.ViewModels
         private void NetworkInterfacesHasChanged(object sender, EventArgs e)
         {
             NetworkInterfaces = downUploadController.NetworkInterfaces;
+
+            if (NetworkInterfaces == null)
+                return;
+
 
             if (NetworkInterfaces.Length == 0)
             {
@@ -258,7 +266,6 @@ namespace ShutdownController.ViewModels
             DownloadObservingPressed = true;
             UploadObservingPressed = false;
         }
-
 
         private void UploadObservingnPressed()
         {
@@ -317,21 +324,20 @@ namespace ShutdownController.ViewModels
             }
             else if (UploadObservingPressed)
             {
-                foreach (double value in ObservedUploadValues)
+                
+                if (ObservedUploadValues.Count < Seconds) //not enough values to calculate
+                    return false;
+
+                int valuesUnderSpeed = 0;
+                for (int i = ObservedUploadValues.Count - Seconds; i < ObservedUploadValues.Count; i++)
                 {
-                    if (ObservedUploadValues.Count < Seconds) //not enough values to calculate
-                        return false;
-
-                    int valuesUnderSpeed = 0;
-                    for (int i = ObservedUploadValues.Count - Seconds; i < ObservedUploadValues.Count; i++)
-                    {
-                        if (ObservedUploadValues[i] < ObservingSpeed)
-                            valuesUnderSpeed++;
-                    }
-
-                    if (valuesUnderSpeed >= Seconds)
-                        return true;
+                    if (ObservedUploadValues[i] < ObservingSpeed)
+                        valuesUnderSpeed++;
                 }
+
+                if (valuesUnderSpeed >= Seconds)
+                    return true;
+                
             }
             return false;
         }
@@ -374,6 +380,7 @@ namespace ShutdownController.ViewModels
             }
             else
             {
+                MyLogger.Instance().Error("Download or Upload is not selected ");
                 throw new Exception( "Download or Upload is not selected ");
             }
         }
@@ -526,6 +533,9 @@ namespace ShutdownController.ViewModels
 
             if (ObservingSpeed == 0)
                 ObservingSpeed = 1.5;
+
+            if (!DownloadObservingPressed & !UploadObservingPressed)
+                DownloadObservingPressed = true; //if nothin is pressed select download
         }
 
     }

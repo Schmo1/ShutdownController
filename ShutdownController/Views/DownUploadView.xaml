@@ -28,7 +28,7 @@
         <Border Style="{StaticResource borderBlueTheme}" Margin="25,15,15,0" Grid.ColumnSpan="2">
             <Grid>
                 <TextBlock Text="Overview" Style="{StaticResource textBlockChart}" Margin=" 15 5 0 0"/>
-                <local:LegendsView HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0 15 20 0" />
+                <local:LegendsViewDownUp HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0 15 20 0" />
                 
                 
                 <!-- Main Chart -->
@@ -204,7 +204,7 @@
                     <StackPanel>
                         <Image Source="/Images/Download.png"
                                     Width="23" Margin="0,5,0,0"/>
-                        <TextBlock Text="Download" Margin="0,5,0,0" Style="{StaticResource optionButtonText}" FontSize="10"/>
+                        <TextBlock Text="Download" Margin="0,5,0,0" Style="{StaticResource optionButtonText}" FontSize="10" HorizontalAlignment="Center"/>
                     </StackPanel>
 
                 </Button>
@@ -216,7 +216,7 @@
                     <StackPanel>
                         <Image Source="/Images/Upload.png"
                                     Width="23" Margin="0,5,0,0"/>
-                        <TextBlock Text="Upload" Margin="0,5,0,0" Style="{StaticResource optionButtonText}" FontSize="10"/>
+                        <TextBlock Text="Upload" Margin="0,5,0,0" Style="{StaticResource optionButtonText}" FontSize="10" HorizontalAlignment="Center"/>
                     </StackPanel>
 
                 </Button>

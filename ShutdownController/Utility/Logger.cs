@@ -1,4 +1,5 @@
 ﻿using System;
+using Diagn = System.Diagnostics;
 using System.Runtime.CompilerServices;
 using NLog;
 
@@ -51,6 +52,9 @@ namespace ShutdownController.Utility
             else
                 GetLogger(rulesConfName).Info(logMessage, arg);
 
+#if DEBUG
+            Diagn.Debug.WriteLine(logMessage);
+#endif
         }
 
 
@@ -62,6 +66,10 @@ namespace ShutdownController.Utility
                 GetLogger(rulesConfName).Debug(logMessage);
             else
                 GetLogger(rulesConfName).Debug(logMessage, arg);
+
+#if DEBUG
+            Diagn.Debug.WriteLine(logMessage);
+#endif
         }
 
 
@@ -73,6 +81,10 @@ namespace ShutdownController.Utility
                 GetLogger(rulesConfName).Error(logMessage);
             else
                 GetLogger(rulesConfName).Error(logMessage, arg);
+
+#if DEBUG
+            Diagn.Debug.WriteLine(logMessage);
+#endif
         }
 
 
@@ -84,6 +96,10 @@ namespace ShutdownController.Utility
                 GetLogger(rulesConfName).Warn(logMessage);
             else
                 GetLogger(rulesConfName).Warn(logMessage, arg);
+
+#if DEBUG
+            Diagn.Debug.WriteLine(logMessage);
+#endif
         }
 
 

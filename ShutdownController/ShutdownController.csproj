@@ -74,6 +74,7 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.IO.Compression" />
+    <Reference Include="System.Management" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -100,7 +101,9 @@
     <Compile Include="Core\ObservableObject.cs" />
     <Compile Include="Core\Clock.cs" />
     <Compile Include="Utility\AutoStartController.cs" />
+    <Compile Include="Utility\DiskObserver.cs" />
     <Compile Include="Utility\DownUploadController.cs" />
+    <Compile Include="Utility\DriverConnection.cs" />
     <Compile Include="Utility\ILogger.cs" />
     <Compile Include="Utility\Logger.cs" />
     <Compile Include="NotifyIcon\PushMessages.cs" />
@@ -119,8 +122,11 @@
     <Compile Include="Views\DiskView.xaml.cs">
       <DependentUpon>DiskView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\LegendsView.xaml.cs">
-      <DependentUpon>LegendsView.xaml</DependentUpon>
+    <Compile Include="Views\LegendsViewDisk.xaml.cs">
+      <DependentUpon>LegendsViewDisk.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\LegendsViewDownUp.xaml.cs">
+      <DependentUpon>LegendsViewDownUp.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\TimerView.xaml.cs">
       <DependentUpon>TimerView.xaml</DependentUpon>
@@ -186,7 +192,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\LegendsView.xaml">
+    <Page Include="Views\LegendsViewDisk.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\LegendsViewDownUp.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -235,6 +245,8 @@
     <Resource Include="Images\Icons\Shutdown 124x124.ico" />
     <Resource Include="Images\Download.png" />
     <Resource Include="Images\Upload.png" />
+    <Resource Include="Images\read.png" />
+    <Resource Include="Images\write.png" />
     <Content Include="NLog.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

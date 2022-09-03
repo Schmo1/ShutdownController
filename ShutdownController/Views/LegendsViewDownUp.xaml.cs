@@ -18,9 +18,9 @@ namespace ShutdownController.Views
     /// <summary>
     /// Interaktionslogik für LegendsView.xaml
     /// </summary>
-    public partial class LegendsView : UserControl
+    public partial class LegendsViewDownUp : UserControl
     {
-        public LegendsView()
+        public LegendsViewDownUp()
         {
             InitializeComponent();
         }

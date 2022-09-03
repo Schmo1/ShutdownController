@@ -206,24 +206,24 @@ namespace ShutdownController.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("0")]
-        public int ObservingSeconds {
+        public int ObservingSecondsDownUp {
             get {
-                return ((int)(this["ObservingSeconds"]));
+                return ((int)(this["ObservingSecondsDownUp"]));
             }
             set {
-                this["ObservingSeconds"] = value;
+                this["ObservingSecondsDownUp"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("0")]
-        public double ObservingSpeed {
+        public double ObservingSpeedDownUp {
             get {
-                return ((double)(this["ObservingSpeed"]));
+                return ((double)(this["ObservingSpeedDownUp"]));
             }
             set {
-                this["ObservingSpeed"] = value;
+                this["ObservingSpeedDownUp"] = value;
             }
         }
         
@@ -236,6 +236,66 @@ namespace ShutdownController.Properties {
             }
             set {
                 this["NetworkInterface"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int ObservingSecondsDisk {
+            get {
+                return ((int)(this["ObservingSecondsDisk"]));
+            }
+            set {
+                this["ObservingSecondsDisk"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public double ObservingSpeedDisk {
+            get {
+                return ((double)(this["ObservingSpeedDisk"]));
+            }
+            set {
+                this["ObservingSpeedDisk"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string SelectedDisk {
+            get {
+                return ((string)(this["SelectedDisk"]));
+            }
+            set {
+                this["SelectedDisk"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool ReadObservingActive {
+            get {
+                return ((bool)(this["ReadObservingActive"]));
+            }
+            set {
+                this["ReadObservingActive"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool WriteObservingActive {
+            get {
+                return ((bool)(this["WriteObservingActive"]));
+            }
+            set {
+                this["WriteObservingActive"] = value;
             }
         }
     }

@@ -87,8 +87,17 @@ namespace ShutdownController.Utility
 
         private double BytesToMB(float value)
         {
-            value = value / 1024 / 1024;
-            return Math.Round(value, 1 ); // (maxReceived / 1024) /1024 = MB/s
+            try
+            {
+                value = value / 1024 / 1024;
+                return Math.Round(value, 1 ); // (maxReceived / 1024) /1024 = MB/s
+
+            }
+            catch (Exception e)
+            {
+                MyLogger.Instance().Error("Could not round Bytes to MB. Exception: " + e.Message);
+                throw;
+            }
         }
 
 
@@ -115,16 +124,23 @@ namespace ShutdownController.Utility
 
         private float GetBytes(List<PerformanceCounter> _nicCounters)
         {
-            
-            foreach (PerformanceCounter pfCounter in _nicCounters)
+            try
             {
-                if (SelectedNetworkInterface == pfCounter.InstanceName)
+                foreach (PerformanceCounter pfCounter in _nicCounters)
                 {
-                    NoInterfaceSelected = false;
-                    return pfCounter.NextValue();
+                    if (SelectedNetworkInterface == pfCounter.InstanceName)
+                    {
+                        NoInterfaceSelected = false;
+                        return pfCounter.NextValue();
+                    }
                 }
-            }
 
+            }
+            catch (Exception e)
+            {
+
+                throw;
+            }
             NoInterfaceSelected = true;
             return 0;
             
