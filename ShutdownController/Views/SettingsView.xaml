@@ -9,7 +9,7 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="1.3*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
@@ -42,6 +42,7 @@
                     <RowDefinition Height="40"/>
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
                 <Border Style="{StaticResource borderBlueTheme}" Width="auto" HorizontalAlignment="Left" >
                     <TextBlock Style="{StaticResource textBlockSettings}" Text="Application settings"/>
@@ -53,6 +54,10 @@
                 <StackPanel Orientation="Horizontal" Grid.Row="2">
                     <local:ToggleButton Height="55" Width="70" Grid.Row="1" Margin="25 0 0 0"  Toggled="{Binding OnClosingRunInBackground}"/>
                     <TextBlock Text="On closing still run in background" VerticalAlignment="Center" Style="{StaticResource textBlockSettings}"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Grid.Row="3">
+                    <local:ToggleButton Height="55" Width="70" Grid.Row="1" Margin="25 0 0 0"  Toggled="{Binding SavePerformance}"/>
+                    <TextBlock Text="Save performance" VerticalAlignment="Center" Style="{StaticResource textBlockSettings}"/>
                 </StackPanel>
             </Grid>
         </Border>

@@ -91,6 +91,11 @@ namespace ShutdownController.ViewModels
             set { uploadValues = value; base.OnPropertyChanged(); }
         }
 
+        public bool SavePerformance
+        {
+            get { return Properties.Settings.Default.SavePerformance; }
+        }
+
 
         public bool IsValueUnderObservingSpeed
         {

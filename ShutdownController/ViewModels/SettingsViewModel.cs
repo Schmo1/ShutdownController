@@ -23,6 +23,12 @@ namespace ShutdownController.ViewModels
             set { Properties.Settings.Default.StartMinimized = value; Properties.Settings.Default.Save(); }
         }
 
+        public bool SavePerformance
+        {
+            get { return Properties.Settings.Default.SavePerformance; }
+            set { Properties.Settings.Default.SavePerformance = value; Properties.Settings.Default.Save(); }
+        }
+
 
         public bool AutoStartActive
         {

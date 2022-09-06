@@ -27,7 +27,7 @@
 
 
                 <!-- Main Chart -->
-                <lvc:CartesianChart Margin="15 35 15 15" LegendLocation="None">
+                <lvc:CartesianChart Margin="15 35 15 15" LegendLocation="None" DisableAnimations="{Binding SavePerformance}">
 
 
 

@@ -298,5 +298,17 @@ namespace ShutdownController.Properties {
                 this["WriteObservingActive"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool SavePerformance {
+            get {
+                return ((bool)(this["SavePerformance"]));
+            }
+            set {
+                this["SavePerformance"] = value;
+            }
+        }
     }
 }

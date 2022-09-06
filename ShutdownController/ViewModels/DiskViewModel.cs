@@ -74,6 +74,11 @@ namespace ShutdownController.ViewModels
             get { return _isValueUnderObservingSpeed; }
             set { _isValueUnderObservingSpeed = value; base.OnPropertyChanged(); }
         }
+
+        public bool SavePerformance
+        {
+            get { return Properties.Settings.Default.SavePerformance; }
+        }
         #endregion
 
 
