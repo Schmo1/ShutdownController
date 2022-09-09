@@ -42,10 +42,9 @@ namespace ShutdownController.Utility
             _timer.Interval = new TimeSpan(0, 0, 1); //1 second
             _timer.Tick += TimerTickEvent;
             _timer.Start();
+            MyLogger.Instance().Debug("Starting read disk performance");
             TimerTickEvent(null, EventArgs.Empty);//call ones on Start
             UpdatePhyisicaDisks();
-
-
         }
 
 
@@ -55,9 +54,15 @@ namespace ShutdownController.Utility
             if (string.IsNullOrEmpty(SelectedDisk))
                 return;
 
-
-            ReadValue = BytesToMB(_nicReadCounter.NextValue());
-            WriteValue = BytesToMB(_nicWriteCounter.NextValue());
+            try
+            {
+                ReadValue = BytesToMB(_nicReadCounter.NextValue(), 1);
+                WriteValue = BytesToMB(_nicWriteCounter.NextValue(), 1);
+            }
+            catch (Exception ex)
+            {
+                MyLogger.Instance().Error("Failed to get next Value. Exception: " + ex.Message);
+            }
 
 
             NewReadWriteData(this, EventArgs.Empty);
@@ -78,18 +83,15 @@ namespace ShutdownController.Utility
                 PerformanceCounterCategory performanceCounterCategory = new PerformanceCounterCategory("PhysicalDisk");
 
                 _disks.Clear();
-
                 PerformanceCounterDiskNames = performanceCounterCategory.GetInstanceNames();
+                _disks = CreateFullDiskNames(PerformanceCounterDiskNames);
 
-                _disks = CreateFullDiskName(PerformanceCounterDiskNames);
-
-    
             }
 
-            catch (Exception e)
+            catch (Exception ex)
             {
 
-                MyLogger.Instance().Error("Error Get Physical Disk. Exception: " + e.Message);
+                MyLogger.Instance().Error("Error Get Physical Disk. Exception: " + ex.Message);
                 throw;
             }
 
@@ -98,7 +100,7 @@ namespace ShutdownController.Utility
 
         }
 
-        private List<string> CreateFullDiskName(string[] counterCategoryInstanceNames)
+        private List<string> CreateFullDiskNames(string[] counterCategoryInstanceNames)
         {
             if (counterCategoryInstanceNames == null || counterCategoryInstanceNames.Length == 0)
                 return null;
@@ -152,9 +154,9 @@ namespace ShutdownController.Utility
                     }
                 }
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                MyLogger.Instance().Error("Error on Update Counters. Exception: " + e.Message);
+                MyLogger.Instance().Error("Error on Update Counters. Exception: " + ex.Message);
                 throw;
             }
 
@@ -172,17 +174,17 @@ namespace ShutdownController.Utility
         }
 
 
-        private double BytesToMB(float value)
+        private double BytesToMB(float value, int digits)
         {
             try
             {
                 value = value / 1024 / 1024;
-                return Math.Round(value, 1); // (maxReceived / 1024) /1024 = MB/s
+                return Math.Round(value, digits); // (maxReceived / 1024) /1024 = MB/s
 
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                MyLogger.Instance().Error("Could not round Bytes to MB. Exception: " + e.Message);
+                MyLogger.Instance().Error("Could not round Bytes to MB. Exception: " + ex.Message);
                 throw;
             }
         }

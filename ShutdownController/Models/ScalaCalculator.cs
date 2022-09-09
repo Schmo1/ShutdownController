@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using LiveCharts;
+using ShutdownController.Utility;
 
 namespace ShutdownController.Models
 {
@@ -12,6 +13,8 @@ namespace ShutdownController.Models
         private List<double> maxValues = new List<double>();
         private double maxValueOld = 0;
         private int _numberOfSteps = 5;
+        private const double _upperHysteresis = 1.1;
+        private const double _lowerHysteresis = 0.8;
 
         public int NumberOfSteps { get { return _numberOfSteps; } }
 
@@ -27,27 +30,35 @@ namespace ShutdownController.Models
             this.charts = charts;
         }
 
-        public int GetChartMax(out int steps)
+        public int GetChartUpperLine(out int steps) //Returns the max upper line
         {
-            maxValues.Clear();
-            foreach (ChartValues<double> chart in charts)
+            try
             {
-                maxValues.Add(chart.Max());
-            }
+                maxValues.Clear();
+                foreach (ChartValues<double> chart in charts)
+                {
+                    maxValues.Add(chart.Max());
+                }
 
-            double chartMax = Math.Ceiling(maxValues.Max());
+                double chartMax = Math.Ceiling(maxValues.Max()); //Round up
 
-            if (maxValueOld == 0) //first value
-            {
-                 maxValueOld = chartMax;
+                if (maxValueOld == 0) //first value
+                {
+                     maxValueOld = chartMax;
+                }
+                else if (chartMax > maxValueOld) // Values are bigger then chart => adjust Chartvalue
+                {
+                    maxValueOld = Math.Round(chartMax + _upperHysteresis);
+                }
+                else if (chartMax < (maxValueOld * _lowerHysteresis)) //Value are lower then current chart max => adjust Chartvalue
+                {
+                    maxValueOld = Math.Round(chartMax * _upperHysteresis);
+                }
             }
-            else if (chartMax > maxValueOld) // Values are bigger then chart
+            catch (Exception e)
             {
-                maxValueOld = Math.Round(chartMax + 1.1);
-            }
-            else if (chartMax < (maxValueOld * 0.8))
-            {
-                maxValueOld = Math.Round(chartMax * 1.1);
+                MyLogger.Instance().Error("Error on returning the upper chart line Exception: " + e.Message);
+                
             }
 
             steps = (int)maxValueOld / _numberOfSteps;
@@ -61,8 +72,6 @@ namespace ShutdownController.Models
             return (int)maxValueOld;
 
         }
-
-
 
     }
 }

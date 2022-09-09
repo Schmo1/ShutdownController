@@ -328,7 +328,7 @@ namespace ShutdownController.ViewModels
         private void UpdateScala()
         {
             int step;
-            ScalaMax = scalaCalculator.GetChartMax(out step);
+            ScalaMax = scalaCalculator.GetChartUpperLine(out step);
             YSteps = step;
         }
         private void AddValuesToChart()

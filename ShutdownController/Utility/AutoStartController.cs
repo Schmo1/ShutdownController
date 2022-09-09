@@ -6,8 +6,6 @@ using System.Reflection;
 
 namespace ShutdownController.Utility
 {
-
-
     public class AutoStartController
     {
 
@@ -43,7 +41,17 @@ namespace ShutdownController.Utility
 
         private bool IsAutoStartActiv()
         {
-            object objValue = startupKey.GetValue(_appName);
+            object objValue;
+            try
+            {
+                objValue = startupKey.GetValue(_appName);
+
+            }
+            catch (Exception ex)
+            {
+                MyLogger.Instance().Error("Error Registry GetValue ==> Exception: " + ex.Message);
+                return false;
+            }
 
             // Check to see the current state (running at startup or not)
             if (objValue == null)
@@ -54,16 +62,8 @@ namespace ShutdownController.Utility
             else
             {
                 // The value exists, the application is set to run at startup  
-                try
-                {
-                    EnableAutoStart();
-                    return true;
-                }
-                catch (Exception ex)
-                {
-                    MyLogger.Instance().Error("Error Registry GetValue ==> Exception: " + ex.Message);
-                    return false;
-                }
+                EnableAutoStart();
+                return true;
             }
         }
 

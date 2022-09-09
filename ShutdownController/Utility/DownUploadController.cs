@@ -136,10 +136,9 @@ namespace ShutdownController.Utility
                 }
 
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-
-                throw;
+                MyLogger.Instance().Error("Failed to get Bytes. Exception: " + ex.Message);
             }
             NoInterfaceSelected = true;
             return 0;
@@ -150,23 +149,9 @@ namespace ShutdownController.Utility
         {
             PerformanceCounterCategory performanceCounterCategory = new PerformanceCounterCategory("Network Interface", _machineName);
 
-
-            //List<string> result = new List<string>();
-            //foreach (NetworkInterface item in NetworkInterface.GetAllNetworkInterfaces())
-            //{
-
-            //    result.Add(item.Description);
-            //}
-
-            //return result.ToArray();
-  
-
-
-
             return performanceCounterCategory.GetInstanceNames();
 
         }
-
 
 
         ~DownUploadController()

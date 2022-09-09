@@ -8,6 +8,7 @@
         xmlns:converters="clr-namespace:ShutdownController.Converters"
         xmlns:fa="http://schemas.fontawesome.io/icons/"
         mc:Ignorable="d" 
+  
         Width="800" Height="550" WindowStartupLocation="CenterScreen"
         MinWidth="800" MaxWidth="800" MaxHeight="550" MinHeight="550" 
         WindowStyle="None" AllowsTransparency="True"
@@ -48,7 +49,7 @@
             <!-- Restart/Shutdown/....-->
             <Border Grid.Column="2" CornerRadius="25" Style="{StaticResource borderbrightBlueTheme}" Margin="10,20,10,20">
 
-
+   
                 <Grid>
                     <Button Style="{StaticResource optionButton}" Margin="15,25,15,20" VerticalAlignment="Top" IsEnabled="{Binding IsShutdownSelected, Converter={StaticResource MyBoolInvertConverter}}"
                             Command="{Binding ShutdownButtonCommand}">
@@ -95,11 +96,94 @@
                         <GradientStop Color="#e3f6ff" Offset="1.0" />
                     </LinearGradientBrush>
                 </Border.Background>
+
                 
                 <Grid Margin="75,0,0,0">
-                    <ContentControl Content="{Binding CurrentView}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    
+                    <ContentControl Content="{Binding CurrentView}" HorizontalAlignment="Center" Grid.ColumnSpan="2">
 
                     </ContentControl>
+
+                    <!-- Info Button -->
+                    <Button Grid.Column="1" Width="30" Height="30" VerticalAlignment="Top" Command="{Binding InfoButtonCommand}">
+                        <Button.Style>
+                            <Style TargetType="Button">
+                                <Setter Property="Effect">
+                                    <Setter.Value>
+                                        <DropShadowEffect ShadowDepth="1" BlurRadius="20" Opacity="0.4"/>
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter Property="Height" Value="20" />
+                                <Setter Property="Width" Value="20" />
+                                <Setter Property="BorderThickness" Value="0"/>
+                                <Setter Property="Foreground" Value="#ffffff"/>
+                                <Setter Property="FontSize" Value="2"/>
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="{x:Type Button}">
+                                            <Border x:Name="border" CornerRadius="30" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="true">
+                                                <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                                            </Border>
+
+                                            <ControlTemplate.Triggers>
+                                                <Trigger Property="IsDefaulted" Value="true">
+                                                    <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
+                                                </Trigger>
+                                                <Trigger Property="IsPressed" Value="true">
+                                                    <Setter Property="Background" TargetName="border" >
+                                                        <Setter.Value>
+                                                            <RadialGradientBrush GradientOrigin="0.5,0.5" Center="0.5,0.5" RadiusX="0.5" RadiusY="0.5">
+                                                                <GradientStop Color="#8080ee" Offset="0.0" />
+                                                                <GradientStop Color="#8080ee" Offset="0.8" />
+                                                                <GradientStop Color="Transparent" Offset="1.0"/>
+                                                            </RadialGradientBrush>
+                                                        </Setter.Value>
+                                                    </Setter>
+                                                    <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Pressed.Border}"/>
+                                                </Trigger>
+                                            </ControlTemplate.Triggers>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter Property="Background">
+                                    <Setter.Value>
+                                        <RadialGradientBrush GradientOrigin="0.5,0.5" Center="0.5,0.5" RadiusX="0.5" RadiusY="0.5">
+                                            <GradientStop Color="#5050ee" Offset="0.0" />
+                                            <GradientStop Color="#5050ee" Offset="0.6" />
+                                            <GradientStop Color="Transparent" Offset="1.0"/>
+                                        </RadialGradientBrush>
+                                    </Setter.Value>
+                                </Setter>
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background">
+                                            <Setter.Value>
+                                                <RadialGradientBrush GradientOrigin="0.5,0.5" Center="0.5,0.5" RadiusX="0.5" RadiusY="0.5">
+                                                    <GradientStop Color="#5050ee" Offset="0.0" />
+                                                    <GradientStop Color="#5050ee" Offset="0.75" />
+                                                    <GradientStop Color="Transparent" Offset="1.0"/>
+                                                </RadialGradientBrush>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Trigger>
+                                    <Trigger Property="IsMouseCaptured" Value="True">
+                                        <Setter Property="Background" Value="#2f2745" />
+                                        <Setter Property="Foreground" Value="White" />
+                                    </Trigger>
+                                    <Trigger Property="IsEnabled" Value="False">
+                                        <Setter Property="Background" Value="#7c6a93" />
+                                        <Setter Property="Foreground" Value="#f0f0f0" />
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                        <fa:ImageAwesome Icon="Info" Width="13" Height="13"  Foreground="#ffffff"/>
+                    </Button>
+
                 </Grid>
             </Border>
 

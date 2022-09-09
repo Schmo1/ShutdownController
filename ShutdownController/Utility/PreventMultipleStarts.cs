@@ -79,23 +79,31 @@ namespace ShutdownController.Utility
         public void SendGUIRequest()
         {
             MyLogger.Instance().Debug("Send GUI request");
-
-            using (MemoryMappedFile mmf = MemoryMappedFile.CreateOrOpen("ShowGuiMapName", 1024))
-            using (var view = mmf.CreateViewStream())
+            try
             {
-                BinaryWriter writer = new BinaryWriter(view);
-                EventWaitHandle signal = new EventWaitHandle(false, EventResetMode.AutoReset, "ListenForOpenGUI");
+                using (MemoryMappedFile mmf = MemoryMappedFile.CreateOrOpen("ShowGuiMapName", 1024))
+                using (var view = mmf.CreateViewStream())
+                {
+                    BinaryWriter writer = new BinaryWriter(view);
+                    EventWaitHandle signal = new EventWaitHandle(false, EventResetMode.AutoReset, "ListenForOpenGUI");
 
 
-                mutex.WaitOne();
-                writer.BaseStream.Position = 0;
-                writer.Write(GUITextSend);
-                signal.Set();
-                mutex.ReleaseMutex();
+                    mutex.WaitOne();
+                    writer.BaseStream.Position = 0;
+                    writer.Write(GUITextSend);
+                    signal.Set();
+                    mutex.ReleaseMutex();
 
-                Thread.Sleep(1000);
+                    Thread.Sleep(1000);
 
+                }
             }
+            catch (Exception ex)
+            {
+                MyLogger.Instance().Error("Could not Send Gui request. Exception: " + ex.Message);
+                
+            }
+
         }
 
 

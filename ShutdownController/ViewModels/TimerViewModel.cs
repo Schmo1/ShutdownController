@@ -173,13 +173,7 @@ namespace ShutdownController.ViewModels
 
         private void TimerStartPause()
         {
-            if (!_isTimerStarted)
-            {
-                TimerStarted = true;
-                TimerPaused = false;
-                _timer.Start();
-            }
-            else if (_isTimerPaused)
+            if (!_isTimerStarted || _isTimerPaused)
             {
                 TimerStarted = true;
                 TimerPaused = false;

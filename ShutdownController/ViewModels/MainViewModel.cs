@@ -65,10 +65,12 @@ namespace ShutdownController.ViewModels
 
 
 
+        //Commands
 
         public OptionButtonCommand ShutdownButtonCommand { get; private set; }
         public OptionButtonCommand RestartButtonCommand { get; private set; }
         public OptionButtonCommand SleepButtonCommand { get; private set; }
+        public CommandHandler InfoButtonCommand { get; private set; }
 
 
 
@@ -99,6 +101,7 @@ namespace ShutdownController.ViewModels
             ShutdownButtonCommand = new OptionButtonCommand(ShutdownIsPressed);
             RestartButtonCommand = new OptionButtonCommand(RestartIsPressed);
             SleepButtonCommand = new OptionButtonCommand(SleepIsPressed);
+            InfoButtonCommand = new CommandHandler(() => InfoButtonIsPressed(), () => true);
 
 
             //Create View CommandHandler
@@ -168,7 +171,10 @@ namespace ShutdownController.ViewModels
         }
 
 
+        private void InfoButtonIsPressed()
+        {
 
+        }
         private void ShutdownIsPressed()
         {
             IsShutdownSelected = true;
