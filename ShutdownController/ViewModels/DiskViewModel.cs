@@ -320,8 +320,8 @@ namespace ShutdownController.ViewModels
             }
             else
             {
-                MyLogger.Instance().Error("Download or Upload is not selected ");
-                throw new Exception("Download or Upload is not selected ");
+                MyLogger.Instance().Error("Read or Write is not selected ");
+                throw new Exception("Read or Write is not selected ");
             }
         }
 

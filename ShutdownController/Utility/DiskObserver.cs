@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.Windows.Threading;
 using System.Windows.Navigation;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace ShutdownController.Utility
 {
@@ -71,11 +72,22 @@ namespace ShutdownController.Utility
         private void DriveHasChangedEvent(object sender, EventArgs e)
         {
             UpdatePhyisicaDisks();
-            DisksAreUpdated(null, EventArgs.Empty);
         }
 
 
-        private void UpdatePhyisicaDisks()
+        private async void UpdatePhyisicaDisks()
+        {
+            await Task.Run(() => PerformanceCounterDiskNames = GetPhysicalDisks());
+
+            _disks = CreateFullDiskNames(PerformanceCounterDiskNames);
+
+            UpdatePerformanceCounter();
+
+            DisksAreUpdated(null, EventArgs.Empty);
+
+        }
+
+        private string[] GetPhysicalDisks()
         {
 
             try
@@ -83,8 +95,7 @@ namespace ShutdownController.Utility
                 PerformanceCounterCategory performanceCounterCategory = new PerformanceCounterCategory("PhysicalDisk");
 
                 _disks.Clear();
-                PerformanceCounterDiskNames = performanceCounterCategory.GetInstanceNames();
-                _disks = CreateFullDiskNames(PerformanceCounterDiskNames);
+                return performanceCounterCategory.GetInstanceNames();
 
             }
 
@@ -94,9 +105,6 @@ namespace ShutdownController.Utility
                 MyLogger.Instance().Error("Error Get Physical Disk. Exception: " + ex.Message);
                 throw;
             }
-
-           
-            UpdatePerformanceCounter();
 
         }
 

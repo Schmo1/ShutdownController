@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.NetworkInformation;
+using System.Threading.Tasks;
 using System.Windows.Threading;
 
 namespace ShutdownController.Utility
@@ -101,9 +102,12 @@ namespace ShutdownController.Utility
         }
 
 
-        private void UpdateNetworkInterfaces()
+        private async void UpdateNetworkInterfaces()
         {
-            string[] networkInterfaces = GetNetworkInterfaces(); //Added to save performance
+            string[] networkInterfaces = { };
+
+            await Task.Run(() => networkInterfaces = GetNetworkInterfaces()); //Added to save performance
+
             if (NetworkInterfaces == networkInterfaces)
                 return;
 
