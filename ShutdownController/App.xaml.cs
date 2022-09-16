@@ -4,6 +4,7 @@ using ShutdownController.Utility;
 using ShutdownController.ViewModels;
 using ShutdownController.NotifyIcon;
 using Hardcodet.Wpf.TaskbarNotification;
+using ShutdownController.Views;
 
 namespace ShutdownController
 {
@@ -41,6 +42,9 @@ namespace ShutdownController
 
         protected override void OnStartup(StartupEventArgs e)
         {
+            Views.SplashScreen splash = new Views.SplashScreen();
+            
+
             base.OnStartup(e);
             if (!IsFirstInstance())
                 return;
@@ -50,11 +54,15 @@ namespace ShutdownController
 
             if (IsWithUserInterface())
             {
+                splash.Show();
                 MainWindow = new MainWindow();
                 MainWindow.Show();
             }
             else
                 PushMessages.ShowBalloonTip(null, "App started!", BalloonIcon.Info);
+
+
+            splash.Close();
         }
 
         protected override void OnExit(ExitEventArgs e)

@@ -12,11 +12,11 @@ namespace ShutdownController.Models
         private List<ChartValues<double>> charts;
         private List<double> maxValues = new List<double>();
         private double maxValueOld = 0;
-        private int _numberOfSteps = 5;
+        private double _numberOfSteps = 5;
         private const double _upperHysteresis = 1.1;
         private const double _lowerHysteresis = 0.8;
 
-        public int NumberOfSteps { get { return _numberOfSteps; } }
+        public int NumberOfSteps { get { return (int)_numberOfSteps; } }
 
 
         public ScalaCalculator(List<ChartValues<double>> charts, int steps)
@@ -61,7 +61,7 @@ namespace ShutdownController.Models
                 
             }
 
-            steps = (int)maxValueOld / _numberOfSteps;
+            steps = (int)Math.Ceiling(maxValueOld / _numberOfSteps);
 
             if(steps == 0)
                 steps = 1;

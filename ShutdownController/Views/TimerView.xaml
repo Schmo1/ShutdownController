@@ -23,6 +23,7 @@
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
 
+        <!-- Border for sliders -->
         <Border Style="{StaticResource borderbrightBlueTheme}"  Grid.Row="0" Grid.RowSpan="2" Margin="0 90 0 15" HorizontalAlignment="Center" Width="340">
             <Grid Margin="60,23,60,0">
                 <Grid.ColumnDefinitions>

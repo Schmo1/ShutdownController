@@ -190,8 +190,6 @@ namespace ShutdownController.ViewModels
 
             DiskHasChanged(null, EventArgs.Empty);
 
-
-
         }
 
         private void DiskHasChanged(object sender, EventArgs e)

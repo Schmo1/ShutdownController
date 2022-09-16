@@ -26,8 +26,8 @@
         </Grid.RowDefinitions>
 
         <!--Border for Sliders-->
-        <Border Style="{StaticResource borderbrightBlueTheme}" Grid.ColumnSpan="2" Grid.RowSpan="2" Margin="70 140 70 15">
-            <Grid>
+        <Border Style="{StaticResource borderbrightBlueTheme}" Grid.ColumnSpan="2" Grid.RowSpan="2" Margin="0 90 0 15" HorizontalAlignment="Center" Width="340">
+            <Grid Margin="0 23 0 0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="*" />
@@ -35,19 +35,19 @@
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
                 <StackPanel>
-                    <Slider Style="{DynamicResource SliderStyleModern}" Orientation="Vertical" Height="100" HorizontalAlignment="Center" Margin="0,70,0,0" 
+                    <Slider Style="{DynamicResource SliderStyleModern}" Orientation="Vertical" Height="120" HorizontalAlignment="Center" Margin="0,70,0,0" 
                             x:Name="HourSlider" IsSelectionRangeEnabled="True" SelectionEnd="{Binding ElementName=HourSlider, Path=Value}" IsMoveToPointEnabled="True"
                             Value="{Binding ClockSetHours}" Maximum="23"/>
                     <TextBlock Text="hrs" HorizontalAlignment="Center" Style="{StaticResource textBlockSlider}"/>
                 </StackPanel>
                 <StackPanel Grid.Column="1">
-                    <Slider Style="{DynamicResource SliderStyleModern}" Orientation="Vertical" Height="100" HorizontalAlignment="Center" Margin="0,70,0,0" 
+                    <Slider Style="{DynamicResource SliderStyleModern}" Orientation="Vertical" Height="120" HorizontalAlignment="Center" Margin="0,70,0,0" 
                             x:Name="MinuteSlider" IsSelectionRangeEnabled="True" SelectionEnd="{Binding ElementName=MinuteSlider, Path=Value}" IsMoveToPointEnabled="True"
                             Value="{Binding ClockSetMinutes}" Maximum="59"/>
                     <TextBlock Text="min" HorizontalAlignment="Center" Style="{StaticResource textBlockSlider}"/>
                 </StackPanel>
                 <StackPanel Grid.Column="2">
-                    <Slider Style="{DynamicResource SliderStyleModern}" Orientation="Vertical" Height="100" HorizontalAlignment="Center" Margin="0,70,0,0" 
+                    <Slider Style="{DynamicResource SliderStyleModern}" Orientation="Vertical" Height="120" HorizontalAlignment="Center" Margin="0,70,0,0" 
                             x:Name="SecondSlider" IsSelectionRangeEnabled="True" SelectionEnd="{Binding ElementName=SecondSlider, Path=Value}" IsMoveToPointEnabled="True"
                             Value="{Binding ClockSetSeconds}" Maximum="59" />
                     <TextBlock Text="sec" HorizontalAlignment="Center" Style="{StaticResource textBlockSlider}"/>
@@ -59,12 +59,13 @@
         <Border Style="{StaticResource borderbrightBlueTheme}" Grid.ColumnSpan="2" Margin="65 55 20 30">
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="280"/>
+                    <ColumnDefinition Width="290"/>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="auto"/>
                     <ColumnDefinition Width="auto"/>
                     <ColumnDefinition Width="auto"/>
                     <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="20"/>
                 </Grid.ColumnDefinitions>
 
 
@@ -78,7 +79,7 @@
         </Border>
 
         <!--Border for Set Time View -->
-        <Border Style="{StaticResource borderBlueTheme}" Margin="60 37.5 0 0" Width="290" Height="150">
+        <Border Style="{StaticResource borderBlueTheme}" Margin="45 37.5 0 0" Height="132.5" Width="290">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>

@@ -33,6 +33,8 @@ namespace ShutdownController.ViewModels
 
 
         private object _currentView;
+
+        public bool TestingModeActiv { get; }
         public object CurrentView
         {
             get { return _currentView; }
@@ -79,11 +81,17 @@ namespace ShutdownController.ViewModels
         public MainViewModel()
         {
             CreateViewModels();
-            CurrentView = LoadViewSettings();
+            CurrentView = GetSavedView();
 
             CreateCommands();
 
             SetSleepRestartShutdownDefault(); //Sets to default, if nothing is selected
+
+#if DEBUG
+            TestingModeActiv = true;
+#else
+            TestingModeActiv = false;
+#endif
 
         }
 
@@ -153,7 +161,7 @@ namespace ShutdownController.ViewModels
             Properties.Settings.Default.Save();
         }
 
-        private object LoadViewSettings()
+        private object GetSavedView()
         {
             switch (Properties.Settings.Default.LastView)
             {
@@ -170,11 +178,11 @@ namespace ShutdownController.ViewModels
             return TimerVM;
         }
 
-
         private void InfoButtonIsPressed()
         {
 
         }
+
         private void ShutdownIsPressed()
         {
             IsShutdownSelected = true;

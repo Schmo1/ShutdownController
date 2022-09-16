@@ -181,7 +181,18 @@
                                 </Style.Triggers>
                             </Style>
                         </Button.Style>
-                        <fa:ImageAwesome Icon="Info" Width="13" Height="13"  Foreground="#ffffff"/>
+                        <fa:ImageAwesome Icon="Info" Width="13" Height="13">
+                            <fa:ImageAwesome.Style>
+                                <Style TargetType="fa:ImageAwesome">
+                                    <Setter Property="Foreground" Value="#ffffff" />
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding TestingModeActiv}" Value="true">
+                                            <Setter Property="Foreground" Value="Red"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </fa:ImageAwesome.Style>
+                        </fa:ImageAwesome>
                     </Button>
 
                 </Grid>

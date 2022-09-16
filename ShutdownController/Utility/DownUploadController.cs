@@ -18,7 +18,7 @@ namespace ShutdownController.Utility
         private List<PerformanceCounter> _nicReceivedCounters = new List<PerformanceCounter>();
         private List<PerformanceCounter> _nicSentCounters = new List<PerformanceCounter>();
         private readonly string _machineName = Environment.MachineName;
-        private bool _timerTickIsInUse;
+        private bool _timerTickIsInUse = false;
 
 
         //Properties
@@ -55,10 +55,6 @@ namespace ShutdownController.Utility
 
         private void TimerTickEvent(object sender, EventArgs e)
         {
-            if (_timerTickIsInUse)
-                return;
-
-            _timerTickIsInUse = true;
 
             //Check if internet connection exists
             if (!InternetConnectionExist)
@@ -66,6 +62,11 @@ namespace ShutdownController.Utility
                 NewDownloadUploadData?.Invoke(this, EventArgs.Empty); //Trigger Event for upper class
                 return;
             }
+
+            if (_timerTickIsInUse)
+                return;
+
+            _timerTickIsInUse = true;
 
             //Update all 10s the Interfaces
             if(_timerTicks % 30 == 0)
@@ -107,6 +108,9 @@ namespace ShutdownController.Utility
             string[] networkInterfaces = { };
 
             await Task.Run(() => networkInterfaces = GetNetworkInterfaces()); //Added to save performance
+
+            if (networkInterfaces.Length == 0)
+                return;
 
             if (NetworkInterfaces == networkInterfaces)
                 return;

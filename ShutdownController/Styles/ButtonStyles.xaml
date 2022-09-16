@@ -5,6 +5,7 @@
         <Setter Property="Margin" Value="15,0,10,20" />
         <Setter Property="Height" Value="50" />
         <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+        <Setter Property="ToolTipService.ShowOnDisabled" Value="True"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
