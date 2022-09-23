@@ -54,7 +54,15 @@ namespace ShutdownController.Utility
             }
             else
             {
-                Process.Start("shutdown", "/s /f /t 0");
+                try
+                {
+                    Process.Start("shutdown", "/s /f /t 0");
+                }
+                catch (System.Exception ex)
+                {
+                    MessageBox.Show("Error on performing action 'Shutdown'. Exception " + ex.Message, "Error", MessageBoxButton.OK);
+                    MyLogger.Instance().Error("Error on Performing action Shutdown ==> Exception: " + ex.Message);
+                }
             }
             
         }
@@ -68,7 +76,15 @@ namespace ShutdownController.Utility
             }
             else
             {
-                Process.Start("shutdown", "/r /f /t 0");
+                try
+                {
+                    Process.Start("shutdown", "/r /f /t 0");
+                }
+                catch (System.Exception ex)
+                {
+                    MessageBox.Show("Error on performing action 'Restart'. Exception " + ex.Message, "Error", MessageBoxButton.OK);
+                    MyLogger.Instance().Error("Error on Performing action Restart ==> Exception: " + ex.Message);
+                }
             }
         }
 

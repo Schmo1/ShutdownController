@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
+using System.Windows;
 using System.Windows.Threading;
 using ShutdownController.Core;
 using ShutdownController.Utility;
@@ -141,8 +142,10 @@ namespace ShutdownController.ViewModels
         {
             //Check if Timer is zero
             if (TimerSetSeconds <= 0 && TimerSetMinutes <= 0 && TimerSetHours <= 0)
+            {
                 TimerExpired();
-
+                return;
+            }
 
             if (TimerSetSeconds == 0)
             {
@@ -154,9 +157,7 @@ namespace ShutdownController.ViewModels
                     TimerSetMinutes = 59;
                 }
                 else
-                {
                     TimerSetMinutes -= 1;
-                }
             }
             else
                 TimerSetSeconds -= 1;
@@ -175,6 +176,9 @@ namespace ShutdownController.ViewModels
         {
             if (!_isTimerStarted || _isTimerPaused)
             {
+                if (!TimeIsZeroAndExecuteAnyway())
+                    return;
+
                 TimerStarted = true;
                 TimerPaused = false;
                 _timer.Start();
@@ -193,6 +197,17 @@ namespace ShutdownController.ViewModels
             TimerPaused = false;
             _timer.Stop();
             ResetDisplayTimer();
+        }
+        private bool TimeIsZeroAndExecuteAnyway()
+        {
+            if (TimerSetHours == 0 && TimerSetMinutes == 0 && TimerSetSeconds == 0)
+            {
+                MessageBoxResult mBr = MessageBox.Show("Time is Zero. Do you want to execute the action anyway?", "Timer", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                if(MessageBoxResult.Yes == mBr)
+                    return true;
+                return false;
+            }
+            return true; //Time is not zero
         }
 
         private void ResetDisplayTimer()

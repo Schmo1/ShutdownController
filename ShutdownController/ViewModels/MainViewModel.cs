@@ -66,6 +66,8 @@ namespace ShutdownController.ViewModels
         }
 
 
+        public static event EventHandler RaiseInfoMessages;
+
 
         //Commands
 
@@ -109,7 +111,7 @@ namespace ShutdownController.ViewModels
             ShutdownButtonCommand = new OptionButtonCommand(ShutdownIsPressed);
             RestartButtonCommand = new OptionButtonCommand(RestartIsPressed);
             SleepButtonCommand = new OptionButtonCommand(SleepIsPressed);
-            InfoButtonCommand = new CommandHandler(() => InfoButtonIsPressed(), () => true);
+            InfoButtonCommand = new CommandHandler(() => RaiseInfoMessages?.Invoke(this, EventArgs.Empty), () => true);
 
 
             //Create View CommandHandler
@@ -178,10 +180,7 @@ namespace ShutdownController.ViewModels
             return TimerVM;
         }
 
-        private void InfoButtonIsPressed()
-        {
 
-        }
 
         private void ShutdownIsPressed()
         {

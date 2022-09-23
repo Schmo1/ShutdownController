@@ -66,8 +66,13 @@ namespace ShutdownController.ViewModels
 
             UpdateTimeSpan(null, EventArgs.Empty);
             Clock.Instance.ClockTick += new EventHandler(UpdateTimeSpan);
+            MainViewModel.RaiseInfoMessages += ShowInfo;
         }
 
+        private void ShowInfo(object myObject, EventArgs myEventArgs)
+        {
+
+        }
 
         private void UpdateTimeSpan(Object myObject, EventArgs myEventArgs)
         {
