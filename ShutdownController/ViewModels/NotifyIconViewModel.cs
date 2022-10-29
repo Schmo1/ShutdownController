@@ -21,6 +21,7 @@ namespace ShutdownController.ViewModels
         public NotifyIconViewModel()
         {
             SystemTrayMenuText = Assembly.GetExecutingAssembly().GetName().Name;
+           
         }
 
 
@@ -38,21 +39,12 @@ namespace ShutdownController.ViewModels
                     {
                         MyLogger.Instance().Info("Show Window pressed");
                         Application.Current.MainWindow = new MainWindow();
-                        Application.Current.MainWindow.Show();
+                        Application.Current.MainWindow.Show();                       
                     },
 
                     CanExecuteFunc = () =>
                     {
-                        if(Application.Current.MainWindow != null)
-                        {
-                            if (!Application.Current.MainWindow.IsVisible)
-                                return true;
-                            
-                            return false;
-                        }
-                        else
-                            return false;
-                        
+                        return (Application.Current.MainWindow == null || !Application.Current.MainWindow.IsVisible);                      
                     }
                 };
             }
@@ -72,17 +64,9 @@ namespace ShutdownController.ViewModels
                         MyLogger.Instance().Info("Hide Window pressed");
                         Application.Current.MainWindow.Close();
                     },
-                    CanExecuteFunc = () => {
-                        if (Application.Current.MainWindow != null)
-                        {
-                            if (Application.Current.MainWindow.IsVisible)
-                                return true;
-                            
-                            return false;
-                        }
-                        else
-                            return true;
-                        
+                    CanExecuteFunc = () => 
+                    {
+                        return Application.Current.MainWindow != null && Application.Current.MainWindow.IsVisible;          
                     }
                 };
             }

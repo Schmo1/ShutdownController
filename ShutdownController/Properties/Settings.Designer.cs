@@ -218,12 +218,12 @@ namespace ShutdownController.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("0")]
-        public double ObservingSpeedDownUp {
+        public double ThresholdSpeedDownUp {
             get {
-                return ((double)(this["ObservingSpeedDownUp"]));
+                return ((double)(this["ThresholdSpeedDownUp"]));
             }
             set {
-                this["ObservingSpeedDownUp"] = value;
+                this["ThresholdSpeedDownUp"] = value;
             }
         }
         
@@ -254,12 +254,12 @@ namespace ShutdownController.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("0")]
-        public double ObservingSpeedDisk {
+        public double ThresholdSpeedDisk {
             get {
-                return ((double)(this["ObservingSpeedDisk"]));
+                return ((double)(this["ThresholdSpeedDisk"]));
             }
             set {
-                this["ObservingSpeedDisk"] = value;
+                this["ThresholdSpeedDisk"] = value;
             }
         }
         

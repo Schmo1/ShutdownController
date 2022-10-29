@@ -91,7 +91,7 @@ namespace ShutdownController.ViewModels
                 _isObserveActive = value;
                 if (_isObserveActive)
                 {
-                    MyLogger.Instance().Info("Observe Disk is active. Seconds: " + Seconds.ToString() + " Observing Speed: " + ObservingSpeed.ToString());
+                    MyLogger.Instance().Info("Observe Disk is active. Seconds: " + Seconds.ToString() + " Observing Speed: " + ThresholdSpeed.ToString());
                     ValueUnderObservingSpeed();
                 }
                 else
@@ -128,12 +128,12 @@ namespace ShutdownController.ViewModels
             }
         }
 
-        public double ObservingSpeed
+        public double ThresholdSpeed
         {
-            get { return Properties.Settings.Default.ObservingSpeedDisk; }
+            get { return Properties.Settings.Default.ThresholdSpeedDisk; }
             set
             {
-                Properties.Settings.Default.ObservingSpeedDisk = Math.Round(Math.Min(value, 150), 2);
+                Properties.Settings.Default.ThresholdSpeedDisk = Math.Round(Math.Min(value, 150), 2);
                 OnPropertyChanged();
             }
         }
@@ -252,7 +252,7 @@ namespace ShutdownController.ViewModels
                 int valuesUnderSpeed = 0;
                 for (int i = ObservedReadValues.Count - Seconds; i < ObservedReadValues.Count; i++)
                 {
-                    if (ObservedReadValues[i] < ObservingSpeed)
+                    if (ObservedReadValues[i] < ThresholdSpeed)
                         valuesUnderSpeed++;
                 }
 
@@ -269,7 +269,7 @@ namespace ShutdownController.ViewModels
                 int valuesUnderSpeed = 0;
                 for (int i = ObservedWriteValues.Count - Seconds; i < ObservedWriteValues.Count; i++)
                 {
-                    if (ObservedWriteValues[i] < ObservingSpeed)
+                    if (ObservedWriteValues[i] < ThresholdSpeed)
                         valuesUnderSpeed++;
                 }
 
@@ -288,14 +288,14 @@ namespace ShutdownController.ViewModels
                 if (ReadValues.Count == 0)
                     return;
 
-                IsValueUnderObservingSpeed = ReadValues[ReadValues.Count - 1] < ObservingSpeed;
+                IsValueUnderObservingSpeed = ReadValues[ReadValues.Count - 1] < ThresholdSpeed;
             }
             else if (WriteObservingActive)
             {
                 if (WriteValues.Count == 0)
                     return;
 
-                IsValueUnderObservingSpeed = WriteValues[WriteValues.Count - 1] < ObservingSpeed;
+                IsValueUnderObservingSpeed = WriteValues[WriteValues.Count - 1] < ThresholdSpeed;
             }
         }
 
@@ -351,8 +351,8 @@ namespace ShutdownController.ViewModels
             if (Seconds == 0)
                 Seconds = 10;
 
-            if (ObservingSpeed == 0)
-                ObservingSpeed = 1.5;
+            if (ThresholdSpeed == 0)
+                ThresholdSpeed = 1.5;
 
             if (!ReadObservingActive & !WriteObservingActive)
                 ReadObservingActive = true; //if nothin is pressed select download

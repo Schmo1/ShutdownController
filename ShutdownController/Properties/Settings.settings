@@ -50,7 +50,7 @@
     <Setting Name="ObservingSecondsDownUp" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">0</Value>
     </Setting>
-    <Setting Name="ObservingSpeedDownUp" Type="System.Double" Scope="User">
+    <Setting Name="ThresholdSpeedDownUp" Type="System.Double" Scope="User">
       <Value Profile="(Default)">0</Value>
     </Setting>
     <Setting Name="NetworkInterface" Type="System.String" Scope="User">
@@ -59,7 +59,7 @@
     <Setting Name="ObservingSecondsDisk" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">0</Value>
     </Setting>
-    <Setting Name="ObservingSpeedDisk" Type="System.Double" Scope="User">
+    <Setting Name="ThresholdSpeedDisk" Type="System.Double" Scope="User">
       <Value Profile="(Default)">0</Value>
     </Setting>
     <Setting Name="SelectedDisk" Type="System.String" Scope="User">
