@@ -33,6 +33,10 @@ namespace ShutdownController
 
         public App()
         {
+            AppDomain currentDomain = AppDomain.CurrentDomain;
+            currentDomain.UnhandledException += new UnhandledExceptionEventHandler(UnhandledEceptionLogger);
+
+
             MyLogger.Instance().Info("App is starting...");
             AutoStartController = new AutoStartController(" " + ShutdownController.Properties.ConstTemplates.ArgWithoutUI);
             multipleStarts = new PreventMultipleStarts();
@@ -40,11 +44,13 @@ namespace ShutdownController
 
         }
 
+
+
         protected override void OnStartup(StartupEventArgs e)
         {
             Views.SplashScreen splash = new Views.SplashScreen();
-            
 
+            
             base.OnStartup(e);
             if (!IsFirstInstance())
                 return;
@@ -118,6 +124,13 @@ namespace ShutdownController
         private void OpenGUIRequest(object source, EventArgs args)
         {
             Dispatcher.BeginInvoke(new OpenMainWindowDel(OpenMainWindow));
+        }
+
+        static void UnhandledEceptionLogger(object sender, UnhandledExceptionEventArgs args)
+        {
+            Exception ex = (Exception)args.ExceptionObject;
+            MyLogger.Instance().Error("Unhandled Exception: " + ex.Message); 
+
         }
 
 

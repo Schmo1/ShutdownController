@@ -155,7 +155,7 @@
                             
                             <!--Observing Speed section-->
                             <lvc:Axis.Sections>
-                                <lvc:AxisSection Value="0" SectionWidth="{Binding ObservingSpeed}" Label="Good" Stroke="#CDCDCD" StrokeThickness="1" />
+                                <lvc:AxisSection Value="0" SectionWidth="{Binding ThresholdSpeed}" Label="Good" Stroke="#CDCDCD" StrokeThickness="1" />
                             </lvc:Axis.Sections>
                         </lvc:Axis>
                     

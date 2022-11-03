@@ -256,6 +256,7 @@
     <Resource Include="Images\Upload.png" />
     <Resource Include="Images\read.png" />
     <Resource Include="Images\write.png" />
+    <Resource Include="Images\settingsNotification.png" />
     <Content Include="NLog.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

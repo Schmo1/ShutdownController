@@ -157,7 +157,7 @@ namespace ShutdownController.ViewModels
             base.OnPropertyChanged(name);
         }
 
-        private void SaveViewToSettings(object view)
+        private static void SaveViewToSettings(object view)
         {
             Properties.Settings.Default.LastView = view.GetType().Name;
             Properties.Settings.Default.Save();

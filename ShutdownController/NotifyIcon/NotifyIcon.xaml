@@ -24,6 +24,18 @@
         </MenuItem>
 
 
+        <Separator/>
+
+        <MenuItem Header="Settings" Command="{Binding ShowSettingsCommand}"  >
+            <MenuItem.Icon>
+                <Image Width="16"
+                           Height="16"
+                           Source="/Images/settingsNotification.png"/>
+            </MenuItem.Icon>
+        </MenuItem>
+
+
+
 
         <Separator/>
         <MenuItem Header="Exit" Command="{Binding ExitApplicationCommand}">

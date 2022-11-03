@@ -39,7 +39,7 @@ namespace ShutdownController.ViewModels
                     {
                         MyLogger.Instance().Info("Show Window pressed");
                         Application.Current.MainWindow = new MainWindow();
-                        Application.Current.MainWindow.Show();                       
+                        OpenNewMainWindow();                     
                     },
 
                     CanExecuteFunc = () =>
@@ -72,6 +72,32 @@ namespace ShutdownController.ViewModels
             }
         }
 
+        /// <summary>
+        /// Shows a window and opens the settings
+        /// </summary>
+        public ICommand ShowSettingsCommand
+        {
+            get
+            {
+                return new DelegateCommand
+                {
+                    CommandAction = () =>
+                    {
+                        MyLogger.Instance().Info("Show settings pressed");
+                        OpenNewMainWindow();
+                        MainViewModel mwModel = (MainViewModel)Application.Current.MainWindow.DataContext;
+
+                        mwModel.CurrentView = mwModel.SettingsVM;
+                    },
+
+                    CanExecuteFunc = () =>
+                    {
+                        return true;
+                    }
+                };
+            }
+        }
+
 
         /// <summary>
         /// Shuts down the application.
@@ -95,10 +121,7 @@ namespace ShutdownController.ViewModels
                     CommandAction = () =>
                     {
                         MyLogger.Instance().Info("DoubleClick on TrayIcon Pressed => Open MainWindow");
-                        if (Application.Current.MainWindow == null)
-                            Application.Current.MainWindow = new MainWindow();
-                        Application.Current.MainWindow.Show();
-                        Application.Current.MainWindow.Activate(); //Set in foreground
+                        OpenNewMainWindow();
                     }
                 };
             }
@@ -114,6 +137,18 @@ namespace ShutdownController.ViewModels
 
         public ImageSource ShowIcon { get => _showIcon; private set { _showIcon = value; OnPropertyChanged(); } }
         public ImageSource HideIcon { get => _hideIcon; private set { _hideIcon = value; OnPropertyChanged(); } }
+
+
+        private void OpenNewMainWindow()
+        {
+            if(Application.Current.MainWindow == null || !Application.Current.MainWindow.IsVisible)
+                Application.Current.MainWindow = new MainWindow();
+
+            Application.Current.MainWindow.Show();
+            Application.Current.MainWindow.Activate(); //Set in foreground
+        }
+
+  
 
        
     }
