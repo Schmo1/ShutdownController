@@ -5,8 +5,15 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"  
              xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
              xmlns:local="clr-namespace:ShutdownController.Views"
+             xmlns:converters="clr-namespace:ShutdownController.Converters"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="500">
+
+    <UserControl.Resources>
+        <converters:BoolInvertConverter x:Key="MyBoolInvertConverter"/>
+    </UserControl.Resources>
+    
+    
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
@@ -235,12 +242,12 @@
                 <!--Seconds-->
                 <TextBlock Text="Seconds:" Style="{StaticResource optionButtonText}" VerticalAlignment="Center" Margin="15 10 0 0"/>
                 <TextBox Grid.Column="1" Style="{StaticResource inputTextbox}" Margin="7 10 7 0" PreviewTextInput="PreviewTextInputOnlyNumbers" DataObject.Pasting="TextBoxPasting" 
-                         Name="SecondsTxtBox" Text="{Binding Seconds}" />
+                         Name="SecondsTxtBox" Text="{Binding Seconds}" IsEnabled="{Binding Path = ObserveActive, Converter={StaticResource MyBoolInvertConverter}}" />
 
                 <!--Observing Value-->
                 <TextBlock Text="Threshold speed (MB/s):" Style="{StaticResource optionButtonText}" Grid.Row="1" VerticalAlignment="Center" Margin="15 0 0 10"/>
                 <TextBox Grid.Column="1"  Grid.Row="1" Style="{StaticResource inputTextbox}" Margin="7 0 7 10" PreviewTextInput="PreviewTextInputOnlyNumbersAndPoint" DataObject.Pasting="TextBoxPastingWithPoint" 
-                         Name="SpeedTxtBox" Text="{Binding ThresholdSpeed}" />
+                         Name="SpeedTxtBox" Text="{Binding ThresholdSpeed}" IsEnabled="{Binding Path = ObserveActive, Converter={StaticResource MyBoolInvertConverter}}" />
             </Grid>
 
 
