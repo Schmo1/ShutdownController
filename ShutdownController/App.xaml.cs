@@ -5,6 +5,7 @@ using ShutdownController.ViewModels;
 using ShutdownController.NotifyIcon;
 using Hardcodet.Wpf.TaskbarNotification;
 using ShutdownController.Views;
+using System.Globalization;
 
 namespace ShutdownController
 {
@@ -36,8 +37,9 @@ namespace ShutdownController
             AppDomain currentDomain = AppDomain.CurrentDomain;
             currentDomain.UnhandledException += new UnhandledExceptionEventHandler(UnhandledEceptionLogger);
 
-
             MyLogger.Instance().Info("App is starting...");
+
+            Console.WriteLine(CultureInfo.CurrentUICulture.Name);
             AutoStartController = new AutoStartController(" " + ShutdownController.Properties.ConstTemplates.ArgWithoutUI);
             multipleStarts = new PreventMultipleStarts();
             multipleStarts.OnOpenRequest += OpenGUIRequest; //Timer is over event

@@ -77,5 +77,32 @@ namespace ShutdownController.Properties {
                 return ResourceManager.GetString("NameOfTaskbar", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die [0-9]|,|\. ähnelt.
+        /// </summary>
+        internal static string RegexForNumberAndPoint {
+            get {
+                return ResourceManager.GetString("RegexForNumberAndPoint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die [0-9] ähnelt.
+        /// </summary>
+        internal static string RegexForNumbers {
+            get {
+                return ResourceManager.GetString("RegexForNumbers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die (\d+(\.\d*)?)|(-?\.\d+) ähnelt.
+        /// </summary>
+        internal static string RegexToFindDouble {
+            get {
+                return ResourceManager.GetString("RegexToFindDouble", resourceCulture);
+            }
+        }
     }
 }

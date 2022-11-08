@@ -123,4 +123,13 @@
   <data name="NameOfTaskbar" xml:space="preserve">
     <value>WPFTaskbar</value>
   </data>
+  <data name="RegexForNumberAndPoint" xml:space="preserve">
+    <value>[0-9]|,|\.</value>
+  </data>
+  <data name="RegexForNumbers" xml:space="preserve">
+    <value>[0-9]</value>
+  </data>
+  <data name="RegexToFindDouble" xml:space="preserve">
+    <value>(\d+(\.\d*)?)|(-?\.\d+)</value>
+  </data>
 </root>

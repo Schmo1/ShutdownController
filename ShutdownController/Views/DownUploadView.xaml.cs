@@ -3,6 +3,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Text.RegularExpressions;
+using ShutdownController.Utility;
 
 namespace ShutdownController.Views
 {
@@ -12,10 +13,7 @@ namespace ShutdownController.Views
     public partial class DownUploadView : UserControl
     {
 
-        private static readonly Regex regex = new Regex("[^0-9]+"); //regex that matches disallowed text
-
-        private static readonly Regex regexWithDigits = new Regex(@"[0 - 9] + (\.[0 - 9]+)?"); //regex that matches disallowed text
-
+    
         public DownUploadView()
         {
             InitializeComponent();
@@ -23,8 +21,15 @@ namespace ShutdownController.Views
 
         private void PreviewTextInputOnlyNumbers(object sender, TextCompositionEventArgs e)
         {
-            e.Handled = !IsTextAllowed(e.Text, false);
+            e.Handled = !ParseInputBox.IsOnlyNumber(e.Text);
+
         }
+        private void PreviewTextInputOnlyNumbersAndPoint(object sender, TextCompositionEventArgs e)
+        {
+            e.Handled = !ParseInputBox.IsOnlyNumberOrPoint(e.Text);
+        }
+
+
 
         // Use the DataObject.Pasting Handler 
         private void TextBoxPasting(object sender, DataObjectPastingEventArgs e)
@@ -32,7 +37,7 @@ namespace ShutdownController.Views
             if (e.DataObject.GetDataPresent(typeof(String)))
             {
                 String text = (String)e.DataObject.GetData(typeof(String));
-                if (!IsTextAllowed(text, false))
+                if (!int.TryParse(text, out _))
                 {
                     e.CancelCommand();
                 }
@@ -44,18 +49,14 @@ namespace ShutdownController.Views
         }
 
 
-        private void PreviewTextInputOnlyNumbersAndPoint(object sender, TextCompositionEventArgs e)
-        {
-            e.Handled = !IsTextAllowed(e.Text, true);
-        }
 
         // Use the DataObject.Pasting Handler 
-        private void TextBoxPastingWithPoint(object sender, DataObjectPastingEventArgs e)
+        private void TextBoxPastingDouble(object sender, DataObjectPastingEventArgs e)
         {
             if (e.DataObject.GetDataPresent(typeof(String)))
             {
                 String text = (String)e.DataObject.GetData(typeof(String));
-                if (!IsTextAllowed(text, true))
+                if (!double.TryParse(text, out _))
                 {
                     e.CancelCommand();
                 }
@@ -64,15 +65,6 @@ namespace ShutdownController.Views
             {
                 e.CancelCommand();
             }
-        }
-
-
-        private static bool IsTextAllowed(string text, bool withDecimalPoint)
-        {
-            if(withDecimalPoint)
-                return !regexWithDigits.IsMatch(text);
-            else
-                return !regex.IsMatch(text);
         }
     }
 }

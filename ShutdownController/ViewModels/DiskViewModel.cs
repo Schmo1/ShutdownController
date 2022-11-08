@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Runtime.CompilerServices;
 using LiveCharts;
 using ShutdownController.Core;
@@ -133,8 +134,8 @@ namespace ShutdownController.ViewModels
             get { return Properties.Settings.Default.ThresholdSpeedDisk; }
             set
             {
-                Properties.Settings.Default.ThresholdSpeedDisk = Math.Round(Math.Min(value, 150), 2);
-                OnPropertyChanged();
+                Properties.Settings.Default.ThresholdSpeedDisk = Math.Round(Math.Min(value, 150.0), 2);
+                OnPropertyChanged();              
             }
         }
         public string SelectedDisk

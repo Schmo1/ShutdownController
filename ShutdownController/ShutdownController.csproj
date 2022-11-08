@@ -98,6 +98,7 @@
     <Compile Include="Commands\DelegateCommand.cs" />
     <Compile Include="Commands\OptionButtonCommand.cs" />
     <Compile Include="Converters\BoolInvertConverter.cs" />
+    <Compile Include="Converters\StringToDoubleConverter.cs" />
     <Compile Include="Converters\StringToIntConverter.cs" />
     <Compile Include="Core\ObservableObject.cs" />
     <Compile Include="Core\Clock.cs" />
@@ -109,6 +110,7 @@
     <Compile Include="Utility\ILogger.cs" />
     <Compile Include="Utility\Logger.cs" />
     <Compile Include="NotifyIcon\PushMessages.cs" />
+    <Compile Include="Utility\ParseInputBox.cs" />
     <Compile Include="Utility\PreventMultipleStarts.cs" />
     <Compile Include="Utility\ShutdownOptions.cs" />
     <Compile Include="ViewModels\NotifyIconViewModel.cs" />
