@@ -4,8 +4,10 @@ using ShutdownController.Utility;
 using ShutdownController.ViewModels;
 using ShutdownController.NotifyIcon;
 using Hardcodet.Wpf.TaskbarNotification;
-using ShutdownController.Views;
 using System.Globalization;
+using System.Configuration;
+using System.Windows.Controls;
+using NLog.LayoutRenderers;
 
 namespace ShutdownController
 {
@@ -63,8 +65,7 @@ namespace ShutdownController
             if (IsWithUserInterface())
             {
                 splash.Show();
-                MainWindow = new MainWindow();
-                MainWindow.Show();
+                OpenMainWindow();
             }
             else
                 PushMessages.ShowBalloonTip(null, "App started!", BalloonIcon.Info);
@@ -72,6 +73,7 @@ namespace ShutdownController
 
             splash.Close();
         }
+
 
         protected override void OnExit(ExitEventArgs e)
         {
@@ -132,20 +134,22 @@ namespace ShutdownController
         {
             Exception ex = (Exception)args.ExceptionObject;
             MyLogger.Instance().Error("Unhandled Exception: " + ex.Message); 
+            MessageBox.Show("Unhandled Exception: " + ex.Message, "Unhandled exception", MessageBoxButton.OK, MessageBoxImage.Error);
 
         }
 
 
-        public void OpenMainWindow()
+        public static void OpenMainWindow()
         {
             MyLogger.Instance().Info("Open main window");
 
-            if (MainWindow == null || MainWindow.IsVisible == false)
+            if (Current.MainWindow == null || Current.MainWindow.IsVisible == false || Current.MainWindow.Title != "") //If its main window, then the Tile is empty
             {
                 try
                 {
-                    MainWindow = new MainWindow();
-                    MainWindow.Show();
+                    Current.MainWindow = new MainWindow();
+                    Current.MainWindow.Show();
+                    Current.MainWindow.Closing += OnMainWindowClosing;
                 }
                 catch (Exception ex)
                 {
@@ -154,8 +158,37 @@ namespace ShutdownController
 
             }
 
-            MainWindow.WindowState = WindowState.Normal;
-            MainWindow.Activate();
+            Current.MainWindow.WindowState = WindowState.Normal;
+            Current.MainWindow.Activate();
         }
+
+        private static void OnMainWindowClosing(object source, EventArgs args)
+        {
+
+            MyLogger.Instance().Debug("Closing main window");
+
+            Current.MainWindow.Closing -= OnMainWindowClosing;
+
+            if (ShutdownController.Properties.Settings.Default.OnClosingRunInBackground)
+                return;
+
+
+            //Show user Message, if some timer is still running in the backgroudn
+
+            if(STimerViewModel.TimerStarted)
+                PushMessages.ShowBalloonTip("Timer", "Timer is still running in the background", BalloonIcon.Info, true);
+
+            else if (SClockViewModel.ClockActive)
+                PushMessages.ShowBalloonTip("Clock", "Clock is still running in the background", BalloonIcon.Info, true);
+
+            else if (SDownUploadViewModel.ObserveActive)
+                PushMessages.ShowBalloonTip("DownUpload", "Down- Upload observing is still running in the background", BalloonIcon.Info, true);
+
+            else if (SDiskViewModel.ObserveActive)
+                PushMessages.ShowBalloonTip("Disk", "Disk observing is still running in the background", BalloonIcon.Info, true);
+
+        }
+
+
     }
 }

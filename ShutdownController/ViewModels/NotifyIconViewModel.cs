@@ -38,8 +38,7 @@ namespace ShutdownController.ViewModels
                     CommandAction = () =>
                     {
                         MyLogger.Instance().Info("Show Window pressed");
-                        Application.Current.MainWindow = new MainWindow();
-                        OpenNewMainWindow();                     
+                        App.OpenMainWindow();
                     },
 
                     CanExecuteFunc = () =>
@@ -62,7 +61,7 @@ namespace ShutdownController.ViewModels
                     CommandAction = () => 
                     { 
                         MyLogger.Instance().Info("Hide Window pressed");
-                        Application.Current.MainWindow.Close();
+                        Application.Current.MainWindow?.Close();
                     },
                     CanExecuteFunc = () => 
                     {
@@ -84,7 +83,7 @@ namespace ShutdownController.ViewModels
                     CommandAction = () =>
                     {
                         MyLogger.Instance().Info("Show settings pressed");
-                        OpenNewMainWindow();
+                        App.OpenMainWindow();
                         MainViewModel mwModel = (MainViewModel)Application.Current.MainWindow.DataContext;
 
                         mwModel.CurrentView = mwModel.SettingsVM;
@@ -121,7 +120,7 @@ namespace ShutdownController.ViewModels
                     CommandAction = () =>
                     {
                         MyLogger.Instance().Info("DoubleClick on TrayIcon Pressed => Open MainWindow");
-                        OpenNewMainWindow();
+                        App.OpenMainWindow();
                     }
                 };
             }
@@ -139,16 +138,6 @@ namespace ShutdownController.ViewModels
         public ImageSource HideIcon { get => _hideIcon; private set { _hideIcon = value; OnPropertyChanged(); } }
 
 
-        private void OpenNewMainWindow()
-        {
-            if(Application.Current.MainWindow == null || !Application.Current.MainWindow.IsVisible)
-                Application.Current.MainWindow = new MainWindow();
-
-            Application.Current.MainWindow.Show();
-            Application.Current.MainWindow.Activate(); //Set in foreground
-        }
-
-  
 
        
     }

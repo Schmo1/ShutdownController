@@ -74,7 +74,7 @@ namespace ShutdownController.ViewModels
 
         }
 
-        private void UpdateTimeSpan(Object myObject, EventArgs myEventArgs)
+        private void UpdateTimeSpan(object myObject, EventArgs myEventArgs)
         {
             ClockHours = SetNumberTo2Char(Clock.Instance.ActualTime.Hour.ToString());
             ClockMinutes = SetNumberTo2Char(Clock.Instance.ActualTime.Minute.ToString());

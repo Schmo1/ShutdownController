@@ -21,9 +21,9 @@ namespace ShutdownController.NotifyIcon
 
 
 
-        public static void ShowBalloonTip(string titel, string message, BalloonIcon balloonIcon)
+        public static void ShowBalloonTip(string titel, string message, BalloonIcon balloonIcon, bool forceMessage = false)
         {
-            if(!Properties.Settings.Default.DisablePushMessages)
+            if(!Properties.Settings.Default.DisablePushMessages || forceMessage)
                 Instance().ShowBalloonTip(titel, message, balloonIcon);
             
         }

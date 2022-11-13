@@ -206,13 +206,11 @@ namespace ShutdownController.ViewModels
             if (TimerVM.TimerStarted &! TimerVM.TimerPaused)
             {
                 MyLogger.Instance().Info("HideWindow because Timer is running");
-                PushMessages.ShowBalloonTip("Timer", "is still active in the background", BalloonIcon.Info);
                 Application.Current.MainWindow.Close();
             }
             else if (ClockVM.ClockActive)
             {
                 MyLogger.Instance().Info("HideWindow because Clock is running");
-                PushMessages.ShowBalloonTip("Clock", "observing is still active in the background", BalloonIcon.Info);
                 Application.Current.MainWindow.Close();
             }
             else if (Properties.Settings.Default.OnClosingRunInBackground)

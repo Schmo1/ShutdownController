@@ -30,7 +30,7 @@ namespace ShutdownController.ViewModels
         public bool TimerStarted
         {
             get { return _isTimerStarted; }
-            set {_isTimerStarted = value; OnPropertyChanged(); }
+            private set {_isTimerStarted = value; OnPropertyChanged(); }
         }
 
 
