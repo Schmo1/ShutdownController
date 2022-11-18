@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Runtime.CompilerServices;
 using LiveCharts;
 using ShutdownController.Core;
@@ -121,8 +120,8 @@ namespace ShutdownController.ViewModels
             get { return Properties.Settings.Default.ObservingSecondsDisk; }
             set
             {
-                if (value < 5)
-                    value = 5;
+                if (value < 5)  value = 5;
+
                 Properties.Settings.Default.ObservingSecondsDisk = Math.Min(value, _maxSecondsToObserve);
 
                 OnPropertyChanged();
@@ -205,6 +204,8 @@ namespace ShutdownController.ViewModels
                 SelectedDisk = ConnectedDisks[0];
                 return;
             }
+
+
 
             foreach (string disk in ConnectedDisks)
             {

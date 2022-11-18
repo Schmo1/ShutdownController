@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
 using System.Windows;
-using System.Windows.Forms;
+using System.Timers;
 using ShutdownController.Core;
 using ShutdownController.Utility;
 using MessageBox = System.Windows.MessageBox;
@@ -17,7 +17,7 @@ namespace ShutdownController.ViewModels
         private int _timerMinutes;
         private int _timerSeconds;
 
-        private readonly Timer _timer = new Timer();
+        private readonly Timer _timer = new Timer(1000.0) { AutoReset = true};
 
 
 
@@ -131,7 +131,7 @@ namespace ShutdownController.ViewModels
             TimerStopCommand = new CommandHandler(() => TimerStop(), () => true);
 
             _timer.Interval = 1000;
-            _timer.Tick += SupstractSecond;
+            _timer.Elapsed += SupstractSecond;
 
             ResetDisplayTimer();
         }

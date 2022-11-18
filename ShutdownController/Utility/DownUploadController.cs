@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.NetworkInformation;
 using System.Threading.Tasks;
-using System.Windows.Threading;
+using System.Timers;
 
 namespace ShutdownController.Utility
 {
@@ -11,7 +11,7 @@ namespace ShutdownController.Utility
     {
 
         //Variables
-        private DispatcherTimer _timer = new DispatcherTimer();
+        private readonly Timer _timer = new Timer(1000.0) { AutoReset = true };
         private int _timerTicks;
         private double _receivedMBs;
         private double _sentMBs;
@@ -44,16 +44,16 @@ namespace ShutdownController.Utility
         public DownUploadController()
         {
 
-            _timer.Interval = new TimeSpan(0,0,1); //1 second
-            _timer.Tick += TimerTickEvent;
+            _timer.Elapsed += TimerElapsed;
+            
             _timer.Start();
-            TimerTickEvent(null, EventArgs.Empty);//call ones on Start
+            TimerElapsed(null, EventArgs.Empty);//call ones on Start
 
             MyLogger.Instance().Debug("Starting read received and send data");
         }
 
 
-        private void TimerTickEvent(object sender, EventArgs e)
+        private void TimerElapsed(object sender, EventArgs e)
         {
 
             //Check if internet connection exists
