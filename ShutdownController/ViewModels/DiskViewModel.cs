@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using LiveCharts;
 using ShutdownController.Core;
+using ShutdownController.Enums;
 using ShutdownController.Models;
 using ShutdownController.Utility;
 
 namespace ShutdownController.ViewModels
 {
-    public class DiskViewModel:ObservableObject
+    public class DiskViewModel : ObservableObject, IViewModel
     {
 
         #region Variables
@@ -23,11 +24,14 @@ namespace ShutdownController.ViewModels
         private ChartValues<double> observedReadValues = new ChartValues<double>();
         private ChartValues<double> _observedWriteValues = new ChartValues<double>();
         private string[] _connectedDisks;
+        private DiskObserver diskObserver;
+        private ScalaCalculator scalaCalculator;
         #endregion
 
 
-        private DiskObserver diskObserver;
-        private ScalaCalculator scalaCalculator;
+
+
+        public ViewNameEnum ViewName => ViewNameEnum.DiskView;
 
         public ChartValues<double> ObservedReadValues
         {

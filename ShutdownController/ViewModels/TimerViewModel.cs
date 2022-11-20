@@ -5,12 +5,13 @@ using System.Timers;
 using ShutdownController.Core;
 using ShutdownController.Utility;
 using MessageBox = System.Windows.MessageBox;
+using ShutdownController.Enums;
 
 namespace ShutdownController.ViewModels
 {
-    public class TimerViewModel : ObservableObject
+    public class TimerViewModel : ObservableObject, IViewModel
     {
-
+        #region Variables
         private bool _isTimerStarted;
         private bool _isTimerPaused;
         private int _timerHours;
@@ -19,9 +20,14 @@ namespace ShutdownController.ViewModels
 
         private readonly Timer _timer = new Timer(1000.0) { AutoReset = true};
 
-
+        #endregion
 
         //Properties
+
+
+        public ViewNameEnum ViewName => ViewNameEnum.TimerView;
+
+
         public bool TimerPaused
         {
             get { return _isTimerPaused; }

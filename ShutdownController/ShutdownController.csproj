@@ -100,8 +100,10 @@
     <Compile Include="Converters\BoolInvertConverter.cs" />
     <Compile Include="Converters\StringToDoubleConverter.cs" />
     <Compile Include="Converters\StringToIntConverter.cs" />
+    <Compile Include="Core\IViewModel.cs" />
     <Compile Include="Core\ObservableObject.cs" />
     <Compile Include="Core\Clock.cs" />
+    <Compile Include="Enums\ViewNameEnum.cs" />
     <Compile Include="Models\ScalaCalculator.cs" />
     <Compile Include="Utility\AutoStartController.cs" />
     <Compile Include="Utility\DiskObserver.cs" />

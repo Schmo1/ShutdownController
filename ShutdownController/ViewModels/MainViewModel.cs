@@ -1,15 +1,14 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
 using System.Windows;
-using Hardcodet.Wpf.TaskbarNotification;
 using ShutdownController.Commands;
 using ShutdownController.Core;
-using ShutdownController.NotifyIcon;
+using ShutdownController.Enums;
 using ShutdownController.Utility;
 
 namespace ShutdownController.ViewModels
 {
-    internal class MainViewModel :ObservableObject
+    internal class MainViewModel : ObservableObject
     {
 
         //Views
@@ -157,23 +156,32 @@ namespace ShutdownController.ViewModels
             base.OnPropertyChanged(name);
         }
 
-        private static void SaveViewToSettings(object view)
+        private static void SaveViewToSettings(object view)     
         {
-            Properties.Settings.Default.LastView = view.GetType().Name;
-            Properties.Settings.Default.Save();
+            
+            try
+            {
+                IViewModel iView = (IViewModel)view;
+                Properties.Settings.Default.LastView = iView.ViewName;
+                Properties.Settings.Default.Save();
+            }
+            catch (Exception ex)
+            {
+                MyLogger.Instance().Error("Convert view error: " + ex.Message);
+            }
         }
 
         private object GetSavedView()
         {
             switch (Properties.Settings.Default.LastView)
             {
-                case "ClockViewModel":
+                case ViewNameEnum.ClockView:
                     return ClockVM;
-                case "DiskViewModel":
+                case ViewNameEnum.DiskView:
                     return DiskVM;
-                case "DownUploadViewModel":
+                case ViewNameEnum.DownUploadView:
                     return UpDownloadVM;
-                case "SettingsViewModel":
+                case ViewNameEnum.SettingsView:
                     return SettingsVM;
 
             }

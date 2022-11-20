@@ -11,8 +11,8 @@
     <Setting Name="IsSleepSelected" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
-    <Setting Name="LastView" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
+    <Setting Name="LastView" Type="ShutdownController.Enums.ViewNameEnum" Scope="User">
+      <Value Profile="(Default)">TimerView</Value>
     </Setting>
     <Setting Name="ClockSetHours" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">0</Value>
@@ -73,6 +73,9 @@
     </Setting>
     <Setting Name="SavePerformance" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="Einstellung" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
     </Setting>
   </Settings>
 </SettingsFile>

@@ -1,11 +1,16 @@
 ﻿using System;
 using ShutdownController.Core;
-
+using ShutdownController.Enums;
 
 namespace ShutdownController.ViewModels
 {
-    internal class SettingsViewModel : ObservableObject
+    internal class SettingsViewModel : ObservableObject, IViewModel
     {
+
+
+        public ViewNameEnum ViewName => ViewNameEnum.SettingsView;
+
+
         public bool OnClosingRunInBackground { 
             get { return Properties.Settings.Default.OnClosingRunInBackground; }
             set { Properties.Settings.Default.OnClosingRunInBackground = value; Properties.Settings.Default.Save(); }

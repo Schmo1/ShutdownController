@@ -2,12 +2,13 @@
 using System.Runtime.CompilerServices;
 using Hardcodet.Wpf.TaskbarNotification;
 using ShutdownController.Core;
+using ShutdownController.Enums;
 using ShutdownController.NotifyIcon;
 using ShutdownController.Utility;
 
 namespace ShutdownController.ViewModels
 {
-    public class ClockViewModel :ObservableObject
+    public class ClockViewModel :ObservableObject, IViewModel
     {
         private bool _isClockActive;
         private string _clockHours;
@@ -54,6 +55,8 @@ namespace ShutdownController.ViewModels
 
         //Commands
         public CommandHandler ClockStartCommand { get; set; }
+
+        public ViewNameEnum ViewName => ViewNameEnum.ClockView;
 
 
 
@@ -131,7 +134,6 @@ namespace ShutdownController.ViewModels
             
             return false;
         }
-
 
     }
 }

@@ -1,14 +1,15 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using ShutdownController.Core;
 using ShutdownController.Utility;
-using LiveCharts;
-using System.Runtime.CompilerServices;
 using ShutdownController.Models;
-using System.Collections.Generic;
+using ShutdownController.Enums;
+using LiveCharts;
 
 namespace ShutdownController.ViewModels
 {
-    public class DownUploadViewModel : ObservableObject
+    public class DownUploadViewModel : ObservableObject, IViewModel
     {
 
         #region Variables
@@ -27,6 +28,10 @@ namespace ShutdownController.ViewModels
         private string[] _networkInterfaces;
 
         #endregion
+
+
+        public ViewNameEnum ViewName => ViewNameEnum.DownUploadView;
+
 
         private ScalaCalculator scalaCalculator;
 
@@ -192,6 +197,8 @@ namespace ShutdownController.ViewModels
         public CommandHandler ObserveCommand { get; set; }
         public CommandHandler DownloadObservingCommand { get; set; }
         public CommandHandler UploadObservingCommand { get; set; }
+
+
 
         #endregion
 
