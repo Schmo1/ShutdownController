@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows;
+using System.Windows.Documents;
 using ShutdownController.Commands;
 using ShutdownController.Core;
 using ShutdownController.Enums;
@@ -17,6 +20,8 @@ namespace ShutdownController.ViewModels
         public DownUploadViewModel UpDownloadVM { get; set; }
         public DiskViewModel DiskVM { get; set; }
         public SettingsViewModel SettingsVM { get; set; }
+        public List<IViewModel> ListOfViewModels { get; private set; } = new List<IViewModel>();
+
 
 
         //Menu Button commands
@@ -82,7 +87,7 @@ namespace ShutdownController.ViewModels
         public MainViewModel()
         {
             CreateViewModels();
-            CurrentView = GetSavedView();
+            CurrentView = ListOfViewModels.Find(x => x.ViewName == Properties.Settings.Default.LastView);
 
             CreateCommands();
 
@@ -121,6 +126,7 @@ namespace ShutdownController.ViewModels
             SettingsViewCommand = new CommandHandler(() => CurrentView = SettingsVM, () => CurrentView != SettingsVM);
 
             CloseCommand = new CommandHandler(() => CloseWindowCommand() , () => true);
+             
         }
 
         private void CreateViewModels()
@@ -147,6 +153,15 @@ namespace ShutdownController.ViewModels
             //Settings
             SettingsVM = new SettingsViewModel();
 
+            ListOfViewModels.Clear();
+
+            ListOfViewModels.Add(TimerVM);
+            ListOfViewModels.Add(ClockVM);
+            ListOfViewModels.Add(UpDownloadVM);
+            ListOfViewModels.Add(DiskVM);
+            ListOfViewModels.Add(SettingsVM);
+
+
         }
 
 
@@ -171,23 +186,7 @@ namespace ShutdownController.ViewModels
             }
         }
 
-        private object GetSavedView()
-        {
-            switch (Properties.Settings.Default.LastView)
-            {
-                case ViewNameEnum.ClockView:
-                    return ClockVM;
-                case ViewNameEnum.DiskView:
-                    return DiskVM;
-                case ViewNameEnum.DownUploadView:
-                    return UpDownloadVM;
-                case ViewNameEnum.SettingsView:
-                    return SettingsVM;
-
-            }
-            return TimerVM;
-        }
-
+ 
 
 
         private void ShutdownIsPressed()
