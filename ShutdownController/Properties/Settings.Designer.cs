@@ -310,17 +310,5 @@ namespace ShutdownController.Properties {
                 this["SavePerformance"] = value;
             }
         }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string Einstellung {
-            get {
-                return ((string)(this["Einstellung"]));
-            }
-            set {
-                this["Einstellung"] = value;
-            }
-        }
     }
 }

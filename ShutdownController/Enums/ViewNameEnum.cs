@@ -10,7 +10,8 @@ namespace ShutdownController.Enums
         ClockView,
         DownUploadView,
         DiskView,
-        SettingsView
+        SettingsView,
+        MainView
 
     }
 }

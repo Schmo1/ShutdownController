@@ -11,8 +11,11 @@ using ShutdownController.Utility;
 
 namespace ShutdownController.ViewModels
 {
-    internal class MainViewModel : ObservableObject
+    internal class MainViewModel : ObservableObject, IViewModel
     {
+
+        public ViewNameEnum ViewName => ViewNameEnum.MainView;
+
 
         //Views
         public TimerViewModel TimerVM { get; set; }
@@ -79,8 +82,6 @@ namespace ShutdownController.ViewModels
         public OptionButtonCommand RestartButtonCommand { get; private set; }
         public OptionButtonCommand SleepButtonCommand { get; private set; }
         public CommandHandler InfoButtonCommand { get; private set; }
-
-
 
 
 
@@ -173,11 +174,9 @@ namespace ShutdownController.ViewModels
 
         private static void SaveViewToSettings(object view)     
         {
-            
             try
             {
-                IViewModel iView = (IViewModel)view;
-                Properties.Settings.Default.LastView = iView.ViewName;
+                Properties.Settings.Default.LastView = ((IViewModel)view).ViewName;
                 Properties.Settings.Default.Save();
             }
             catch (Exception ex)
@@ -185,8 +184,6 @@ namespace ShutdownController.ViewModels
                 MyLogger.Instance().Error("Convert view error: " + ex.Message);
             }
         }
-
- 
 
 
         private void ShutdownIsPressed()

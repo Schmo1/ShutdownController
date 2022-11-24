@@ -139,7 +139,7 @@ namespace ShutdownController.ViewModels
             _timer.Interval = 1000;
             _timer.Elapsed += SupstractSecond;
 
-            ResetDisplayTimer();
+            LoadTimerSettings();
         }
 
 
@@ -203,7 +203,7 @@ namespace ShutdownController.ViewModels
             TimerStarted = false;
             TimerPaused = false;
             _timer.Stop();
-            ResetDisplayTimer();
+            LoadTimerSettings();
         }
         private bool TimeIsZeroAndExecuteAnyway()
         {
@@ -217,7 +217,7 @@ namespace ShutdownController.ViewModels
             return true; //Time is not zero
         }
 
-        private void ResetDisplayTimer()
+        private void LoadTimerSettings()
         {
             TimerSetHours = Properties.Settings.Default.TimerSetHours;
             TimerSetMinutes = Properties.Settings.Default.TimerSetMinutes;
