@@ -8,6 +8,7 @@ using ShutdownController.Commands;
 using ShutdownController.Core;
 using ShutdownController.Enums;
 using ShutdownController.Utility;
+using ShutdownController.Views.ToastNotification;
 
 namespace ShutdownController.ViewModels
 {
@@ -116,8 +117,8 @@ namespace ShutdownController.ViewModels
             ShutdownButtonCommand = new OptionButtonCommand(ShutdownIsPressed);
             RestartButtonCommand = new OptionButtonCommand(RestartIsPressed);
             SleepButtonCommand = new OptionButtonCommand(SleepIsPressed);
-            InfoButtonCommand = new CommandHandler(() => RaiseInfoMessages?.Invoke(this, EventArgs.Empty), () => true);
-
+            //InfoButtonCommand = new CommandHandler(() => RaiseInfoMessages?.Invoke(this, EventArgs.Empty), () => true); 
+            InfoButtonCommand = new CommandHandler(() => ShowInfoMessages(), () => true);
 
             //Create View CommandHandler
             TimerViewCommand = new CommandHandler(() => CurrentView = TimerVM, () => CurrentView != TimerVM);
@@ -163,6 +164,14 @@ namespace ShutdownController.ViewModels
             ListOfViewModels.Add(SettingsVM);
 
 
+        }
+
+        private void ShowInfoMessages()
+        {
+            CustomNotifierCaller.ShowTimerInfo(Application.Current.MainWindow);
+            CustomNotifierCaller.ShowClockInfo(Application.Current.MainWindow);
+            CustomNotifierCaller.ShowDownUploadInfo(Application.Current.MainWindow);
+            CustomNotifierCaller.ShowDiskInfo(Application.Current.MainWindow);
         }
 
 
