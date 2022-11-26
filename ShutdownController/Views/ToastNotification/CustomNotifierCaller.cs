@@ -36,7 +36,7 @@ namespace ShutdownController.Views.ToastNotification
             });
 
 
-            notifier.ShowCustomMessage("Clock", "Choose your exact clock time.",true);
+            notifier.ShowCustomMessage("Clock", "Choose your exact clock time.");
 
         }
 

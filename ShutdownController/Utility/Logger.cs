@@ -1,6 +1,7 @@
 ﻿using Diagn = System.Diagnostics;
 using System.Runtime.CompilerServices;
 using NLog;
+using System;
 
 namespace ShutdownController.Utility
 {
@@ -44,7 +45,7 @@ namespace ShutdownController.Utility
         //Methods to Logg with the caller Name
         public void Info(string message, [CallerMemberName] string nameOfCaller = null, [CallerFilePath] string sourceFilePath = null, [CallerLineNumber] int lineNumberOfCaller = 0, string arg = null)
         {
-
+            
             string logMessage = CreateLogString(message, nameOfCaller, sourceFilePath, lineNumberOfCaller);
             if (arg == null)
                 GetLogger(rulesConfName).Info(logMessage);

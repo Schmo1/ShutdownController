@@ -17,20 +17,14 @@ namespace ShutdownController.Converters
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            int intValue;
             try
             {
-                intValue = System.Convert.ToInt32(value);
+                return System.Convert.ToInt32(value);
             }
             catch (Exception)
             {
-
-                intValue = 0;
+                return 0;
             }
-
-
-            return intValue;
-
         }
     }
 }
