@@ -122,8 +122,11 @@ namespace ShutdownController.Utility
 
             foreach (string networkInterface in NetworkInterfaces)
             {
+                
                 _nicReceivedCounters.Add(new PerformanceCounter("Network Interface", "Bytes Received/sec", networkInterface, _machineName));
                 _nicSentCounters.Add(new PerformanceCounter("Network Interface", "Bytes Sent/sec", networkInterface, _machineName));
+
+                
             }
 
             NetworkinterfaceHasChanged?.Invoke(this, EventArgs.Empty);

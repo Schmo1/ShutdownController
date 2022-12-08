@@ -34,7 +34,7 @@
         <Setter Property="Margin" Value="20 0 20 0"/>
     </Style>
 
-    <Style x:Key="textBlockChart" TargetType="TextBlock">
+    <Style x:Key="textBlockTitel" TargetType="TextBlock">
         <Setter Property="FontSize" Value="18"/>
         <Setter Property="Background" Value="{StaticResource Text.Static.Background}"/>
         <Setter Property="Foreground" Value="{StaticResource Text.Static.Foreground}" />

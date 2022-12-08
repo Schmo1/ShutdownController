@@ -9,11 +9,11 @@ namespace ShutdownController.Core
     {
 
 
-        private static Clock instance = new Clock(); //singleton design pattern. singl instance of this class.
+        private static readonly Clock instance = new Clock(); //singleton design pattern. singl instance of this class.
 
         private DateTime _actualTime;
 
-        private DispatcherTimer _timer = new DispatcherTimer();
+        private readonly DispatcherTimer _timer = new DispatcherTimer();
 
 
         public DateTime ActualTime { get { return _actualTime; } }

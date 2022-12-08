@@ -14,9 +14,6 @@ namespace ShutdownController.ViewModels
 
 
         private string _sysTrayMenuText;
-        private ImageSource _showIcon;
-        private ImageSource _hideIcon;
-
 
         public NotifyIconViewModel()
         {
@@ -43,9 +40,10 @@ namespace ShutdownController.ViewModels
 
                     CanExecuteFunc = () =>
                     {
-                        return (Application.Current.MainWindow == null || !Application.Current.MainWindow.IsVisible);                      
+                        return Application.Current.MainWindow == null || !Application.Current.MainWindow.IsVisible;
                     }
                 };
+
             }
         }
 
@@ -115,13 +113,15 @@ namespace ShutdownController.ViewModels
             {
                 return new DelegateCommand
                 {
-                    CanExecuteFunc = () => true,
 
                     CommandAction = () =>
                     {
                         MyLogger.Instance().Info("DoubleClick on TrayIcon Pressed => Open MainWindow");
                         App.OpenMainWindow();
-                    }
+                    },
+
+
+                    CanExecuteFunc = () => true
                 };
             }
         }
@@ -133,12 +133,5 @@ namespace ShutdownController.ViewModels
             set {_sysTrayMenuText = value; OnPropertyChanged(); }
         }
 
-
-        public ImageSource ShowIcon { get => _showIcon; private set { _showIcon = value; OnPropertyChanged(); } }
-        public ImageSource HideIcon { get => _hideIcon; private set { _hideIcon = value; OnPropertyChanged(); } }
-
-
-
-       
     }
 }

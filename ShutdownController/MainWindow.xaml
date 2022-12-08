@@ -11,7 +11,7 @@
   
         Width="800" Height="550" WindowStartupLocation="CenterScreen"
         MinWidth="800" MaxWidth="800" MaxHeight="550" MinHeight="550" 
-        WindowStyle="None" AllowsTransparency="True"
+        WindowStyle="None" AllowsTransparency="True" ResizeMode="NoResize"
         Background="Transparent"
         Name="window" >
 
@@ -28,7 +28,7 @@
             Padding="20"
             CornerRadius="25"
             MouseDown="Border_MouseDown"
-            MouseLeftButtonDown="Border_MouseLeftButtonDown" Margin="5">
+            Margin="5">
         <Border.Effect>
             <DropShadowEffect ShadowDepth="1"
                               BlurRadius="5"

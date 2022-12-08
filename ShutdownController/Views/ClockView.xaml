@@ -68,6 +68,7 @@
                     <ColumnDefinition Width="20"/>
                 </Grid.ColumnDefinitions>
 
+                
 
                 <TextBlock Text="{Binding Path=ClockHours, FallbackValue=00}" Style="{StaticResource textBlockCounter}" HorizontalAlignment="Right" Grid.Column="1" VerticalAlignment="Center" FontSize="28"/>
                 <TextBlock Text=":" Style="{StaticResource textBlockCounter}" Grid.Column="2" VerticalAlignment="Center" FontSize="28"/>
@@ -88,6 +89,8 @@
                     <ColumnDefinition Width="auto"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
+
+                <TextBlock Text="Clock" Style="{StaticResource textBlockTitel}" Margin=" 15 8 0 0"/>
 
 
                 <TextBox Text="{Binding Path=ClockSetHours,Converter={StaticResource MyStringToIntConverter}, FallbackValue=00}" Style="{StaticResource textBoxCounter}" HorizontalAlignment="Right" VerticalAlignment="Center" 

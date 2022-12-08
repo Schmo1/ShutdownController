@@ -91,6 +91,9 @@
     <Reference Include="ToastNotifications.Messages, Version=2.5.1.0, Culture=neutral, PublicKeyToken=e89d9d7314a7c797, processorArchitecture=MSIL">
       <HintPath>..\packages\ToastNotifications.Messages.2.5.1\lib\net40\ToastNotifications.Messages.dll</HintPath>
     </Reference>
+    <Reference Include="WinAutoStart">
+      <HintPath>..\..\WinAutoStart\WinAutoStart\bin\Debug\WinAutoStart.dll</HintPath>
+    </Reference>
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
@@ -112,7 +115,6 @@
     <Compile Include="Core\Clock.cs" />
     <Compile Include="Enums\ViewNameEnum.cs" />
     <Compile Include="Models\ScalaCalculator.cs" />
-    <Compile Include="Utility\AutoStartController.cs" />
     <Compile Include="Utility\DiskObserver.cs" />
     <Compile Include="Utility\DownUploadController.cs" />
     <Compile Include="Utility\DriverConnection.cs" />

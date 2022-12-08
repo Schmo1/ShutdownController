@@ -30,7 +30,7 @@
         <!-- Cartesian chart -->
         <Border Style="{StaticResource borderBlueTheme}" Margin="25,15,15,0" Grid.ColumnSpan="2">
             <Grid>
-                <TextBlock Text="Overview" Style="{StaticResource textBlockChart}" Margin=" 15 5 0 0"/>
+                <TextBlock Text="Overview" Style="{StaticResource textBlockTitel}" Margin=" 15 5 0 0"/>
                 <local:LegendsViewDisk HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0 15 20 0"  />
 
 

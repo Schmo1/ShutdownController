@@ -37,7 +37,14 @@ namespace ShutdownController.ViewModels
 
         public bool AutoStartActive
         {
-            get { return App.AutoStartController.AutoStartActiv; }
+            get { 
+                bool isActive = App.AutoStartController.AutoStartActiv;
+                if (isActive)
+                    App.AutoStartController.EnableAutoStart(); //Update Path if RegKey exists
+
+                return isActive; 
+                }
+
             set {
                 if (value)
                     App.AutoStartController.EnableAutoStart();

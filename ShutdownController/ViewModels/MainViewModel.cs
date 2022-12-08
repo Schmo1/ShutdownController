@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows;
-using System.Windows.Documents;
 using ShutdownController.Commands;
 using ShutdownController.Core;
 using ShutdownController.Enums;
@@ -168,10 +166,26 @@ namespace ShutdownController.ViewModels
 
         private void ShowInfoMessages()
         {
-            CustomNotifierCaller.ShowTimerInfo(Application.Current.MainWindow);
-            CustomNotifierCaller.ShowClockInfo(Application.Current.MainWindow);
-            CustomNotifierCaller.ShowDownUploadInfo(Application.Current.MainWindow);
-            CustomNotifierCaller.ShowDiskInfo(Application.Current.MainWindow);
+            CustomNotifierCaller.ShowTabInfo(Application.Current.MainWindow);
+
+            switch (((IViewModel)CurrentView).ViewName)
+            {
+                case ViewNameEnum.TimerView:
+                    CustomNotifierCaller.ShowTimerInfo();
+                    break;
+                case ViewNameEnum.ClockView:
+                    CustomNotifierCaller.ShowClockInfo();
+                    break;
+                case ViewNameEnum.DownUploadView:
+                    CustomNotifierCaller.ShowDownUploadInfo();
+                    break;
+                case ViewNameEnum.DiskView:
+                    CustomNotifierCaller.ShowDiskInfo();
+                    break;
+                case ViewNameEnum.SettingsView:
+                    CustomNotifierCaller.ShowSettingsInfo();
+                    break;
+            }
         }
 
 
@@ -180,6 +194,9 @@ namespace ShutdownController.ViewModels
             Properties.Settings.Default.Save();
             base.OnPropertyChanged(name);
         }
+
+
+
 
         private static void SaveViewToSettings(object view)     
         {
@@ -219,7 +236,7 @@ namespace ShutdownController.ViewModels
             if (TimerVM.TimerStarted &! TimerVM.TimerPaused)
             {
                 MyLogger.Instance().Info("HideWindow because Timer is running");
-                Application.Current.MainWindow.Close();
+                System.Windows.Application.Current.MainWindow.Close();
             }
             else if (ClockVM.ClockActive)
             {

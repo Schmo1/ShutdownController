@@ -67,7 +67,7 @@
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
 
-
+                <TextBlock Text="Timer" Style="{StaticResource textBlockTitel}" Margin=" 15 8 0 0"/>
                 <TextBox Text="{Binding Path=TimerSetHours,Converter={StaticResource MyStringToIntConverter}, FallbackValue=00}" 
                          Style="{StaticResource textBoxCounter}" HorizontalAlignment="Right" VerticalAlignment="Center" 
                          PreviewTextInput="PreviewTextInputOnlyNumbers" DataObject.Pasting="TextBoxPasting" IsReadOnly="{Binding Path=TimerStarted}"/>

@@ -5,9 +5,7 @@ using ShutdownController.ViewModels;
 using ShutdownController.NotifyIcon;
 using Hardcodet.Wpf.TaskbarNotification;
 using System.Globalization;
-using System.Configuration;
-using System.Windows.Controls;
-using NLog.LayoutRenderers;
+using WinAutoStart;
 
 namespace ShutdownController
 {
