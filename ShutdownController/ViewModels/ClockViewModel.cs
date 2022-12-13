@@ -23,7 +23,6 @@ namespace ShutdownController.ViewModels
             set { _isClockActive = value; 
                 if (_isClockActive)
                 {
-                    PushMessages.ShowBalloonTip("Clock", "Is active", BalloonIcon.Info);
                     MyLogger.Instance().Info("Clock is set active : " + ClockHours + " : " + ClockMinutes + " : " + ClockSeconds);
                 }
                 base.OnPropertyChanged(); } 

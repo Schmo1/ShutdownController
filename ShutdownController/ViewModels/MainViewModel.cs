@@ -103,7 +103,7 @@ namespace ShutdownController.ViewModels
 
         private void SetSleepRestartShutdownDefault()
         {
-            if (!IsShutdownSelected &! IsRestartSelected &!IsSleepSelected)
+            if (!IsShutdownSelected &! IsRestartSelected &! IsSleepSelected)
             {
                 IsShutdownSelected = true;
             }
@@ -171,21 +171,25 @@ namespace ShutdownController.ViewModels
             switch (((IViewModel)CurrentView).ViewName)
             {
                 case ViewNameEnum.TimerView:
-                    CustomNotifierCaller.ShowTimerInfo();
+                    CustomNotifierCaller.ShowTimerInfo(Application.Current.MainWindow);
                     break;
                 case ViewNameEnum.ClockView:
-                    CustomNotifierCaller.ShowClockInfo();
+                    CustomNotifierCaller.ShowClockInfo(Application.Current.MainWindow);
                     break;
                 case ViewNameEnum.DownUploadView:
-                    CustomNotifierCaller.ShowDownUploadInfo();
+                    CustomNotifierCaller.ShowDownUploadInfo(Application.Current.MainWindow);
                     break;
                 case ViewNameEnum.DiskView:
-                    CustomNotifierCaller.ShowDiskInfo();
+                    CustomNotifierCaller.ShowDiskInfo(Application.Current.MainWindow);
                     break;
                 case ViewNameEnum.SettingsView:
-                    CustomNotifierCaller.ShowSettingsInfo();
+                    CustomNotifierCaller.ShowSettingsInfo(Application.Current.MainWindow);
                     break;
+
+                    
             }
+
+            
         }
 
 

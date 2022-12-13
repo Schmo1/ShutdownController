@@ -4,30 +4,39 @@ using ToastNotifications.Core;
 
 namespace ShutdownController.Views.ToastNotification
 {
+    public enum CustomNotificationArrowPosition
+    {
+        Left,
+        Right,
+        Top,
+        Bottom
+    }
+
+
     public class CustomNotification : NotificationBase, INotifyPropertyChanged
     {
         private CustomDisplayPart _displayPart;
 
         public override NotificationDisplayPart DisplayPart => _displayPart ?? (_displayPart = new CustomDisplayPart(this));
 
-        public CustomNotification(string title, string message, bool mirroring = false, MessageOptions messageOptions = null) : base(message, messageOptions)
+        public CustomNotification(string title, string message, CustomNotificationArrowPosition position = CustomNotificationArrowPosition.Left, MessageOptions messageOptions = null) : base(message, messageOptions)
         {
             Title = title;
             Message = message;
-            Mirroring = mirroring;
+            PositionArrow = position;
         }
 
 
-        private bool _mirroring;
-        public bool Mirroring
+        private CustomNotificationArrowPosition _positionArrow;
+        public CustomNotificationArrowPosition PositionArrow
         {
             get
             {
-                return _mirroring;
+                return _positionArrow;
             }
             set
             {
-                _mirroring = value;
+                _positionArrow = value;
                 OnPropertyChanged();
             }
         }

@@ -147,7 +147,7 @@
         </Setter>
     </Style>
     <ControlTemplate x:Key="ComboBoxTemplate" TargetType="{x:Type ComboBox}">
-        <Grid x:Name="templateRoot" SnapsToDevicePixels="true" Height="34" Width="150">
+        <Grid x:Name="templateRoot" SnapsToDevicePixels="true" Height="34" Width="160">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition MinWidth="{DynamicResource {x:Static SystemParameters.VerticalScrollBarWidthKey}}" Width="0"/>

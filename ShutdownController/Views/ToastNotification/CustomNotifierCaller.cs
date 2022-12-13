@@ -24,32 +24,44 @@ namespace ShutdownController.Views.ToastNotification
 
         }
 
-        internal static void ShowClockInfo()
+        internal static void ShowClockInfo(Window window)
         {
-            throw new NotImplementedException();
+            ShowCustomMessage(150, 0, window, "Clock", "Choose the time, when your action should triggered.", CustomNotificationArrowPosition.Bottom);
         }
 
-        internal static void ShowDiskInfo()
+        internal static void ShowDiskInfo(Window window)
         {
-            throw new NotImplementedException();
+            ShowCustomMessage(575, 295, window, "", "Choose your observable disk's.", CustomNotificationArrowPosition.Right);
+            ShowCustomMessage(575, 370, window, "", "Choose what you want to observe.", CustomNotificationArrowPosition.Right);
+            ShowCustomMessage(140, 400, window, "Threshold", "Choose where the threshold should be.", CustomNotificationArrowPosition.Top);
+            ShowCustomMessage(140, 190, window, "Seconds", "If the current value is under the threshold, the action will be started after x seconds.", CustomNotificationArrowPosition.Bottom);
         }
 
-        internal static void ShowDownUploadInfo()
+        internal static void ShowDownUploadInfo(Window window)
         {
-            throw new NotImplementedException();
+            ShowCustomMessage(575, 295, window, "", "Choose your observable network interface.", CustomNotificationArrowPosition.Right);
+            ShowCustomMessage(575, 370, window, "", "Choose what you want to observe.", CustomNotificationArrowPosition.Right);
+            ShowCustomMessage(140, 400, window, "Threshold", "Choose where the threshold should be.", CustomNotificationArrowPosition.Top);
+            ShowCustomMessage(140, 190, window, "Seconds", "If the current value is under the threshold, the action will be started after x seconds.", CustomNotificationArrowPosition.Bottom);
         }
 
-        internal static void ShowSettingsInfo()
+        internal static void ShowSettingsInfo(Window window)
         {
-            throw new NotImplementedException();
+            ShowCustomMessage(520, 400, window, "", "On closing programm is minimized in your system tray on your taskbar", CustomNotificationArrowPosition.Right);
         }
 
-        internal static void ShowTimerInfo()
+        internal static void ShowTimerInfo(Window window)
         {
-            throw new NotImplementedException();
+            ShowCustomMessage(250, 0, window, "Timer", "After this time you action will be triggered", CustomNotificationArrowPosition.Bottom);
         }
 
-        private static void ShowCustomMessage(double xPos, double yPos, Window window, string titel, string message)
+
+        internal static void ShowInfoButton(Window window)
+        {
+            ShowCustomMessage(475, -28, window, "Info button", "Press me...", CustomNotificationArrowPosition.Bottom);
+        }
+
+        private static void ShowCustomMessage(double xPos, double yPos, Window window, string titel, string message, CustomNotificationArrowPosition arrowPosition = CustomNotificationArrowPosition.Left)
         {
 
             Notifier notifier = new Notifier(cfg =>
@@ -59,7 +71,7 @@ namespace ShutdownController.Views.ToastNotification
             });
 
 
-            notifier.ShowCustomMessage(titel, message);
+            notifier.ShowCustomMessage(titel, message, arrowPosition);
         }
 
 

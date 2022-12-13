@@ -6,6 +6,7 @@ using ShutdownController.NotifyIcon;
 using Hardcodet.Wpf.TaskbarNotification;
 using System.Globalization;
 using WinAutoStart;
+using ShutdownController.Views.ToastNotification;
 
 namespace ShutdownController
 {
@@ -148,6 +149,7 @@ namespace ShutdownController
                     Current.MainWindow = new MainWindow();
                     Current.MainWindow.Show();
                     Current.MainWindow.Closing += OnMainWindowClosing;
+                    
                 }
                 catch (Exception ex)
                 {
@@ -158,6 +160,9 @@ namespace ShutdownController
 
             Current.MainWindow.WindowState = WindowState.Normal;
             Current.MainWindow.Activate();
+
+            if(!ShutdownController.Properties.Settings.Default.NotFirstTimeUI)
+                CustomNotifierCaller.ShowInfoButton(Current.MainWindow);
         }
 
         private static void OnMainWindowClosing(object source, EventArgs args)
@@ -184,6 +189,14 @@ namespace ShutdownController
 
             else if (SDiskViewModel.ObserveActive)
                 PushMessages.ShowBalloonTip("Disk", "Disk observing is still running in the background", BalloonIcon.Info, true);
+
+
+            if (!ShutdownController.Properties.Settings.Default.NotFirstTimeUI)
+            {
+                ShutdownController.Properties.Settings.Default.NotFirstTimeUI = true;
+                ShutdownController.Properties.Settings.Default.Save();
+            }
+
 
         }
 
