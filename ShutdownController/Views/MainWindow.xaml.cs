@@ -1,7 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Input;
 
-namespace ShutdownController
+namespace ShutdownController.Views
 {
     /// <summary>
     /// Interaktionslogik für MainWindow.xaml

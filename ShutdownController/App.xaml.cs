@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Windows;
 using ShutdownController.Utility;
+using ShutdownController.Views;
 using ShutdownController.ViewModels;
 using ShutdownController.NotifyIcon;
+using ShutdownController.Views.ToastNotification;
 using Hardcodet.Wpf.TaskbarNotification;
 using System.Globalization;
 using WinAutoStart;
-using ShutdownController.Views.ToastNotification;
 
 namespace ShutdownController
 {
