@@ -9,7 +9,6 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <!-- Own Themes-->
-                <ResourceDictionary Source="Styles/OptionButtonStyle.xaml"/>
                 <ResourceDictionary Source="Styles/BorderStyles.xaml"/>
                 <ResourceDictionary Source="Styles/TextStyles.xaml"/>
                 <ResourceDictionary Source="Styles/SliderStyle.xaml"/>

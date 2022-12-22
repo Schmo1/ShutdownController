@@ -50,7 +50,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>Images\Icons\Shutdown 32x32.ico</ApplicationIcon>
+    <ApplicationIcon>Resources\Images\Icons\Shutdown 32x32.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="FontAwesome.WPF, Version=4.7.0.37774, Culture=neutral, PublicKeyToken=0758b07a11a4f466, processorArchitecture=MSIL">
@@ -115,6 +115,16 @@
     <Compile Include="Core\Clock.cs" />
     <Compile Include="Enums\ViewNameEnum.cs" />
     <Compile Include="Models\ScalaCalculator.cs" />
+    <Compile Include="Resources\MainWindowStrings\MainWindowStrings.de.Designer.cs">
+      <DependentUpon>MainWindowStrings.de.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Resources\MainWindowStrings\MainWindowStrings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MainWindowStrings.resx</DependentUpon>
+    </Compile>
     <Compile Include="Utility\DiskObserver.cs" />
     <Compile Include="Utility\DownUploadController.cs" />
     <Compile Include="Utility\DriverConnection.cs" />
@@ -192,10 +202,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Styles\OptionButtonStyle.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Styles\SliderStyle.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -267,19 +273,27 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>ConstTemplates.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <Resource Include="Images\Icons\Exit.ico" />
-    <Resource Include="Images\Icons\Hide.ico" />
-    <Resource Include="Images\Icons\HideDisabled.ico" />
-    <Resource Include="Images\Icons\Settings.ico" />
-    <Resource Include="Images\Icons\Show.ico" />
-    <Resource Include="Images\Icons\ShowDisabled.ico" />
-    <Resource Include="Images\Icons\ShutdownManager.ico" />
-    <Resource Include="Images\Icons\Shutdown 124x124.ico" />
-    <Resource Include="Images\Download.png" />
-    <Resource Include="Images\Upload.png" />
-    <Resource Include="Images\read.png" />
-    <Resource Include="Images\write.png" />
-    <Resource Include="Images\settingsNotification.png" />
+    <EmbeddedResource Include="Resources\MainWindowStrings\MainWindowStrings.de.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>MainWindowStrings.de.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MainWindowStrings\MainWindowStrings.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>MainWindowStrings.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <Resource Include="Resources\Images\Icons\Exit.ico" />
+    <Resource Include="Resources\Images\Icons\Hide.ico" />
+    <Resource Include="Resources\Images\Icons\HideDisabled.ico" />
+    <Resource Include="Resources\Images\Icons\Settings.ico" />
+    <Resource Include="Resources\Images\Icons\Show.ico" />
+    <Resource Include="Resources\Images\Icons\ShowDisabled.ico" />
+    <Resource Include="Resources\Images\Icons\ShutdownManager.ico" />
+    <Resource Include="Resources\Images\Icons\Shutdown 124x124.ico" />
+    <Resource Include="Resources\Images\Download.png" />
+    <Resource Include="Resources\Images\Upload.png" />
+    <Resource Include="Resources\Images\read.png" />
+    <Resource Include="Resources\Images\write.png" />
+    <Resource Include="Resources\Images\settingsNotification.png" />
     <Content Include="NLog.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -308,38 +322,38 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\Hide.png" />
-    <Resource Include="Images\HideDisabled.png" />
-    <Resource Include="Images\Pause.png" />
-    <Resource Include="Images\Play.png" />
-    <Resource Include="Images\show.png" />
-    <Resource Include="Images\showDisabled.png" />
-    <Resource Include="Images\Stop.png" />
-    <Resource Include="Images\timer.png" />
+    <Resource Include="Resources\Images\Hide.png" />
+    <Resource Include="Resources\Images\HideDisabled.png" />
+    <Resource Include="Resources\Images\Pause.png" />
+    <Resource Include="Resources\Images\Play.png" />
+    <Resource Include="Resources\Images\show.png" />
+    <Resource Include="Resources\Images\showDisabled.png" />
+    <Resource Include="Resources\Images\Stop.png" />
+    <Resource Include="Resources\Images\timer.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\hosting.png" />
-    <Resource Include="Images\upside-down.png" />
-    <Resource Include="Images\wall-clock.png" />
+    <Resource Include="Resources\Images\hosting.png" />
+    <Resource Include="Resources\Images\upside-down.png" />
+    <Resource Include="Resources\Images\wall-clock.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\close.png" />
+    <Resource Include="Resources\Images\close.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\settings.png" />
+    <Resource Include="Resources\Images\settings.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\moon.png" />
-    <Resource Include="Images\on-off-button.png" />
-    <Resource Include="Images\restart.png" />
+    <Resource Include="Resources\Images\moon.png" />
+    <Resource Include="Resources\Images\on-off-button.png" />
+    <Resource Include="Resources\Images\restart.png" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <Resource Include="Images\Icons\Shutdown 256x256.ico" />
-    <Resource Include="Images\Icons\Shutdown 32x32.ico" />
+    <Resource Include="Resources\Images\Icons\Shutdown 256x256.ico" />
+    <Resource Include="Resources\Images\Icons\Shutdown 32x32.ico" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\Shutdown.png" />
+    <Resource Include="Resources\Images\Shutdown.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -4,13 +4,14 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ShutdownController.Views"
+        xmlns:strings="clr-namespace:ShutdownController.Resources.MainWindowStrings"
         xmlns:viewModels="clr-namespace:ShutdownController.ViewModels"
         xmlns:converters="clr-namespace:ShutdownController.Converters"
         xmlns:fa="http://schemas.fontawesome.io/icons/"
         mc:Ignorable="d" 
   
-        Width="800" Height="550" WindowStartupLocation="CenterScreen"
-        MinWidth="800" MaxWidth="800" MaxHeight="550" MinHeight="550" 
+        Width="830" Height="550" WindowStartupLocation="CenterScreen"
+        MinWidth="830" MaxWidth="800" MaxHeight="550" MinHeight="550" 
         WindowStyle="None" AllowsTransparency="True" ResizeMode="NoResize"
         Background="Transparent"
         Name="window" >
@@ -41,7 +42,7 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="83"/>
                 <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="150"/>
+                <ColumnDefinition Width="180"/>
             </Grid.ColumnDefinitions>
 
             
@@ -54,27 +55,27 @@
                     <Button Style="{StaticResource optionButton}" Margin="15,25,15,20" VerticalAlignment="Top" IsEnabled="{Binding IsShutdownSelected, Converter={StaticResource MyBoolInvertConverter}}"
                             Command="{Binding ShutdownButtonCommand}">
                         <StackPanel>
-                            <Image Source="/Images/on-off-button.png"
-                                   Width="23" />
-                            <TextBlock Text="Shutdown" Margin="0,10,0,0" Style="{StaticResource optionButtonText}"/>
+                            <Image Source="/Resources/Images/on-off-button.png"
+                                   Width="28" />
+                            <TextBlock Text="{x:Static strings:MainWindowStrings.shutdown}" Margin="0,10,0,0" Style="{StaticResource optionButtonText}"/>
                         </StackPanel>
 
                     </Button>
                     <Button Style="{StaticResource optionButton}" Margin="15,25,15,20" VerticalAlignment="Center" IsEnabled="{Binding IsRestartSelected, Converter={StaticResource MyBoolInvertConverter}}"
                              Command="{Binding RestartButtonCommand}">
                         <StackPanel>
-                            <Image Source="/Images/restart.png"
-                                   Width="23" />
-                            <TextBlock Text="Restart" Margin="0,10,0,0" Style="{StaticResource optionButtonText}"/>
+                            <Image Source="/Resources/Images/restart.png"
+                                   Width="28" />
+                            <TextBlock Text="{x:Static strings:MainWindowStrings.restart}" Margin="0,10,0,0" Style="{StaticResource optionButtonText}"/>
                         </StackPanel>
 
                     </Button>
                     <Button Style="{StaticResource optionButton}" Margin="15,25,15,20" VerticalAlignment="Bottom" IsEnabled="{Binding IsSleepSelected, Converter={StaticResource MyBoolInvertConverter}}"
                              Command="{Binding SleepButtonCommand}">
                         <StackPanel>
-                            <Image Source="/Images/moon.png"
-                                   Width="23" />
-                            <TextBlock Text="Sleep" Margin="0,10,0,0" Style="{StaticResource optionButtonText}"/>
+                            <Image Source="/Resources/Images/moon.png"
+                                   Width="28" />
+                            <TextBlock Text="{x:Static strings:MainWindowStrings.sleep}" Margin="0,10,0,0" Style="{StaticResource optionButtonText}"/>
                         </StackPanel>
 
                     </Button>
@@ -208,34 +209,52 @@
 
                 <Grid>
                     <StackPanel>
-                        <Button Style="{StaticResource menuButton}" Margin="15,25,15,20" Command="{Binding TimerViewCommand}" ToolTip="Timer">
-                            <Image Source="/Images/timer.png"
+                        <Button Style="{StaticResource menuButton}" Margin="15,25,15,20" Command="{Binding TimerViewCommand}" >
+                            <Image Source="/Resources/Images/timer.png"
                                    Width="23" />
+                            <Button.ToolTip>
+                                <ToolTip Content="{x:Static strings:MainWindowStrings.ttTimer}" />
+                            </Button.ToolTip>
                         </Button>
-                        <Button Style="{StaticResource menuButton}"  Command="{Binding ClockViewCommand}" ToolTip="Clock">
-                            <Image Source="/Images/wall-clock.png"
+                        <Button Style="{StaticResource menuButton}"  Command="{Binding ClockViewCommand}">
+                            <Image Source="/Resources/Images/wall-clock.png"
                                    Width="23" />
+                            <Button.ToolTip>
+                                <ToolTip Content="{x:Static strings:MainWindowStrings.ttClock}" />
+                            </Button.ToolTip>
                         </Button>
-                        <Button Style="{StaticResource menuButton}"  Command="{Binding DownUploadViewCommand}" ToolTip="Down- upload observing" >
-                            <Image Source="/Images/upside-down.png"
+                        <Button Style="{StaticResource menuButton}"  Command="{Binding DownUploadViewCommand}" >
+                            <Image Source="/Resources/Images/upside-down.png"
                                    Width="23" />
+                            <Button.ToolTip>
+                                <ToolTip Content="{x:Static strings:MainWindowStrings.ttDownUp}" />
+                            </Button.ToolTip>
                         </Button>
-                        <Button Style="{StaticResource menuButton}" Command="{Binding DiskViewCommand}" ToolTip="Read write observing">
-                            <Image Source="/Images/hosting.png"
+                        <Button Style="{StaticResource menuButton}" Command="{Binding DiskViewCommand}">
+                            <Image Source="/Resources/Images/hosting.png"
                                    Width="23" />
+                            <Button.ToolTip>
+                                <ToolTip Content="{x:Static strings:MainWindowStrings.ttReadWrite}" />
+                            </Button.ToolTip>
                         </Button>
 
                     </StackPanel>
 
                     <StackPanel VerticalAlignment="Bottom">
-                        <Button Style="{StaticResource menuButton}" Command="{Binding SettingsViewCommand}" ToolTip="Settings">
-                            <Image Source="/Images/settings.png"
+                        <Button Style="{StaticResource menuButton}" Command="{Binding SettingsViewCommand}">
+                            <Image Source="/Resources/Images/settings.png"
                                    Width="28" />
+                            <Button.ToolTip>
+                                <ToolTip Content="{x:Static strings:MainWindowStrings.ttSettings}" />
+                            </Button.ToolTip>
                         </Button>
 
-                        <Button Style="{StaticResource menuButton}" VerticalAlignment="Bottom" Command="{Binding CloseCommand}" ToolTip="Close">
-                            <Image Source="/Images/close.png"
+                        <Button Style="{StaticResource menuButton}" VerticalAlignment="Bottom" Command="{Binding CloseCommand}">
+                            <Image Source="/Resources/Images/close.png"
                                    Width="28" />
+                            <Button.ToolTip>
+                                <ToolTip Content="{x:Static strings:MainWindowStrings.ttClose}" />
+                            </Button.ToolTip>
                         </Button>
                     </StackPanel>
 

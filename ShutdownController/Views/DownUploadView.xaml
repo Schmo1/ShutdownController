@@ -206,7 +206,7 @@
 
 
                     <StackPanel>
-                        <Image Source="/Images/Download.png"
+                        <Image Source="/Resources/Images/Download.png"
                                     Width="23" Margin="0,5,0,0"/>
                         <TextBlock Text="Download" Margin="0,5,0,0" Style="{StaticResource optionButtonText}" FontSize="10" HorizontalAlignment="Center"/>
                     </StackPanel>
@@ -218,7 +218,7 @@
                         Command="{Binding UploadObservingCommand}">
 
                     <StackPanel>
-                        <Image Source="/Images/Upload.png"
+                        <Image Source="/Resources/Images/Upload.png"
                                     Width="23" Margin="0,5,0,0"/>
                         <TextBlock Text="Upload" Margin="0,5,0,0" Style="{StaticResource optionButtonText}" FontSize="10" HorizontalAlignment="Center"/>
                     </StackPanel>

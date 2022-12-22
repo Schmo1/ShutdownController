@@ -32,7 +32,6 @@ namespace ShutdownController.ViewModels
         public CommandHandler DownUploadViewCommand { get; set; }
         public CommandHandler DiskViewCommand { get; set; }
         public CommandHandler SettingsViewCommand { get; set; }
-        public CommandHandler SettingsCommand { get; set; }
         public CommandHandler CloseCommand { get; set; }
 
 
