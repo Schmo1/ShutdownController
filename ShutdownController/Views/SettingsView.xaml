@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ShutdownController.Views"
+             xmlns:strings="clr-namespace:ShutdownController.Resources.SettingsStrings"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="500">
     <Grid>
@@ -23,15 +24,15 @@
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
                 <Border Style="{StaticResource borderBlueTheme}" Width="auto" HorizontalAlignment="Left" >
-                    <TextBlock Style="{StaticResource textBlockSettings}" Text="On startup"/>
+                    <TextBlock Style="{StaticResource textBlockSettings}" Text="{x:Static strings:SettingsStrings.onStartUp}"/>
                 </Border>
                 <StackPanel Orientation="Horizontal" Grid.Row="1">
                     <local:ToggleButton Height="55" Width="70" Grid.Row="1" Margin="25 0 0 0" Toggled="{Binding AutoStartActive}"/>
-                    <TextBlock Text="Autostart active" VerticalAlignment="Center" Style="{StaticResource textBlockSettings}"/>
+                    <TextBlock Text="{x:Static strings:SettingsStrings.autoStartActive}" VerticalAlignment="Center" Style="{StaticResource textBlockSettings}"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Grid.Row="2">
                     <local:ToggleButton Height="55" Width="70" Grid.Row="1" Margin="25 0 0 0"  Toggled="{Binding StartMinimized}"/>
-                    <TextBlock Text="Start minimized" VerticalAlignment="Center" Style="{StaticResource textBlockSettings}"/>
+                    <TextBlock Text="{x:Static strings:SettingsStrings.startMinimized}" VerticalAlignment="Center" Style="{StaticResource textBlockSettings}"/>
                 </StackPanel>
             </Grid>
         </Border>
@@ -45,19 +46,20 @@
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
                 <Border Style="{StaticResource borderBlueTheme}" Width="auto" HorizontalAlignment="Left" >
-                    <TextBlock Style="{StaticResource textBlockSettings}" Text="Application settings"/>
+                    <TextBlock Style="{StaticResource textBlockSettings}" Text="{x:Static strings:SettingsStrings.applicationSettings}"/>
                 </Border>
                 <StackPanel Orientation="Horizontal" Grid.Row="1">
                     <local:ToggleButton Height="55" Width="70" Grid.Row="1" Margin="25 0 0 0"  Toggled="{Binding DisablePushMessages}"/>
-                    <TextBlock Text="Disable push-messages" VerticalAlignment="Center" Style="{StaticResource textBlockSettings}"/>
+                    <TextBlock Text="{x:Static strings:SettingsStrings.disablePushMessages}" VerticalAlignment="Center" Style="{StaticResource textBlockSettings}"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Grid.Row="2">
                     <local:ToggleButton Height="55" Width="70" Grid.Row="1" Margin="25 0 0 0"  Toggled="{Binding OnClosingRunInBackground}"/>
-                    <TextBlock Text="On closing still run in background" VerticalAlignment="Center" Style="{StaticResource textBlockSettings}"/>
+                    <TextBlock Text="{x:Static strings:SettingsStrings.onClosing}" VerticalAlignment="Center" Style="{StaticResource textBlockSettings}"
+                               Height="auto" TextWrapping="Wrap" MaxWidth="330" />
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Grid.Row="3">
                     <local:ToggleButton Height="55" Width="70" Grid.Row="1" Margin="25 0 0 0"  Toggled="{Binding SavePerformance}"/>
-                    <TextBlock Text="Save performance" VerticalAlignment="Center" Style="{StaticResource textBlockSettings}"/>
+                    <TextBlock Text="{x:Static strings:SettingsStrings.savePerformance}" VerticalAlignment="Center" Style="{StaticResource textBlockSettings}"/>
                 </StackPanel>
             </Grid>
         </Border>

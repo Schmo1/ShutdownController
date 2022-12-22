@@ -125,6 +125,16 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>MainWindowStrings.resx</DependentUpon>
     </Compile>
+    <Compile Include="Resources\SettingsStrings\SettingsStrings.de.Designer.cs">
+      <DependentUpon>SettingsStrings.de.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Resources\SettingsStrings\SettingsStrings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SettingsStrings.resx</DependentUpon>
+    </Compile>
     <Compile Include="Utility\DiskObserver.cs" />
     <Compile Include="Utility\DownUploadController.cs" />
     <Compile Include="Utility\DriverConnection.cs" />
@@ -280,6 +290,14 @@
     <EmbeddedResource Include="Resources\MainWindowStrings\MainWindowStrings.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>MainWindowStrings.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\SettingsStrings\SettingsStrings.de.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>SettingsStrings.de.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\SettingsStrings\SettingsStrings.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>SettingsStrings.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <Resource Include="Resources\Images\Icons\Exit.ico" />
     <Resource Include="Resources\Images\Icons\Hide.ico" />

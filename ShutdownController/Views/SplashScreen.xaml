@@ -16,10 +16,11 @@
         Height="350">
     <StackPanel>
         <Border CornerRadius="8" Margin="15" Width="200" Height="200">
-        
-            <Image Source="/images/Shutdown.png" 
+            
+            <Image Source="/Resources/Images/Shutdown.png" 
                             Stretch="Fill" />
-        
+
+
             <Border.Effect>
                 <DropShadowEffect Color="#000000" 
                                   BlurRadius="10" 
