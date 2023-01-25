@@ -6,24 +6,29 @@ ShutdownController is a little tool to manage the time when the PC should shut d
 
 ### General
 - You can choose between Sleep Mode, Restart or ShutdownManager
-- The tool generates a trayicon and you will get some balloon tips
-- If you want, you can add the tool to the startup, by pressing the button in the taskbar.
-- When its added to startup and you close the MainWindow, it still running in the taskbar, when you set the option.
+- The tool generates a trayicon and you will get some balloon tips, if you want to see them
+- You can add the tool to autostart by activating it in the settings
+- There is also an option to allow running the application in the background
 
 ### Timer
 
 - The timer can be set precisely
-- You can press some button to stop, pause or to play the timer
+- You can press buttons to stop, pause or to play the timer
 - The time and speed which controlls the shutdown time can be adjusted.
 
 ### Clock
 
+- Set your event to an exact time
 
 ### Download/Upload observing
-- You can also shut down your PC by observing your Down/Upload speed. 
+
+- You can also shut down your PC by observing your download/upload speed. 
+- If the value is reaching the threshold for the selected time the selected event is goint to be triggered
+
 
 ### Disk Read/Write observing
 
+- The same functions as the download/upload monitoring, only with the hard disk read and write speed
 
 ## Screenshots
 
