@@ -100,6 +100,7 @@ namespace ShutdownController.ViewModels
                 }
                 else
                 {
+                    MyLogger.Instance().Info("Observe Disk is inactive");
                     IsValueUnderObservingSpeed = false;
                     ClearObservationValues();
                 }

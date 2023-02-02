@@ -115,6 +115,36 @@
     <Compile Include="Core\Clock.cs" />
     <Compile Include="Enums\ViewNameEnum.cs" />
     <Compile Include="Models\ScalaCalculator.cs" />
+    <Compile Include="Resources\ClockStrings\ClockStrings.de.Designer.cs">
+      <DependentUpon>ClockStrings.de.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Resources\ClockStrings\ClockStrings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ClockStrings.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\DiskStrings\DiskStrings.de.Designer.cs">
+      <DependentUpon>DiskStrings.de.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Resources\DiskStrings\DiskStrings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DiskStrings.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\DownUploadStrings\DownUploadStrings.de.Designer.cs">
+      <DependentUpon>DownUploadStrings.de.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Resources\DownUploadStrings\DownUploadStrings.Designer.cs">
+      <DependentUpon>DownUploadStrings.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="Resources\MainWindowStrings\MainWindowStrings.de.Designer.cs">
       <DependentUpon>MainWindowStrings.de.resx</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -134,6 +164,16 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>SettingsStrings.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\TimerStrings\TimerStrings.de.Designer.cs">
+      <DependentUpon>TimerStrings.de.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Resources\TimerStrings\TimerStrings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TimerStrings.resx</DependentUpon>
     </Compile>
     <Compile Include="Utility\DiskObserver.cs" />
     <Compile Include="Utility\DownUploadController.cs" />
@@ -283,6 +323,30 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>ConstTemplates.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Resources\ClockStrings\ClockStrings.de.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>ClockStrings.de.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\ClockStrings\ClockStrings.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>ClockStrings.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DiskStrings\DiskStrings.de.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>DiskStrings.de.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DiskStrings\DiskStrings.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>DiskStrings.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DownUploadStrings\DownUploadStrings.de.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>DownUploadStrings.de.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DownUploadStrings\DownUploadStrings.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>DownUploadStrings.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Resources\MainWindowStrings\MainWindowStrings.de.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>MainWindowStrings.de.Designer.cs</LastGenOutput>
@@ -298,6 +362,14 @@
     <EmbeddedResource Include="Resources\SettingsStrings\SettingsStrings.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>SettingsStrings.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\TimerStrings\TimerStrings.de.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>TimerStrings.de.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\TimerStrings\TimerStrings.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>TimerStrings.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <Resource Include="Resources\Images\Icons\Exit.ico" />
     <Resource Include="Resources\Images\Icons\Hide.ico" />

@@ -2,6 +2,7 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:strings="clr-namespace:ShutdownController.Resources.ClockStrings"             
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ShutdownController.Views"
              xmlns:converters="clr-namespace:ShutdownController.Converters"
@@ -38,19 +39,19 @@
                     <Slider Style="{DynamicResource SliderStyleModern}" Orientation="Vertical" Height="120" HorizontalAlignment="Center" Margin="0,70,0,0" 
                             x:Name="HourSlider" IsSelectionRangeEnabled="True" SelectionEnd="{Binding ElementName=HourSlider, Path=Value}" IsMoveToPointEnabled="True"
                             Value="{Binding ClockSetHours}" Maximum="23"/>
-                    <TextBlock Text="hrs" HorizontalAlignment="Center" Style="{StaticResource textBlockSlider}"/>
+                    <TextBlock Text="{x:Static strings:ClockStrings.abkHours}" HorizontalAlignment="Center" Style="{StaticResource textBlockSlider}"/>
                 </StackPanel>
                 <StackPanel Grid.Column="1">
                     <Slider Style="{DynamicResource SliderStyleModern}" Orientation="Vertical" Height="120" HorizontalAlignment="Center" Margin="0,70,0,0" 
                             x:Name="MinuteSlider" IsSelectionRangeEnabled="True" SelectionEnd="{Binding ElementName=MinuteSlider, Path=Value}" IsMoveToPointEnabled="True"
                             Value="{Binding ClockSetMinutes}" Maximum="59"/>
-                    <TextBlock Text="min" HorizontalAlignment="Center" Style="{StaticResource textBlockSlider}"/>
+                    <TextBlock Text="{x:Static strings:ClockStrings.abkMinutes}" HorizontalAlignment="Center" Style="{StaticResource textBlockSlider}"/>
                 </StackPanel>
                 <StackPanel Grid.Column="2">
                     <Slider Style="{DynamicResource SliderStyleModern}" Orientation="Vertical" Height="120" HorizontalAlignment="Center" Margin="0,70,0,0" 
                             x:Name="SecondSlider" IsSelectionRangeEnabled="True" SelectionEnd="{Binding ElementName=SecondSlider, Path=Value}" IsMoveToPointEnabled="True"
                             Value="{Binding ClockSetSeconds}" Maximum="59" />
-                    <TextBlock Text="sec" HorizontalAlignment="Center" Style="{StaticResource textBlockSlider}"/>
+                    <TextBlock Text="{x:Static strings:ClockStrings.abkSeconds}" HorizontalAlignment="Center" Style="{StaticResource textBlockSlider}"/>
                 </StackPanel>
             </Grid>
         </Border>
@@ -90,7 +91,7 @@
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
 
-                <TextBlock Text="Clock" Style="{StaticResource textBlockTitel}" Margin=" 15 8 0 0"/>
+                <TextBlock Text="{x:Static strings:ClockStrings.clock}" Style="{StaticResource textBlockTitel}" Margin=" 15 8 0 0"/>
 
 
                 <TextBox Text="{Binding Path=ClockSetHours,Converter={StaticResource MyStringToIntConverter}, FallbackValue=00}" Style="{StaticResource textBoxCounter}" HorizontalAlignment="Right" VerticalAlignment="Center" 
@@ -115,7 +116,7 @@
             <Button Width="250" Command="{Binding ClockStartCommand}">
                 <Button.Style>
                     <Style TargetType="Button">
-                        <Setter Property="Content" Value="Start"/>
+                        <Setter Property="Content" Value="{x:Static strings:ClockStrings.start}"/>
                         <Setter Property="Background">
                             <Setter.Value>
                                 <LinearGradientBrush StartPoint="0.3,0" EndPoint="0.6,1">
@@ -168,7 +169,7 @@
                                         </LinearGradientBrush>
                                     </Setter.Value>
                                 </Setter>
-                                <Setter Property="Content" Value="Stop"/>
+                                <Setter Property="Content" Value="{x:Static strings:ClockStrings.stop}"/>
                             </DataTrigger>
                             <MultiDataTrigger>
                                 <MultiDataTrigger.Conditions>

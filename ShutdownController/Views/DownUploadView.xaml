@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:strings="clr-namespace:ShutdownController.Resources.DownUploadStrings"
              xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
              xmlns:local="clr-namespace:ShutdownController.Views"         
              xmlns:converters="clr-namespace:ShutdownController.Converters"
@@ -30,7 +31,7 @@
         <!-- Cartesian chart -->
         <Border Style="{StaticResource borderBlueTheme}" Margin="25,15,15,0" Grid.ColumnSpan="2">
             <Grid>
-                <TextBlock Text="Overview" Style="{StaticResource textBlockTitel}" Margin=" 15 5 0 0"/>
+                <TextBlock Text="{x:Static strings:DownUploadStrings.overview}" Style="{StaticResource textBlockTitel}" Margin=" 15 5 0 0"/>
                 <local:LegendsViewDownUp HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0 15 20 0" />
                 
                 
@@ -208,7 +209,7 @@
                     <StackPanel>
                         <Image Source="/Resources/Images/Download.png"
                                     Width="23" Margin="0,5,0,0"/>
-                        <TextBlock Text="Download" Margin="0,5,0,0" Style="{StaticResource optionButtonText}" FontSize="10" HorizontalAlignment="Center"/>
+                        <TextBlock Text="{x:Static strings:DownUploadStrings.download}" Margin="0,5,0,0" Style="{StaticResource optionButtonText}" FontSize="10" HorizontalAlignment="Center"/>
                     </StackPanel>
 
                 </Button>
@@ -220,7 +221,7 @@
                     <StackPanel>
                         <Image Source="/Resources/Images/Upload.png"
                                     Width="23" Margin="0,5,0,0"/>
-                        <TextBlock Text="Upload" Margin="0,5,0,0" Style="{StaticResource optionButtonText}" FontSize="10" HorizontalAlignment="Center"/>
+                        <TextBlock Text="{x:Static strings:DownUploadStrings.upload}" Margin="0,5,0,0" Style="{StaticResource optionButtonText}" FontSize="10" HorizontalAlignment="Center"/>
                     </StackPanel>
 
                 </Button>
@@ -241,13 +242,13 @@
                 </Grid.RowDefinitions>
 
                 <!--Seconds-->
-                <TextBlock Text="Seconds:" Style="{StaticResource optionButtonText}" VerticalAlignment="Center" Margin="15 10 0 0"/>
+                <TextBlock Text="{x:Static strings:DownUploadStrings.seconds}" Style="{StaticResource optionButtonText}" VerticalAlignment="Center" Margin="15 10 0 0"/>
                 <TextBox Grid.Column="1" Style="{StaticResource inputTextbox}" Margin="7 10 7 0" PreviewTextInput="PreviewTextInputOnlyNumbers" DataObject.Pasting="TextBoxPasting" 
                          Name="SecondsTxtBox" Text="{Binding Seconds}" MaxLength="4"
                          IsEnabled="{Binding Path = ObserveActive, Converter={StaticResource MyBoolInvertConverter}}"/>
                 
                 <!--Observing Value-->
-                <TextBlock Text="Threshold speed (MB/s):" Style="{StaticResource optionButtonText}" Grid.Row="1" VerticalAlignment="Center" Margin="15 0 0 10"/>
+                <TextBlock Text="{x:Static strings:DownUploadStrings.thresholdSpeed}" Style="{StaticResource optionButtonText}" Grid.Row="1" VerticalAlignment="Center" Margin="15 0 0 10" TextWrapping="Wrap" Width="150"/>
                 <TextBox Grid.Column="1"  Grid.Row="1" Style="{StaticResource inputTextbox}" Margin="7 0 7 10" PreviewTextInput="PreviewTextInputOnlyNumbersAndPoint" DataObject.Pasting="TextBoxPastingDouble" 
                          Name="SpeedTxtBox" Text="{Binding Path = ThresholdSpeed, Converter={StaticResource MyStringToDoubleConverter}}" MaxLength="4"
                          IsEnabled="{Binding Path = ObserveActive, Converter={StaticResource MyBoolInvertConverter}}"/>
@@ -264,7 +265,7 @@
             <Button Margin="0 0 0 20" Width="250" Command="{Binding ObserveCommand}" IsEnabled="{Binding InternetConnectionExist}">
                 <Button.Style>
                     <Style TargetType="Button">
-                        <Setter Property="Content" Value="Start"/>
+                        <Setter Property="Content" Value="{x:Static strings:DownUploadStrings.start}"/>
                         <Setter Property="Background">
                             <Setter.Value>
                                 <LinearGradientBrush StartPoint="0.3,0" EndPoint="0.6,1">
@@ -302,7 +303,7 @@
                                             <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Disabled.Background}"/>
                                             <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Disabled.Border}"/>
                                             <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="Red"/>
-                                            <Setter Property="Content" Value="No internet connection"/>
+                                            <Setter Property="Content" Value="{x:Static strings:DownUploadStrings.noInternetConnection}"/>
                                             <Setter Property="FontSize" Value="20" />
                                         </Trigger>
                                     </ControlTemplate.Triggers>
@@ -319,7 +320,7 @@
                                         </LinearGradientBrush>
                                     </Setter.Value>
                                 </Setter>
-                                <Setter Property="Content" Value="Stop"/>
+                                <Setter Property="Content" Value="{x:Static strings:DownUploadStrings.stop}"/>
                             </DataTrigger>
                             <MultiDataTrigger>
                                 <MultiDataTrigger.Conditions>

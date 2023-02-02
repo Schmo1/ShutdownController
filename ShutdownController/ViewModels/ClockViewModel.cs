@@ -25,6 +25,10 @@ namespace ShutdownController.ViewModels
                 {
                     MyLogger.Instance().Info("Clock is set active : " + ClockHours + " : " + ClockMinutes + " : " + ClockSeconds);
                 }
+                else
+                {
+                    MyLogger.Instance().Info("Clock is inactive");
+                }
                 base.OnPropertyChanged(); } 
         }
 
