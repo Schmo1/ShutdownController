@@ -8,6 +8,7 @@ using ShutdownController.Views.ToastNotification;
 using Hardcodet.Wpf.TaskbarNotification;
 using System.Globalization;
 using WinAutoStart;
+using ShutdownController.Core;
 
 namespace ShutdownController
 {
@@ -31,7 +32,6 @@ namespace ShutdownController
 
 
 
-
         private delegate void OpenMainWindowDel();
 
         public App()
@@ -41,13 +41,11 @@ namespace ShutdownController
 
             MyLogger.Instance().Info("App is starting...");
 
-            Console.WriteLine(CultureInfo.CurrentUICulture.Name);
+            
             AutoStartController = new AutoStartController(" " + ShutdownController.Properties.ConstTemplates.ArgWithoutUI);
             multipleStarts = new PreventMultipleStarts();
             multipleStarts.OnOpenRequest += OpenGUIRequest; //Timer is over event
-
         }
-
 
 
         protected override void OnStartup(StartupEventArgs e)
@@ -74,11 +72,11 @@ namespace ShutdownController
             splash.Close();
         }
 
-
         protected override void OnExit(ExitEventArgs e)
         {
             TaskbarIcon?.Dispose();
             multipleStarts?.StopListening();
+            AccurateTimerTick.DisposeAll();
             MyLogger.Instance().Info("App is closing...");
             base.OnExit(e);
         }

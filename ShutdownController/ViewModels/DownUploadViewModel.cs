@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using ShutdownController.Core;
 using ShutdownController.Utility;
-using ShutdownController.Models;
 using ShutdownController.Enums;
 using LiveCharts;
 
@@ -21,7 +20,7 @@ namespace ShutdownController.ViewModels
         private ChartValues<double> observedDownloadValues = new ChartValues<double>();
         private ChartValues<double> observedUploadValues = new ChartValues<double>();
         private const int _maxValuesInChart = 30;
-        private const int _maxSecondsToObserve = 60;
+        private const int _maxSecondsToObserve = 240;
         private bool _isObserveActive;
         private bool _isValueUnderObservingSpeed;
         private bool _internetConnectionExist;

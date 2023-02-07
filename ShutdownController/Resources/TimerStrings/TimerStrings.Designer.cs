@@ -97,6 +97,15 @@ namespace ShutdownController.Resources.TimerStrings {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Select timespan ähnelt.
+        /// </summary>
+        public static string selectTimeSpan {
+            get {
+                return ResourceManager.GetString("selectTimeSpan", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Start ähnelt.
         /// </summary>
         public static string start {
@@ -120,6 +129,15 @@ namespace ShutdownController.Resources.TimerStrings {
         public static string timer {
             get {
                 return ResourceManager.GetString("timer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die After this time you action will be triggered ähnelt.
+        /// </summary>
+        public static string timerInfo {
+            get {
+                return ResourceManager.GetString("timerInfo", resourceCulture);
             }
         }
     }

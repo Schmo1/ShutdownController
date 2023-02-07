@@ -12,7 +12,7 @@
   
         Width="830" Height="550" WindowStartupLocation="CenterScreen"
         MinWidth="830" MaxWidth="800" MaxHeight="550" MinHeight="550" 
-        WindowStyle="None" AllowsTransparency="True" ResizeMode="NoResize"
+        WindowStyle="None" AllowsTransparency="True" ResizeMode="CanMinimize"
         Background="Transparent"
         Name="window" >
 

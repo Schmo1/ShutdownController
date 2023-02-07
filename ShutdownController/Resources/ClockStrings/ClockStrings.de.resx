@@ -135,4 +135,10 @@
   <data name="stop" xml:space="preserve">
     <value>Stop</value>
   </data>
+  <data name="ToastNotification" xml:space="preserve">
+    <value>Wähle deine Zeit</value>
+  </data>
+  <data name="ToastTapNotification" xml:space="preserve">
+    <value>Wähle eine genaue Uhrzeit um deine Aktion auszuführen.</value>
+  </data>
 </root>

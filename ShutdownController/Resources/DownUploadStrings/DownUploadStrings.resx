@@ -120,6 +120,15 @@
   <data name="download" xml:space="preserve">
     <value>Download</value>
   </data>
+  <data name="downUploadObserving" xml:space="preserve">
+    <value>Down- upload observing</value>
+  </data>
+  <data name="networkInterface" xml:space="preserve">
+    <value>Networkinterface</value>
+  </data>
+  <data name="networkinterfaceInfo" xml:space="preserve">
+    <value>Choose your observable network interface.</value>
+  </data>
   <data name="noInternetConnection" xml:space="preserve">
     <value>No internet connection</value>
   </data>
@@ -134,6 +143,9 @@
   </data>
   <data name="stop" xml:space="preserve">
     <value>Stop</value>
+  </data>
+  <data name="tabToastNotification" xml:space="preserve">
+    <value>Monitor your download upload behavior and then perform the selected action.</value>
   </data>
   <data name="thresholdSpeed" xml:space="preserve">
     <value>Threshold speed (MB/s):</value>

@@ -129,6 +129,9 @@
   <data name="pause" xml:space="preserve">
     <value>Pause</value>
   </data>
+  <data name="selectTimeSpan" xml:space="preserve">
+    <value>Select timespan</value>
+  </data>
   <data name="start" xml:space="preserve">
     <value>Start</value>
   </data>
@@ -137,5 +140,8 @@
   </data>
   <data name="timer" xml:space="preserve">
     <value>Timer</value>
+  </data>
+  <data name="timerInfo" xml:space="preserve">
+    <value>After this time you action will be triggered</value>
   </data>
 </root>

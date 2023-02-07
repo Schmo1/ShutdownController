@@ -14,6 +14,7 @@ namespace ShutdownController.ViewModels
         private string _clockHours;
         private string _clockMinutes;
         private string _clockSeconds;
+        private readonly AccurateTimerTick _timerTick = new AccurateTimerTick(new TimeSpan(0, 0, 1));
 
 
 
@@ -43,12 +44,10 @@ namespace ShutdownController.ViewModels
             get { return Properties.Settings.Default.ClockSetHours; } 
             set { Properties.Settings.Default.ClockSetHours = Math.Min(value, 23); OnPropertyChanged(); } 
         }
-
         public int ClockSetMinutes { 
             get { return Properties.Settings.Default.ClockSetMinutes; } 
             set { Properties.Settings.Default.ClockSetMinutes = Math.Min(value, 59); OnPropertyChanged(); } 
         }
-
         public int ClockSetSeconds { 
             get { return Properties.Settings.Default.ClockSetSeconds; } 
             set { Properties.Settings.Default.ClockSetSeconds = Math.Min(value, 59); OnPropertyChanged(); } 
@@ -71,26 +70,24 @@ namespace ShutdownController.ViewModels
             ClockStartCommand = new CommandHandler(() => ClockActive = !_isClockActive, () => true);
 
             UpdateTimeSpan(null, EventArgs.Empty);
-            Clock.Instance.ClockTick += new EventHandler(UpdateTimeSpan);
-            MainViewModel.RaiseInfoMessages += ShowInfo;
+            _timerTick.Tick += new EventHandler(UpdateTimeSpan);
+            _timerTick.Start();
+            
         }
 
-        private void ShowInfo(object myObject, EventArgs myEventArgs)
-        {
 
-        }
 
         private void UpdateTimeSpan(object myObject, EventArgs myEventArgs)
         {
-            ClockHours = SetNumberTo2Char(Clock.Instance.ActualTime.Hour.ToString());
-            ClockMinutes = SetNumberTo2Char(Clock.Instance.ActualTime.Minute.ToString());
-            ClockSeconds = SetNumberTo2Char(Clock.Instance.ActualTime.Second.ToString());
+            ClockHours = FillEmptyStringWithZero(DateTime.Now.Hour.ToString());
+            ClockMinutes = FillEmptyStringWithZero(DateTime.Now.Minute.ToString());
+            ClockSeconds = FillEmptyStringWithZero(DateTime.Now.Second.ToString());
 
             if(!ClockActive)
                 return;
 
 
-            if(TimeRunsOut())
+            if(IsTimeEquelSetTime())
             {
                 MyLogger.Instance().Info("Clock time run's out");
                 ClockActive = false;
@@ -103,9 +100,9 @@ namespace ShutdownController.ViewModels
             
         }
 
-        private string SetNumberTo2Char(string time)
+        private string FillEmptyStringWithZero(string time)
         {
-            if (time == null)  //if Null return 00
+            if (string.IsNullOrEmpty(time))  //if Null return 00
                 return "00";
 
             if (time.Length < 2) //if length is under 2, add some zero
@@ -121,21 +118,25 @@ namespace ShutdownController.ViewModels
             base.OnPropertyChanged(name);
         }
 
-        private bool TimeRunsOut()
+        private bool IsTimeEquelSetTime()
         {
-            if (Clock.Instance.ActualTime.Hour == ClockSetHours && Clock.Instance.ActualTime.Minute == ClockSetMinutes && Clock.Instance.ActualTime.Second == ClockSetSeconds)
-                return true; //Time runs out
-            
-            return false;
+            return  DateTime.Now.Hour == ClockSetHours &&
+                    DateTime.Now.Minute == ClockSetMinutes &&
+                    DateTime.Now.Second == ClockSetSeconds;
         }
 
         private bool OneMinuteLeft()
         {
             int reducedMin = ClockSetMinutes - 1; //
-            if (Clock.Instance.ActualTime.Hour == ClockSetHours && Clock.Instance.ActualTime.Minute == reducedMin && Clock.Instance.ActualTime.Second == ClockSetSeconds)
-                return true; //Time runs out
-            
-            return false;
+            return  DateTime.Now.Hour == ClockSetHours && 
+                    DateTime.Now.Minute == reducedMin && 
+                    DateTime.Now.Second == ClockSetSeconds;
+               
+        }
+
+        ~ClockViewModel()
+        {
+            _timerTick.Stop();
         }
 
     }

@@ -61,6 +61,24 @@ namespace ShutdownController.Resources.MainWindowStrings {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Info button ähnelt.
+        /// </summary>
+        public static string infoButton {
+            get {
+                return ResourceManager.GetString("infoButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Press me... ähnelt.
+        /// </summary>
+        public static string pressMe {
+            get {
+                return ResourceManager.GetString("pressMe", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Restart ähnelt.
         /// </summary>
         public static string restart {

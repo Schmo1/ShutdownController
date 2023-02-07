@@ -113,5 +113,23 @@ namespace ShutdownController.Resources.ClockStrings {
                 return ResourceManager.GetString("stop", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Choose your time ähnelt.
+        /// </summary>
+        public static string ToastNotification {
+            get {
+                return ResourceManager.GetString("ToastNotification", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Choose the time, when your action should triggered. ähnelt.
+        /// </summary>
+        public static string ToastTapNotification {
+            get {
+                return ResourceManager.GetString("ToastTapNotification", resourceCulture);
+            }
+        }
     }
 }

@@ -4,7 +4,6 @@ using System.Runtime.CompilerServices;
 using LiveCharts;
 using ShutdownController.Core;
 using ShutdownController.Enums;
-using ShutdownController.Models;
 using ShutdownController.Utility;
 
 namespace ShutdownController.ViewModels

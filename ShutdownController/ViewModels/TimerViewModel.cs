@@ -18,7 +18,8 @@ namespace ShutdownController.ViewModels
         private int _timerMinutes;
         private int _timerSeconds;
 
-        private readonly Timer _timer = new Timer(1000.0) { AutoReset = true};
+
+        private readonly AccurateTimerTick _timerTick = new AccurateTimerTick(new TimeSpan(0,0,1));
 
         #endregion
 
@@ -31,13 +32,23 @@ namespace ShutdownController.ViewModels
         public bool TimerPaused
         {
             get { return _isTimerPaused; }
-            set { _isTimerPaused = value; OnPropertyChanged(); }
+            set 
+            { 
+                _isTimerPaused = value;
+                if (_isTimerPaused) { MyLogger.Instance().Info("Timer paused"); }
+                OnPropertyChanged(); 
+            }
         }
 
         public bool TimerStarted
         {
             get { return _isTimerStarted; }
-            private set {_isTimerStarted = value; OnPropertyChanged(); }
+            private set 
+            {
+                _isTimerStarted = value; 
+                if(_isTimerStarted) { MyLogger.Instance().Info("Timer started"); }
+                OnPropertyChanged(); 
+            }
         }
 
 
@@ -70,8 +81,8 @@ namespace ShutdownController.ViewModels
             }
         }
 
-        //Display
 
+        //Display
         public int TimerSetHours
         {
             get { return _timerHours; }
@@ -86,8 +97,6 @@ namespace ShutdownController.ViewModels
                 base.OnPropertyChanged();
             }
         }
-
-
         public int TimerSetMinutes
         {
             get { return _timerMinutes; }
@@ -102,8 +111,6 @@ namespace ShutdownController.ViewModels
                 base.OnPropertyChanged();
             }
         }
-
-
         public int TimerSetSeconds
         {
             get { return _timerSeconds; }
@@ -136,8 +143,8 @@ namespace ShutdownController.ViewModels
             TimerStartCommand = new CommandHandler(() => TimerStartPause(), () => true);
             TimerStopCommand = new CommandHandler(() => TimerStop(), () => true);
 
-            _timer.Interval = 1000;
-            _timer.Elapsed += SupstractSecond;
+
+            _timerTick.Tick += SupstractSecond;
 
             LoadTimerSettings();
         }
@@ -176,6 +183,7 @@ namespace ShutdownController.ViewModels
             MyLogger.Instance().Info("Timer expired!");
             TimerStop();
             TimerExpiredEvent?.Invoke(this, EventArgs.Empty);
+            LoadTimerSettings();
             ShutdownOptions.Instance.TriggerSelectedAction();
         }
 
@@ -188,11 +196,11 @@ namespace ShutdownController.ViewModels
 
                 TimerStarted = true;
                 TimerPaused = false;
-                _timer.Start();
+                _timerTick.Start();
             }
             else
             {
-                _timer.Stop();
+                _timerTick.Stop();
                 TimerPaused = true;
             }
 
@@ -202,8 +210,9 @@ namespace ShutdownController.ViewModels
         {
             TimerStarted = false;
             TimerPaused = false;
-            _timer.Stop();
+            _timerTick.Stop();
             LoadTimerSettings();
+            MyLogger.Instance().Info("Timer stopped");
         }
         private bool TimeIsZeroAndExecuteAnyway()
         {
@@ -219,11 +228,11 @@ namespace ShutdownController.ViewModels
 
         private void LoadTimerSettings()
         {
+            MyLogger.Instance().Debug("Load timer settings");
             TimerSetHours = Properties.Settings.Default.TimerSetHours;
             TimerSetMinutes = Properties.Settings.Default.TimerSetMinutes;
             TimerSetSeconds = Properties.Settings.Default.TimerSetSeconds;
         }
-
 
         public override void OnPropertyChanged([CallerMemberName] string name = null)
         {
@@ -231,5 +240,9 @@ namespace ShutdownController.ViewModels
             base.OnPropertyChanged(name);
         }
 
+        ~TimerViewModel()
+        {
+            _timerTick.Stop();
+        }
     }
 }

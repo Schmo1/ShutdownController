@@ -23,10 +23,9 @@ namespace ShutdownController.Utility
         {
 
             mutex = new Mutex(false, Application.ResourceAssembly.GetName().Name + "BySchmo", out _firstInstance);
-
             thReciver = new Thread(ReciveRequestForGUI);
-            
-
+            thReciver.Name = thReciver.GetType().FullName;
+           
         }
 
 

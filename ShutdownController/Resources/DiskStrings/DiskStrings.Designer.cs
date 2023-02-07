@@ -61,6 +61,15 @@ namespace ShutdownController.Resources.DiskStrings {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Disk observing ähnelt.
+        /// </summary>
+        public static string diskObserving {
+            get {
+                return ResourceManager.GetString("diskObserving", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Overview ähnelt.
         /// </summary>
         public static string overview {
@@ -102,6 +111,15 @@ namespace ShutdownController.Resources.DiskStrings {
         public static string stop {
             get {
                 return ResourceManager.GetString("stop", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Monitor your disk behavior and then perform the selected action. ähnelt.
+        /// </summary>
+        public static string tabToastNotification {
+            get {
+                return ResourceManager.GetString("tabToastNotification", resourceCulture);
             }
         }
         

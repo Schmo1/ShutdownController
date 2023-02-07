@@ -120,6 +120,15 @@
   <data name="download" xml:space="preserve">
     <value>Download</value>
   </data>
+  <data name="downUploadObserving" xml:space="preserve">
+    <value>Down- Uploadüberwachung</value>
+  </data>
+  <data name="networkInterface" xml:space="preserve">
+    <value>Netzwerkschnittstelle</value>
+  </data>
+  <data name="networkInterfaceInfo" xml:space="preserve">
+    <value>Wähle deine Netzwerkschnittstelle</value>
+  </data>
   <data name="noInternetConnection" xml:space="preserve">
     <value>Keine Internetverbindung</value>
   </data>
@@ -134,6 +143,9 @@
   </data>
   <data name="stop" xml:space="preserve">
     <value>Stop</value>
+  </data>
+  <data name="tabToastNotification" xml:space="preserve">
+    <value>Überwache dein Down-Upload verhalten und führe danach die Gewählte aktion aus.</value>
   </data>
   <data name="thresholdSpeed" xml:space="preserve">
     <value>Geschwindigkeits- schwellwert (MB/s):</value>

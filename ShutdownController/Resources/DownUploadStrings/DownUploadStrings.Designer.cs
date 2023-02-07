@@ -70,6 +70,33 @@ namespace ShutdownController.Resources.DownUploadStrings {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Down- upload observing ähnelt.
+        /// </summary>
+        public static string downUploadObserving {
+            get {
+                return ResourceManager.GetString("downUploadObserving", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Networkinterface ähnelt.
+        /// </summary>
+        public static string networkInterface {
+            get {
+                return ResourceManager.GetString("networkInterface", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Choose your observable network interface. ähnelt.
+        /// </summary>
+        public static string networkinterfaceInfo {
+            get {
+                return ResourceManager.GetString("networkinterfaceInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die No internet connection ähnelt.
         /// </summary>
         public static string noInternetConnection {
@@ -111,6 +138,15 @@ namespace ShutdownController.Resources.DownUploadStrings {
         public static string stop {
             get {
                 return ResourceManager.GetString("stop", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Monitor your download upload behavior and then perform the selected action. ähnelt.
+        /// </summary>
+        public static string tabToastNotification {
+            get {
+                return ResourceManager.GetString("tabToastNotification", resourceCulture);
             }
         }
         
