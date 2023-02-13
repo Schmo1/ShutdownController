@@ -129,8 +129,14 @@
   <data name="clock" xml:space="preserve">
     <value>Uhr</value>
   </data>
+  <data name="oneMinuteLeft" xml:space="preserve">
+    <value>Noch eine Minute!</value>
+  </data>
   <data name="start" xml:space="preserve">
     <value>Start</value>
+  </data>
+  <data name="stillRunningInBackground" xml:space="preserve">
+    <value>Uhrzeit überwachung ist im Hintergrund aktiv!</value>
   </data>
   <data name="stop" xml:space="preserve">
     <value>Stop</value>

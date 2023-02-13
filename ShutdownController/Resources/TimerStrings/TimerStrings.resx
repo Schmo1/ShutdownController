@@ -126,6 +126,9 @@
   <data name="abkSeconds" xml:space="preserve">
     <value>sec</value>
   </data>
+  <data name="oneMinuteLeft" xml:space="preserve">
+    <value>One minute left!</value>
+  </data>
   <data name="pause" xml:space="preserve">
     <value>Pause</value>
   </data>
@@ -134,6 +137,9 @@
   </data>
   <data name="start" xml:space="preserve">
     <value>Start</value>
+  </data>
+  <data name="stillRunningInBackground" xml:space="preserve">
+    <value>Timer is still running in background!</value>
   </data>
   <data name="stop" xml:space="preserve">
     <value>Stop</value>

@@ -1,5 +1,6 @@
 ﻿using ToastNotifications.Core;
 using ToastNotifications;
+using ToastNotifications.Messages.Error;
 
 namespace ShutdownController.Views.ToastNotification
 {
@@ -7,7 +8,7 @@ namespace ShutdownController.Views.ToastNotification
     {
         public static void ShowCustomMessage(this Notifier notifier, string title, string message, CustomNotificationArrowPosition arrowPosition = CustomNotificationArrowPosition.Left, MessageOptions messageOptions = null)
         {
-            notifier.Notify(() => new CustomNotification(title, message, arrowPosition, messageOptions));
+            notifier.Notify(() => new CustomNotification(title, message, arrowPosition, messageOptions));    
         }
     }
 }

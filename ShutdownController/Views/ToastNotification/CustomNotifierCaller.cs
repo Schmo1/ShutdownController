@@ -1,18 +1,27 @@
-﻿using System;
-using Window = System.Windows.Window;
-using ToastNotifications;
-using ToastNotifications.Lifetime;
-using ToastNotifications.Position;
-using ShutdownController.Resources.ClockStrings;
+﻿using ShutdownController.Resources.ClockStrings;
 using ShutdownController.Resources.DiskStrings;
 using ShutdownController.Resources.DownUploadStrings;
-using ShutdownController.Resources.TimerStrings;
 using ShutdownController.Resources.MainWindowStrings;
+using ShutdownController.Resources.TimerStrings;
+using System;
+using System.Collections.Generic;
+using System.Runtime.CompilerServices;
+using System.Windows;
+using ToastNotifications;
+using ToastNotifications.Lifetime;
+using ToastNotifications.Lifetime.Clear;
+using ToastNotifications.Position;
+using Window = System.Windows.Window;
 
 namespace ShutdownController.Views.ToastNotification
 {
     public static class CustomNotifierCaller
     {
+        public static readonly TimeSpan timeSpan = TimeSpan.FromSeconds(Convert.ToDouble(Properties.ConstTemplates.SecondsForToastMessage));
+
+     
+
+        private static List<Notifier> _notifications;
 
         public static void ShowTabInfo(Window window)
         {
@@ -35,8 +44,8 @@ namespace ShutdownController.Views.ToastNotification
         internal static void ShowDownUploadInfo(Window window)
         {
             ShowCustomMessage(575, 295, window, DownUploadStrings.networkInterface, DownUploadStrings.networkinterfaceInfo, CustomNotificationArrowPosition.Right);
-            ShowCustomMessage(575, 370, window, string.Empty, "Choose what you want to observe.", CustomNotificationArrowPosition.Right);
-            ShowCustomMessage(140, 400, window, DownUploadStrings.thresholdSpeed, "Choose where the threshold should be.", CustomNotificationArrowPosition.Top);
+            ShowCustomMessage(575, 370, window, string.Empty, DownUploadStrings.chooseDownOrUp, CustomNotificationArrowPosition.Right);
+            ShowCustomMessage(140, 400, window, DownUploadStrings.thresholdSpeed, DownUploadStrings.thresholdInfo, CustomNotificationArrowPosition.Top);
             ShowCustomMessage(140, 190, window, DownUploadStrings.seconds, "If the current value is under the threshold, the action will be started after x seconds.", CustomNotificationArrowPosition.Bottom);
         }
 
@@ -68,14 +77,32 @@ namespace ShutdownController.Views.ToastNotification
         private static void ShowCustomMessage(double xPos, double yPos, Window window, string titel, string message, CustomNotificationArrowPosition arrowPosition = CustomNotificationArrowPosition.Left)
         {
 
-            Notifier notifier = new Notifier(cfg =>
-            {
-                cfg.LifetimeSupervisor = new TimeAndCountBasedLifetimeSupervisor(TimeSpan.FromSeconds(5), MaximumNotificationCount.FromCount(15));
-                cfg.PositionProvider = new WindowPositionProvider(parentWindow: window, corner: Corner.TopLeft, offsetX: xPos, offsetY: yPos);
-            });
+            if(_notifications == null) { _notifications = new List<Notifier>(); }
+            if(_notifications.Count > 10) { ClearAllMessages(null, EventArgs.Empty); }
+
+            _notifications.Add(
+                new Notifier(cfg =>
+                    {
+                    cfg.PositionProvider = new WindowPositionProvider(
+                        parentWindow: window,
+                        corner: Corner.TopLeft,
+                        offsetX: xPos,
+                        offsetY: yPos);
+
+                    cfg.LifetimeSupervisor = new TimeAndCountBasedLifetimeSupervisor(timeSpan, MaximumNotificationCount.FromCount(1));
+                    cfg.Dispatcher = Application.Current.Dispatcher;
+
+                    }));
 
 
-            notifier.ShowCustomMessage(titel, message, arrowPosition);
+            _notifications[_notifications.Count -1].ShowCustomMessage(titel,message,arrowPosition);
+
+        }
+
+        internal static void ClearAllMessages(object source, EventArgs args)
+        {
+            _notifications?.ForEach((notify) => { notify.ClearMessages(new ClearAll()); });
+            _notifications?.Clear();
         }
 
 

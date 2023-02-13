@@ -5,10 +5,14 @@ using ShutdownController.Views;
 using ShutdownController.ViewModels;
 using ShutdownController.NotifyIcon;
 using ShutdownController.Views.ToastNotification;
-using Hardcodet.Wpf.TaskbarNotification;
-using System.Globalization;
-using WinAutoStart;
+using ShutdownController.Resources.TimerStrings;
+using ShutdownController.Resources.ClockStrings;
+using ShutdownController.Resources.DownUploadStrings;
+using ShutdownController.Resources.DiskStrings;
+using ShutdownController.Resources.MainWindowStrings;
 using ShutdownController.Core;
+using Hardcodet.Wpf.TaskbarNotification;
+using WinAutoStart;
 
 namespace ShutdownController
 {
@@ -66,7 +70,7 @@ namespace ShutdownController
                 OpenMainWindow();
             }
             else
-                PushMessages.ShowBalloonTip(null, "App started!", BalloonIcon.Info);
+                PushMessages.ShowBalloonTip(string.Empty, MainWindowStrings.appStarted, BalloonIcon.Info);
 
 
             splash.Close();
@@ -136,7 +140,6 @@ namespace ShutdownController
 
         }
 
-
         public static void OpenMainWindow()
         {
             MyLogger.Instance().Info("Open main window");
@@ -148,6 +151,7 @@ namespace ShutdownController
                     Current.MainWindow = new MainWindow();
                     Current.MainWindow.Show();
                     Current.MainWindow.Closing += OnMainWindowClosing;
+                    Current.MainWindow.MouseDoubleClick += CustomNotifierCaller.ClearAllMessages;
                     
                 }
                 catch (Exception ex)
@@ -171,6 +175,12 @@ namespace ShutdownController
 
             Current.MainWindow.Closing -= OnMainWindowClosing;
 
+            if (!ShutdownController.Properties.Settings.Default.NotFirstTimeUI)
+            {
+                ShutdownController.Properties.Settings.Default.NotFirstTimeUI = true;
+                ShutdownController.Properties.Settings.Default.Save();
+            }
+
             if (ShutdownController.Properties.Settings.Default.OnClosingRunInBackground)
                 return;
 
@@ -178,23 +188,16 @@ namespace ShutdownController
             //Show user Message, if some timer is still running in the backgroudn
 
             if(STimerViewModel.TimerStarted)
-                PushMessages.ShowBalloonTip("Timer", "Timer is still running in the background", BalloonIcon.Info, true);
+                PushMessages.ShowBalloonTip(TimerStrings.timer, TimerStrings.stillRunningInBackground, BalloonIcon.Info, true);
 
             else if (SClockViewModel.ClockActive)
-                PushMessages.ShowBalloonTip("Clock", "Clock is still running in the background", BalloonIcon.Info, true);
+                PushMessages.ShowBalloonTip(ClockStrings.clock, ClockStrings.stillRunningInBackground, BalloonIcon.Info, true);
 
             else if (SDownUploadViewModel.ObserveActive)
-                PushMessages.ShowBalloonTip("DownUpload", "Down- Upload observing is still running in the background", BalloonIcon.Info, true);
+                PushMessages.ShowBalloonTip(DownUploadStrings.downUploadObserving, DownUploadStrings.stillRunningInBackground, BalloonIcon.Info, true);
 
             else if (SDiskViewModel.ObserveActive)
-                PushMessages.ShowBalloonTip("Disk", "Disk observing is still running in the background", BalloonIcon.Info, true);
-
-
-            if (!ShutdownController.Properties.Settings.Default.NotFirstTimeUI)
-            {
-                ShutdownController.Properties.Settings.Default.NotFirstTimeUI = true;
-                ShutdownController.Properties.Settings.Default.Save();
-            }
+                PushMessages.ShowBalloonTip(DiskStrings.diskObserving, DiskStrings.stillRunningInBackground, BalloonIcon.Info, true);
 
 
         }

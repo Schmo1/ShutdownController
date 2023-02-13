@@ -97,11 +97,29 @@ namespace ShutdownController.Resources.ClockStrings {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die One minute left! ähnelt.
+        /// </summary>
+        public static string oneMinuteLeft {
+            get {
+                return ResourceManager.GetString("oneMinuteLeft", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Start ähnelt.
         /// </summary>
         public static string start {
             get {
                 return ResourceManager.GetString("start", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Clock function is still running in background! ähnelt.
+        /// </summary>
+        public static string stillRunningInBackground {
+            get {
+                return ResourceManager.GetString("stillRunningInBackground", resourceCulture);
             }
         }
         

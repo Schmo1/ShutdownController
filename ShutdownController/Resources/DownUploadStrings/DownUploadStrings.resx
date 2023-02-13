@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="chooseDownOrUp" xml:space="preserve">
+    <value>Choose what you want to observe</value>
+  </data>
   <data name="download" xml:space="preserve">
     <value>Download</value>
   </data>
@@ -127,7 +130,7 @@
     <value>Networkinterface</value>
   </data>
   <data name="networkinterfaceInfo" xml:space="preserve">
-    <value>Choose your observable network interface.</value>
+    <value>Choose your observable network interface</value>
   </data>
   <data name="noInternetConnection" xml:space="preserve">
     <value>No internet connection</value>
@@ -141,11 +144,17 @@
   <data name="start" xml:space="preserve">
     <value>Start</value>
   </data>
+  <data name="stillRunningInBackground" xml:space="preserve">
+    <value>Down- Upload observing is still running in the background!</value>
+  </data>
   <data name="stop" xml:space="preserve">
     <value>Stop</value>
   </data>
   <data name="tabToastNotification" xml:space="preserve">
-    <value>Monitor your download upload behavior and then perform the selected action.</value>
+    <value>Monitor your download upload behavior and then perform the selected action</value>
+  </data>
+  <data name="thresholdInfo" xml:space="preserve">
+    <value>Choose where the threshold should be</value>
   </data>
   <data name="thresholdSpeed" xml:space="preserve">
     <value>Threshold speed (MB/s):</value>

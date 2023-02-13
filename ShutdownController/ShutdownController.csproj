@@ -221,6 +221,7 @@
     <Compile Include="Views\ToastNotification\CustomMessageExtensions.cs" />
     <Compile Include="Views\ToastNotification\CustomNotification.cs" />
     <Compile Include="Views\ToastNotification\CustomNotifierCaller.cs" />
+    <Compile Include="Views\ToastNotification\ShowInfoMessage.cs" />
     <Compile Include="Views\ToggleButton.xaml.cs">
       <DependentUpon>ToggleButton.xaml</DependentUpon>
     </Compile>

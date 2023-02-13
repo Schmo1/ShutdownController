@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Windows;
+using System.Timers;
 using ShutdownController.Commands;
 using ShutdownController.Core;
 using ShutdownController.Enums;
@@ -38,7 +39,6 @@ namespace ShutdownController.ViewModels
 
 
         private object _currentView;
-
         public bool TestingModeActiv { get; }
         public object CurrentView
         {
@@ -114,8 +114,7 @@ namespace ShutdownController.ViewModels
             ShutdownButtonCommand = new OptionButtonCommand(ShutdownIsPressed);
             RestartButtonCommand = new OptionButtonCommand(RestartIsPressed);
             SleepButtonCommand = new OptionButtonCommand(SleepIsPressed);
-            //InfoButtonCommand = new CommandHandler(() => RaiseInfoMessages?.Invoke(this, EventArgs.Empty), () => true); 
-            InfoButtonCommand = new CommandHandler(() => ShowInfoMessages(), () => true);
+            InfoButtonCommand = new CommandHandler(() => ShowInfoMessage.ShowMessage(CurrentView), () => true);
 
             //Create View CommandHandler
             TimerViewCommand = new CommandHandler(() => CurrentView = TimerVM, () => CurrentView != TimerVM);
@@ -165,30 +164,8 @@ namespace ShutdownController.ViewModels
 
         private void ShowInfoMessages()
         {
-            CustomNotifierCaller.ShowTabInfo(Application.Current.MainWindow);
-
-            switch (((IViewModel)CurrentView).ViewName)
-            {
-                case ViewNameEnum.TimerView:
-                    CustomNotifierCaller.ShowTimerInfo(Application.Current.MainWindow);
-                    break;
-                case ViewNameEnum.ClockView:
-                    CustomNotifierCaller.ShowClockInfo(Application.Current.MainWindow);
-                    break;
-                case ViewNameEnum.DownUploadView:
-                    CustomNotifierCaller.ShowDownUploadInfo(Application.Current.MainWindow);
-                    break;
-                case ViewNameEnum.DiskView:
-                    CustomNotifierCaller.ShowDiskInfo(Application.Current.MainWindow);
-                    break;
-                case ViewNameEnum.SettingsView:
-                    CustomNotifierCaller.ShowSettingsInfo(Application.Current.MainWindow);
-                    break;
-
-                    
-            }
-
-            
+           
+      
         }
 
 
@@ -197,8 +174,6 @@ namespace ShutdownController.ViewModels
             Properties.Settings.Default.Save();
             base.OnPropertyChanged(name);
         }
-
-
 
 
         private static void SaveViewToSettings(object view)     

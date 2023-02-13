@@ -5,6 +5,7 @@ using ShutdownController.Core;
 using ShutdownController.Enums;
 using ShutdownController.NotifyIcon;
 using ShutdownController.Utility;
+using ShutdownController.Resources.ClockStrings;
 
 namespace ShutdownController.ViewModels
 {
@@ -95,7 +96,7 @@ namespace ShutdownController.ViewModels
             }
             else if (OneMinuteLeft())
             {
-                PushMessages.ShowBalloonTip("Clock", "One minute left", BalloonIcon.Info);
+                PushMessages.ShowBalloonTip(ClockStrings.clock, ClockStrings.oneMinuteLeft, BalloonIcon.Info);
             }
             
         }

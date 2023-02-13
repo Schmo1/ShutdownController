@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
 using System.Windows;
-using System.Timers;
+using ShutdownController.Resources.TimerStrings;
 using ShutdownController.Core;
 using ShutdownController.Utility;
 using MessageBox = System.Windows.MessageBox;
 using ShutdownController.Enums;
+using Hardcodet.Wpf.TaskbarNotification;
+using ShutdownController.NotifyIcon;
 
 namespace ShutdownController.ViewModels
 {
@@ -159,7 +161,12 @@ namespace ShutdownController.ViewModels
             {
                 TimerExpired();
                 return;
+            }else if (TimerSetSeconds == 0 && TimerSetMinutes == 1 && TimerSetHours == 0) //Check if one minute left
+            {
+                PushMessages.ShowBalloonTip(TimerStrings.timer, TimerStrings.oneMinuteLeft, BalloonIcon.Info);
             }
+
+            
 
             if (TimerSetSeconds == 0)
             {

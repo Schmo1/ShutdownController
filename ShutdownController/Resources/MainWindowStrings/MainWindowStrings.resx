@@ -117,8 +117,14 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="appStarted" xml:space="preserve">
+    <value>App started!</value>
+  </data>
   <data name="infoButton" xml:space="preserve">
     <value>Info button</value>
+  </data>
+  <data name="isStillRunningInBackground" xml:space="preserve">
+    <value />
   </data>
   <data name="pressMe" xml:space="preserve">
     <value>Press me...</value>

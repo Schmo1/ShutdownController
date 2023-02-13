@@ -104,5 +104,14 @@ namespace ShutdownController.Properties {
                 return ResourceManager.GetString("RegexToFindDouble", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die 10 ähnelt.
+        /// </summary>
+        internal static string SecondsForToastMessage {
+            get {
+                return ResourceManager.GetString("SecondsForToastMessage", resourceCulture);
+            }
+        }
     }
 }

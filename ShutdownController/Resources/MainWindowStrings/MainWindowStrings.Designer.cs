@@ -61,11 +61,29 @@ namespace ShutdownController.Resources.MainWindowStrings {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die App started! ähnelt.
+        /// </summary>
+        public static string appStarted {
+            get {
+                return ResourceManager.GetString("appStarted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Info button ähnelt.
         /// </summary>
         public static string infoButton {
             get {
                 return ResourceManager.GetString("infoButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die  ähnelt.
+        /// </summary>
+        public static string isStillRunningInBackground {
+            get {
+                return ResourceManager.GetString("isStillRunningInBackground", resourceCulture);
             }
         }
         

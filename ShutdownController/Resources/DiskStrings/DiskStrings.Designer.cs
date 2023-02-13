@@ -106,6 +106,15 @@ namespace ShutdownController.Resources.DiskStrings {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Disk observing is still running in the background! ähnelt.
+        /// </summary>
+        public static string stillRunningInBackground {
+            get {
+                return ResourceManager.GetString("stillRunningInBackground", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Stop ähnelt.
         /// </summary>
         public static string stop {

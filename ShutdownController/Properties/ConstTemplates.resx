@@ -132,4 +132,7 @@
   <data name="RegexToFindDouble" xml:space="preserve">
     <value>(\d+(\.\d*)?)|(-?\.\d+)</value>
   </data>
+  <data name="SecondsForToastMessage" xml:space="preserve">
+    <value>10</value>
+  </data>
 </root>

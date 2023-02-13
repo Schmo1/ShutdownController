@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Drawing.Design;
 using System.Net.NetworkInformation;
 using System.Threading.Tasks;
 using System.Timers;
@@ -120,13 +121,12 @@ namespace ShutdownController.Utility
             _nicReceivedCounters.Clear();
             _nicSentCounters.Clear();
 
-            foreach (string networkInterface in NetworkInterfaces)
-            {
-                
-                _nicReceivedCounters.Add(new PerformanceCounter("Network Interface", "Bytes Received/sec", networkInterface, _machineName));
-                _nicSentCounters.Add(new PerformanceCounter("Network Interface", "Bytes Sent/sec", networkInterface, _machineName));
+            const string categoryName = "Network Interface";
 
-                
+            foreach (string nwInterface in NetworkInterfaces)
+            {
+                _nicReceivedCounters.Add(new PerformanceCounter(categoryName, "Bytes Received/sec", nwInterface, _machineName));
+                _nicSentCounters.Add(new PerformanceCounter(categoryName, "Bytes Sent/sec", nwInterface, _machineName));            
             }
 
             NetworkinterfaceHasChanged?.Invoke(this, EventArgs.Empty);

@@ -88,6 +88,15 @@ namespace ShutdownController.Resources.TimerStrings {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die One minute left! ähnelt.
+        /// </summary>
+        public static string oneMinuteLeft {
+            get {
+                return ResourceManager.GetString("oneMinuteLeft", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Pause ähnelt.
         /// </summary>
         public static string pause {
@@ -111,6 +120,15 @@ namespace ShutdownController.Resources.TimerStrings {
         public static string start {
             get {
                 return ResourceManager.GetString("start", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Timer is still running in background! ähnelt.
+        /// </summary>
+        public static string stillRunningInBackground {
+            get {
+                return ResourceManager.GetString("stillRunningInBackground", resourceCulture);
             }
         }
         

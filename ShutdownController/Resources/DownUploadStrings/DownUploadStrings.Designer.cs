@@ -61,6 +61,15 @@ namespace ShutdownController.Resources.DownUploadStrings {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Choose what you want to observe ähnelt.
+        /// </summary>
+        public static string chooseDownOrUp {
+            get {
+                return ResourceManager.GetString("chooseDownOrUp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Download ähnelt.
         /// </summary>
         public static string download {
@@ -88,7 +97,7 @@ namespace ShutdownController.Resources.DownUploadStrings {
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die Choose your observable network interface. ähnelt.
+        ///   Sucht eine lokalisierte Zeichenfolge, die Choose your observable network interface ähnelt.
         /// </summary>
         public static string networkinterfaceInfo {
             get {
@@ -133,6 +142,15 @@ namespace ShutdownController.Resources.DownUploadStrings {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Down- Upload observing is still running in the background! ähnelt.
+        /// </summary>
+        public static string stillRunningInBackground {
+            get {
+                return ResourceManager.GetString("stillRunningInBackground", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Stop ähnelt.
         /// </summary>
         public static string stop {
@@ -142,11 +160,20 @@ namespace ShutdownController.Resources.DownUploadStrings {
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die Monitor your download upload behavior and then perform the selected action. ähnelt.
+        ///   Sucht eine lokalisierte Zeichenfolge, die Monitor your download upload behavior and then perform the selected action ähnelt.
         /// </summary>
         public static string tabToastNotification {
             get {
                 return ResourceManager.GetString("tabToastNotification", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Choose where the threshold should be ähnelt.
+        /// </summary>
+        public static string thresholdInfo {
+            get {
+                return ResourceManager.GetString("thresholdInfo", resourceCulture);
             }
         }
         
