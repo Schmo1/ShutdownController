@@ -8,6 +8,7 @@ using MessageBox = System.Windows.MessageBox;
 using ShutdownController.Enums;
 using Hardcodet.Wpf.TaskbarNotification;
 using ShutdownController.NotifyIcon;
+using ShutdownController.Views.MessageBox;
 
 namespace ShutdownController.ViewModels
 {
@@ -25,9 +26,7 @@ namespace ShutdownController.ViewModels
 
         #endregion
 
-        //Properties
-
-
+        #region Properties
         public ViewNameEnum ViewName => ViewNameEnum.TimerView;
 
 
@@ -49,7 +48,7 @@ namespace ShutdownController.ViewModels
             {
                 _isTimerStarted = value; 
                 if(_isTimerStarted) { MyLogger.Instance().Info("Timer started"); }
-                OnPropertyChanged(); 
+                OnPropertyChanged();
             }
         }
 
@@ -128,6 +127,7 @@ namespace ShutdownController.ViewModels
             }
         }
 
+        #endregion
 
 
         //Commands

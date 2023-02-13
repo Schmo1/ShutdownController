@@ -117,11 +117,17 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="abort" xml:space="preserve">
+    <value>Abbrechen</value>
+  </data>
   <data name="appStarted" xml:space="preserve">
     <value>Anwendung gestartet!</value>
   </data>
   <data name="infoButton" xml:space="preserve">
     <value>Infotaste</value>
+  </data>
+  <data name="MBActionWillPerformIn" xml:space="preserve">
+    <value>Aktion wird ausgeführt in ...</value>
   </data>
   <data name="pressMe" xml:space="preserve">
     <value>Drück mich...</value>

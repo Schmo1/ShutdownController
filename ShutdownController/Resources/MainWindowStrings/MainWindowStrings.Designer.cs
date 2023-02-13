@@ -61,6 +61,15 @@ namespace ShutdownController.Resources.MainWindowStrings {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Abort ähnelt.
+        /// </summary>
+        public static string abort {
+            get {
+                return ResourceManager.GetString("abort", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die App started! ähnelt.
         /// </summary>
         public static string appStarted {
@@ -84,6 +93,15 @@ namespace ShutdownController.Resources.MainWindowStrings {
         public static string isStillRunningInBackground {
             get {
                 return ResourceManager.GetString("isStillRunningInBackground", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Action will perform in ... ähnelt.
+        /// </summary>
+        public static string MBActionWillPerformIn {
+            get {
+                return ResourceManager.GetString("MBActionWillPerformIn", resourceCulture);
             }
         }
         

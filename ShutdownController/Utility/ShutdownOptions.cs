@@ -36,6 +36,7 @@ namespace ShutdownController.Utility
 
         public void TriggerSelectedAction()
         {
+
             if (Properties.Settings.Default.IsRestartSelected)
                 Instance.Restart();
             else if (Properties.Settings.Default.IsShutdownSelected)

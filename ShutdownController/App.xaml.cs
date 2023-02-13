@@ -135,9 +135,10 @@ namespace ShutdownController
         static void UnhandledEceptionLogger(object sender, UnhandledExceptionEventArgs args)
         {
             Exception ex = (Exception)args.ExceptionObject;
-            MyLogger.Instance().Error("Unhandled Exception: " + ex.Message); 
+            MyLogger.Instance().Error("Unhandled Exception: " + ex.Message);
+#if !DEBUG
             MessageBox.Show("Unhandled Exception: " + ex.Message, "Unhandled exception", MessageBoxButton.OK, MessageBoxImage.Error);
-
+#endif
         }
 
         public static void OpenMainWindow()

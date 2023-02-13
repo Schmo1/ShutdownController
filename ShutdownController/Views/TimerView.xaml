@@ -224,7 +224,7 @@
                                 </Setter>
                                 <Setter Property="Content" Value="{x:Static strings:TimerStrings.pause}"/>
                             </MultiDataTrigger>
-                            
+
                             <MultiDataTrigger>
                                 <MultiDataTrigger.Conditions>
                                     <Condition Binding="{Binding TimerStarted}" Value="True"/>
