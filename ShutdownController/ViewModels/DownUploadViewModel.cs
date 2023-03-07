@@ -310,7 +310,7 @@ namespace ShutdownController.ViewModels
                 ObserveActive = false;
                 ClearObservationValues();
                 MyLogger.Instance().Info("Down Upload is running out");
-                ShutdownOptions.Instance.TriggerSelectedAction();
+                ShutdownOptions.Instance.ShowDialog();
             }
            
         }

@@ -92,7 +92,7 @@ namespace ShutdownController.ViewModels
             {
                 MyLogger.Instance().Info("Clock time run's out");
                 ClockActive = false;
-                ShutdownOptions.Instance.TriggerSelectedAction();
+                ShutdownOptions.Instance.ShowDialog();
             }
             else if (OneMinuteLeft())
             {

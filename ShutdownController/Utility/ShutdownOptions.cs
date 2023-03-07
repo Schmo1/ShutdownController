@@ -1,7 +1,11 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using System.Diagnostics;
+using System.Windows.Threading;
 using System.Runtime.InteropServices;
 using ShutdownController.NotifyIcon;
+using ShutdownController.Views.MessageBox;
+using ShutdownController.ViewModels;
 using Hardcodet.Wpf.TaskbarNotification;
 
 namespace ShutdownController.Utility
@@ -11,10 +15,13 @@ namespace ShutdownController.Utility
 
 
         private static readonly ShutdownOptions instance = new ShutdownOptions(); //singleton design pattern. singl instance of this class.
+        private const int _secondsForDialog = 10;
 
         [DllImport("Powrprof.dll", SetLastError = true)]
 
         static extern uint SetSuspendState(bool hibernate, bool forceCritical, bool disableWakeEvent);
+
+        CustomMessageBox _customMessageBox;
 
         private bool _testingModeActiv;
 
@@ -33,9 +40,23 @@ namespace ShutdownController.Utility
         //exits int he programm, then send them the reference to the original.
         public static ShutdownOptions Instance { get { return instance; } } 
 
+        public void ShowDialog()
+        {
+            //Invoke dialog in main thread
+            Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Normal,
+                new Action(() => 
+                    {
+                        _customMessageBox = new CustomMessageBox();
+                        _customMessageBox.DataContext = new CustomMessageBoxViewModel(_secondsForDialog, _customMessageBox);
+                        _customMessageBox.ShowDialog();
+                    }));
+            
+        }
+
 
         public void TriggerSelectedAction()
         {
+
 
             if (Properties.Settings.Default.IsRestartSelected)
                 Instance.Restart();

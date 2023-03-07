@@ -27,6 +27,7 @@ namespace ShutdownController.Core
         {
             
             _thTimer = new Thread(Loop);
+            _thTimer.SetApartmentState(ApartmentState.STA);
             _thTimer.Name = GetType().FullName;
             IsActive = true;
             _thTimer.Start();

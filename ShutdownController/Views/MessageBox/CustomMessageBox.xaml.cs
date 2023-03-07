@@ -1,5 +1,7 @@
-﻿using System.Windows;
+﻿using System.Timers;
+using System.Windows;
 using System.Windows.Input;
+using ShutdownController.ViewModels;
 
 namespace ShutdownController.Views.MessageBox
 {
@@ -8,6 +10,7 @@ namespace ShutdownController.Views.MessageBox
     /// </summary>
     public partial class CustomMessageBox : Window
     {
+
         public CustomMessageBox()
         {
             InitializeComponent();
@@ -17,8 +20,9 @@ namespace ShutdownController.Views.MessageBox
         {
             if (e.ChangedButton == MouseButton.Left)
             {
-                this.DragMove();
+                DragMove();
             }
         }
+
     }
 }

@@ -9,6 +9,7 @@ using ShutdownController.Enums;
 using Hardcodet.Wpf.TaskbarNotification;
 using ShutdownController.NotifyIcon;
 using ShutdownController.Views.MessageBox;
+using System.Threading;
 
 namespace ShutdownController.ViewModels
 {
@@ -145,8 +146,8 @@ namespace ShutdownController.ViewModels
             TimerStartCommand = new CommandHandler(() => TimerStartPause(), () => true);
             TimerStopCommand = new CommandHandler(() => TimerStop(), () => true);
 
-
             _timerTick.Tick += SupstractSecond;
+           
 
             LoadTimerSettings();
         }
@@ -190,8 +191,9 @@ namespace ShutdownController.ViewModels
             MyLogger.Instance().Info("Timer expired!");
             TimerStop();
             TimerExpiredEvent?.Invoke(this, EventArgs.Empty);
-            LoadTimerSettings();
-            ShutdownOptions.Instance.TriggerSelectedAction();
+            LoadTimerSettings();          
+            ShutdownOptions.Instance.ShowDialog();
+
         }
 
         private void TimerStartPause()

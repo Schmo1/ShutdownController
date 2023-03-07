@@ -11,7 +11,7 @@ namespace ShutdownController.Utility
     public class DownUploadController
     {
 
-        //Variables
+        
         private readonly Timer _timer = new Timer(1000.0) { AutoReset = true };
         private int _timerTicks;
         private double _receivedMBs;

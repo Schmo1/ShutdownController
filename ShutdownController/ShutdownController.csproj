@@ -184,6 +184,7 @@
     <Compile Include="Utility\ParseInputBox.cs" />
     <Compile Include="Utility\PreventMultipleStarts.cs" />
     <Compile Include="Utility\ShutdownOptions.cs" />
+    <Compile Include="ViewModels\CustomMessageBoxViewModel.cs" />
     <Compile Include="ViewModels\NotifyIconViewModel.cs" />
     <Compile Include="ViewModels\ClockViewModel.cs" />
     <Compile Include="ViewModels\DiskViewModel.cs" />

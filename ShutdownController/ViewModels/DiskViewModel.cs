@@ -242,7 +242,7 @@ namespace ShutdownController.ViewModels
                 ObserveActive = false;
                 ClearObservationValues();
                 MyLogger.Instance().Info("Disk observing is running out");
-                ShutdownOptions.Instance.TriggerSelectedAction();
+                ShutdownOptions.Instance.ShowDialog();
             }
         }
 
