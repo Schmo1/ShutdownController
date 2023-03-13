@@ -2,6 +2,7 @@
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Navigation;
 using ShutdownController.Commands;
 using ShutdownController.Core;
 using ShutdownController.Utility;
@@ -63,7 +64,7 @@ namespace ShutdownController.ViewModels
                     },
                     CanExecuteFunc = () => 
                     {
-                        return Application.Current.MainWindow != null && Application.Current.MainWindow.IsVisible;          
+                        return Application.Current.MainWindow != null && Application.Current.MainWindow.IsVisible && !CustomMessageBoxViewModel.IsActive;          
                     }
                 };
             }
@@ -87,10 +88,8 @@ namespace ShutdownController.ViewModels
                         mwModel.CurrentView = mwModel.SettingsVM;
                     },
 
-                    CanExecuteFunc = () =>
-                    {
-                        return true;
-                    }
+                    CanExecuteFunc = () => !CustomMessageBoxViewModel.IsActive
+
                 };
             }
         }
@@ -121,7 +120,7 @@ namespace ShutdownController.ViewModels
                     },
 
 
-                    CanExecuteFunc = () => true
+                    CanExecuteFunc = () => !CustomMessageBoxViewModel.IsActive
                 };
             }
         }

@@ -42,6 +42,12 @@ namespace ShutdownController.Utility
 
         public void ShowDialog()
         {
+            //return if view is already shown
+            if (CustomMessageBoxViewModel.IsActive)
+                return;
+            
+
+
             //Invoke dialog in main thread
             Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Normal,
                 new Action(() => 

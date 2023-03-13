@@ -17,6 +17,8 @@ namespace ShutdownController.Converters
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
+            
+
             try
             {
                 return System.Convert.ToInt32(value);

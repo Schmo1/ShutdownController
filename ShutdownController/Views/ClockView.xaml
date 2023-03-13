@@ -94,18 +94,20 @@
                 <TextBlock Text="{x:Static strings:ClockStrings.clock}" Style="{StaticResource textBlockTitel}" Margin=" 15 8 0 0"/>
 
 
-                <TextBox Text="{Binding Path=ClockSetHours,Converter={StaticResource MyStringToIntConverter}, FallbackValue=00}" Style="{StaticResource textBoxCounter}" HorizontalAlignment="Right" VerticalAlignment="Center" 
+                <TextBox Text="{Binding Path=ClockSetHours,Converter={StaticResource MyStringToIntConverter}, FallbackValue=00}"
+                         Style="{StaticResource textBoxCounter}" HorizontalAlignment="Right" VerticalAlignment="Center" 
                          PreviewTextInput="PreviewTextInputOnlyNumbers" DataObject.Pasting="TextBoxPasting"/>
                 
                 <TextBlock Text=":" Style="{StaticResource textBlockCounter}" Grid.Column="1" VerticalAlignment="Center"/>
 
-                <TextBox Text="{Binding Path=ClockSetMinutes,Converter={StaticResource MyStringToIntConverter}, FallbackValue=00}" Style="{StaticResource textBoxCounter}" Grid.Column="2" VerticalAlignment="Center" MinWidth="68.7" 
+                <TextBox Text="{Binding Path=ClockSetMinutes,Converter={StaticResource MyStringToIntConverter}, FallbackValue=00}" 
+                         Style="{StaticResource textBoxCounter}" Grid.Column="2" VerticalAlignment="Center" MinWidth="68.7" 
                          PreviewTextInput="PreviewTextInputOnlyNumbers" DataObject.Pasting="TextBoxPasting"/>
                 
                 <TextBlock Text=":" Style="{StaticResource textBlockCounter}" Grid.Column="3" VerticalAlignment="Center"/>
 
-                <TextBox Text="{Binding Path=ClockSetSeconds,Converter={StaticResource MyStringToIntConverter}, FallbackValue=00}" Style="{StaticResource textBoxCounter}" Grid.Column="4" VerticalAlignment="Center" 
-                         
+                <TextBox Text="{Binding Path=ClockSetSeconds,Converter={StaticResource MyStringToIntConverter}, FallbackValue=00}" 
+                         Style="{StaticResource textBoxCounter}" Grid.Column="4" VerticalAlignment="Center" 
                          PreviewTextInput="PreviewTextInputOnlyNumbers" DataObject.Pasting="TextBoxPasting"/>
                
             </Grid>

@@ -54,10 +54,11 @@ namespace ShutdownController
 
         protected override void OnStartup(StartupEventArgs e)
         {
+         
+            base.OnStartup(e);
+
             Views.SplashScreen splash = new Views.SplashScreen();
 
-            
-            base.OnStartup(e);
             if (!IsFirstInstance())
                 return;
 
@@ -145,6 +146,7 @@ namespace ShutdownController
         {
             MyLogger.Instance().Info("Open main window");
 
+            
             if (Current.MainWindow == null || Current.MainWindow.IsVisible == false || Current.MainWindow.Title != "") //If its main window, then the Tile is empty
             {
                 try
@@ -152,8 +154,9 @@ namespace ShutdownController
                     Current.MainWindow = new MainWindow();
                     Current.MainWindow.Show();
                     Current.MainWindow.Closing += OnMainWindowClosing;
-                    Current.MainWindow.MouseDoubleClick += CustomNotifierCaller.ClearAllMessages;
-                    
+                    Current.MainWindow.Deactivated += CustomNotifierCaller.ClearAllMessages;
+                    Current.MainWindow.MouseDown += CustomNotifierCaller.ClearAllMessages;
+
                 }
                 catch (Exception ex)
                 {
@@ -168,6 +171,8 @@ namespace ShutdownController
             if(!ShutdownController.Properties.Settings.Default.NotFirstTimeUI)
                 CustomNotifierCaller.ShowInfoButton(Current.MainWindow);
         }
+
+  
 
         private static void OnMainWindowClosing(object source, EventArgs args)
         {
@@ -200,12 +205,6 @@ namespace ShutdownController
             else if (SDiskViewModel.ObserveActive)
                 PushMessages.ShowBalloonTip(DiskStrings.diskObserving, DiskStrings.stillRunningInBackground, BalloonIcon.Info, true);
 
-
         }
-
-
-
-
     }
-
 }

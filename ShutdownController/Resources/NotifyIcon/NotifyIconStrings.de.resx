@@ -117,46 +117,16 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="chooseDisk" xml:space="preserve">
-    <value>Choose your observable disk's.</value>
+  <data name="exit" xml:space="preserve">
+    <value>Beenden</value>
   </data>
-  <data name="chooseReadWrite" xml:space="preserve">
-    <value>Choose what you want to observe.</value>
+  <data name="hideWindow" xml:space="preserve">
+    <value>Schließe Fenster</value>
   </data>
-  <data name="chooseThreshold" xml:space="preserve">
-    <value>Choose where the threshold should be.</value>
+  <data name="settings" xml:space="preserve">
+    <value>Einstellungen</value>
   </data>
-  <data name="diskObserving" xml:space="preserve">
-    <value>Disk observing</value>
-  </data>
-  <data name="overview" xml:space="preserve">
-    <value>Overview</value>
-  </data>
-  <data name="read" xml:space="preserve">
-    <value>Read</value>
-  </data>
-  <data name="seconds" xml:space="preserve">
-    <value>Seconds:</value>
-  </data>
-  <data name="secondsExplanation" xml:space="preserve">
-    <value>If the current value is under the threshold, the action will be started after x seconds.</value>
-  </data>
-  <data name="start" xml:space="preserve">
-    <value>Start</value>
-  </data>
-  <data name="stillRunningInBackground" xml:space="preserve">
-    <value>Disk observing is still running in the background!</value>
-  </data>
-  <data name="stop" xml:space="preserve">
-    <value>Stop</value>
-  </data>
-  <data name="tabToastNotification" xml:space="preserve">
-    <value>Monitor your disk behavior and then perform the selected action.</value>
-  </data>
-  <data name="thresholdSpeed" xml:space="preserve">
-    <value>Threshold speed (MB/s):</value>
-  </data>
-  <data name="write" xml:space="preserve">
-    <value>Write</value>
+  <data name="showWindow" xml:space="preserve">
+    <value>Öffne Fenster</value>
   </data>
 </root>

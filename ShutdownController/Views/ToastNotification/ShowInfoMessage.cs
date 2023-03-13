@@ -1,8 +1,8 @@
-﻿using ShutdownController.Core;
+﻿using System;
 using System.Windows;
 using System.Timers;
 using ShutdownController.Enums;
-using System;
+using ShutdownController.Core;
 using System.Runtime.CompilerServices;
 
 namespace ShutdownController.Views.ToastNotification
@@ -18,7 +18,7 @@ namespace ShutdownController.Views.ToastNotification
 
             if(IsMessageActive)
             {
-                StopTimer();
+                StopTimerMessageActive();
                 return;
             }
 
@@ -60,11 +60,11 @@ namespace ShutdownController.Views.ToastNotification
 
         private static void TimeElapsed(object sender, EventArgs e)
         {
-            StopTimer();
+            StopTimerMessageActive();
             _timer.Elapsed += TimeElapsed;
         }
 
-        private static void StopTimer()
+        public static void StopTimerMessageActive()
         {
             IsMessageActive = false;
             _timer?.Stop();

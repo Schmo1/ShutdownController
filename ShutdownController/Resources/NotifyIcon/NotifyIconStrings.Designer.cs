@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ShutdownController.Resources.SettingsStrings {
+namespace ShutdownController.Resources.NotifyIcon {
     using System;
     
     
@@ -22,14 +22,14 @@ namespace ShutdownController.Resources.SettingsStrings {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class SettingsStrings {
+    public class NotifyIconStrings {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal SettingsStrings() {
+        internal NotifyIconStrings() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace ShutdownController.Resources.SettingsStrings {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("ShutdownController.Resources.SettingsStrings.SettingsStrings", typeof(SettingsStrings).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("ShutdownController.Resources.NotifyIcon.NotifyIconStrings", typeof(NotifyIconStrings).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,74 +61,38 @@ namespace ShutdownController.Resources.SettingsStrings {
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die Application settings ähnelt.
+        ///   Sucht eine lokalisierte Zeichenfolge, die Exit ähnelt.
         /// </summary>
-        public static string applicationSettings {
+        public static string exit {
             get {
-                return ResourceManager.GetString("applicationSettings", resourceCulture);
+                return ResourceManager.GetString("exit", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die Run on Windows startup ähnelt.
+        ///   Sucht eine lokalisierte Zeichenfolge, die Hide window ähnelt.
         /// </summary>
-        public static string autoStartActive {
+        public static string hideWindow {
             get {
-                return ResourceManager.GetString("autoStartActive", resourceCulture);
+                return ResourceManager.GetString("hideWindow", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die Disable push-messages ähnelt.
+        ///   Sucht eine lokalisierte Zeichenfolge, die Settings ähnelt.
         /// </summary>
-        public static string disablePushMessages {
+        public static string settings {
             get {
-                return ResourceManager.GetString("disablePushMessages", resourceCulture);
+                return ResourceManager.GetString("settings", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die On closing still run in background ähnelt.
+        ///   Sucht eine lokalisierte Zeichenfolge, die Show window ähnelt.
         /// </summary>
-        public static string onClosing {
+        public static string showWindow {
             get {
-                return ResourceManager.GetString("onClosing", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die Windows Startup ähnelt.
-        /// </summary>
-        public static string onStartUp {
-            get {
-                return ResourceManager.GetString("onStartUp", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die Save performance ähnelt.
-        /// </summary>
-        public static string savePerformance {
-            get {
-                return ResourceManager.GetString("savePerformance", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die Start Minimized ähnelt.
-        /// </summary>
-        public static string startMinimized {
-            get {
-                return ResourceManager.GetString("startMinimized", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die On closing programm is minimized in your system tray on your taskbar. ähnelt.
-        /// </summary>
-        public static string toastNotificationOnClosing {
-            get {
-                return ResourceManager.GetString("toastNotificationOnClosing", resourceCulture);
+                return ResourceManager.GetString("showWindow", resourceCulture);
             }
         }
     }

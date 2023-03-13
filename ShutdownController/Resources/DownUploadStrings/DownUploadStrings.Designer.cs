@@ -133,6 +133,15 @@ namespace ShutdownController.Resources.DownUploadStrings {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die If the current value is under the threshold, the action will be started after x seconds. ähnelt.
+        /// </summary>
+        public static string secondsExplanation {
+            get {
+                return ResourceManager.GetString("secondsExplanation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Start ähnelt.
         /// </summary>
         public static string start {

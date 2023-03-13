@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Windows;
+using System.Windows.Threading;
 using ToastNotifications;
 using ToastNotifications.Lifetime;
 using ToastNotifications.Lifetime.Clear;
@@ -46,15 +47,15 @@ namespace ShutdownController.Views.ToastNotification
             ShowCustomMessage(575, 295, window, DownUploadStrings.networkInterface, DownUploadStrings.networkinterfaceInfo, CustomNotificationArrowPosition.Right);
             ShowCustomMessage(575, 370, window, string.Empty, DownUploadStrings.chooseDownOrUp, CustomNotificationArrowPosition.Right);
             ShowCustomMessage(140, 400, window, DownUploadStrings.thresholdSpeed, DownUploadStrings.thresholdInfo, CustomNotificationArrowPosition.Top);
-            ShowCustomMessage(140, 190, window, DownUploadStrings.seconds, "If the current value is under the threshold, the action will be started after x seconds.", CustomNotificationArrowPosition.Bottom);
+            ShowCustomMessage(140, 190, window, DownUploadStrings.seconds, DownUploadStrings.secondsExplanation, CustomNotificationArrowPosition.Bottom);
         }
 
         internal static void ShowDiskInfo(Window window)
         {
-            ShowCustomMessage(575, 295, window, string.Empty, "Choose your observable disk's.", CustomNotificationArrowPosition.Right);
-            ShowCustomMessage(575, 370, window, string.Empty, "Choose what you want to observe.", CustomNotificationArrowPosition.Right);
-            ShowCustomMessage(140, 400, window, DiskStrings.thresholdSpeed, "Choose where the threshold should be.", CustomNotificationArrowPosition.Top);
-            ShowCustomMessage(140, 190, window, DiskStrings.seconds, "If the current value is under the threshold, the action will be started after x seconds.", CustomNotificationArrowPosition.Bottom);
+            ShowCustomMessage(575, 295, window, string.Empty, DiskStrings.chooseDisk, CustomNotificationArrowPosition.Right);
+            ShowCustomMessage(575, 370, window, string.Empty, DiskStrings.chooseReadWrite, CustomNotificationArrowPosition.Right);
+            ShowCustomMessage(140, 400, window, DiskStrings.thresholdSpeed, DiskStrings.chooseThreshold, CustomNotificationArrowPosition.Top);
+            ShowCustomMessage(140, 190, window, DiskStrings.seconds, DiskStrings.secondsExplanation, CustomNotificationArrowPosition.Bottom);
         }
 
 
@@ -80,6 +81,8 @@ namespace ShutdownController.Views.ToastNotification
             if(_notifications == null) { _notifications = new List<Notifier>(); }
             if(_notifications.Count > 10) { ClearAllMessages(null, EventArgs.Empty); }
 
+            
+
             _notifications.Add(
                 new Notifier(cfg =>
                     {
@@ -94,13 +97,13 @@ namespace ShutdownController.Views.ToastNotification
 
                     }));
 
-
-            _notifications[_notifications.Count -1].ShowCustomMessage(titel,message,arrowPosition);
+                    _notifications[_notifications.Count -1].ShowCustomMessage(titel,message,arrowPosition);
 
         }
 
         internal static void ClearAllMessages(object source, EventArgs args)
         {
+            ShowInfoMessage.StopTimerMessageActive();
             _notifications?.ForEach((notify) => { notify.ClearMessages(new ClearAll()); });
             _notifications?.Clear();
         }

@@ -114,6 +114,16 @@
     <Compile Include="Core\IViewModel.cs" />
     <Compile Include="Core\ObservableObject.cs" />
     <Compile Include="Enums\ViewNameEnum.cs" />
+    <Compile Include="Resources\NotifyIcon\NotifyIconStrings.de.Designer.cs">
+      <DependentUpon>NotifyIconStrings.de.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Resources\NotifyIcon\NotifyIconStrings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>NotifyIconStrings.resx</DependentUpon>
+    </Compile>
     <Compile Include="Utility\ScalaCalculator.cs" />
     <Compile Include="Resources\ClockStrings\ClockStrings.de.Designer.cs">
       <DependentUpon>ClockStrings.de.resx</DependentUpon>
@@ -364,6 +374,10 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>MainWindowStrings.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Resources\NotifyIcon\NotifyIconStrings.de.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>NotifyIconStrings.de.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Resources\SettingsStrings\SettingsStrings.de.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>SettingsStrings.de.Designer.cs</LastGenOutput>
@@ -379,6 +393,10 @@
     <EmbeddedResource Include="Resources\TimerStrings\TimerStrings.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>TimerStrings.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\NotifyIcon\NotifyIconStrings.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>NotifyIconStrings.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <Resource Include="Resources\Images\Icons\Exit.ico" />
     <Resource Include="Resources\Images\Icons\Hide.ico" />

@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="chooseDownOrUp" xml:space="preserve">
-    <value>Wähle Down- oder Upload</value>
+    <value>Wähle zwischen Down- oder Upload</value>
   </data>
   <data name="download" xml:space="preserve">
     <value>Download</value>
@@ -140,6 +140,9 @@
   </data>
   <data name="seconds" xml:space="preserve">
     <value>Sekunden:</value>
+  </data>
+  <data name="secondsExplanation" xml:space="preserve">
+    <value>Wenn der aktuelle Wert unter dem Schwellwert ist, wird die eingestellte Aktion nach x Sekunden ausgeführt.</value>
   </data>
   <data name="start" xml:space="preserve">
     <value>Start</value>

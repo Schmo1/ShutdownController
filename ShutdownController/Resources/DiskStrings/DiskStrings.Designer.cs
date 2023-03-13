@@ -61,6 +61,33 @@ namespace ShutdownController.Resources.DiskStrings {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Choose your observable disk&apos;s. ähnelt.
+        /// </summary>
+        public static string chooseDisk {
+            get {
+                return ResourceManager.GetString("chooseDisk", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Choose what you want to observe. ähnelt.
+        /// </summary>
+        public static string chooseReadWrite {
+            get {
+                return ResourceManager.GetString("chooseReadWrite", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Choose where the threshold should be. ähnelt.
+        /// </summary>
+        public static string chooseThreshold {
+            get {
+                return ResourceManager.GetString("chooseThreshold", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Disk observing ähnelt.
         /// </summary>
         public static string diskObserving {
@@ -93,6 +120,15 @@ namespace ShutdownController.Resources.DiskStrings {
         public static string seconds {
             get {
                 return ResourceManager.GetString("seconds", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die If the current value is under the threshold, the action will be started after x seconds. ähnelt.
+        /// </summary>
+        public static string secondsExplanation {
+            get {
+                return ResourceManager.GetString("secondsExplanation", resourceCulture);
             }
         }
         
