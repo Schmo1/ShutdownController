@@ -20,7 +20,7 @@ namespace ShutdownController.ViewModels
         private bool _isValueUnderObservingSpeed;
         private ChartValues<double> _readValues = new ChartValues<double>();
         private ChartValues<double> _writeValues =  new ChartValues<double>();
-        private ChartValues<double> observedReadValues = new ChartValues<double>();
+        private ChartValues<double> _observedReadValues = new ChartValues<double>();
         private ChartValues<double> _observedWriteValues = new ChartValues<double>();
         private string[] _connectedDisks;
         private DiskObserver diskObserver;
@@ -34,8 +34,8 @@ namespace ShutdownController.ViewModels
 
         public ChartValues<double> ObservedReadValues
         {
-            get { return observedReadValues; }
-            set { observedReadValues = value; }
+            get { return _observedReadValues; }
+            set { _observedReadValues = value; }
         }
         public ChartValues<double> ObservedWriteValues
         {

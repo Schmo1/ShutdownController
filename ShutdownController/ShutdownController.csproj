@@ -114,6 +114,11 @@
     <Compile Include="Core\IViewModel.cs" />
     <Compile Include="Core\ObservableObject.cs" />
     <Compile Include="Enums\ViewNameEnum.cs" />
+    <Compile Include="Resources\AboutStrings\AboutStrings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AboutStrings.resx</DependentUpon>
+    </Compile>
     <Compile Include="Resources\NotifyIcon\NotifyIconStrings.de.Designer.cs">
       <DependentUpon>NotifyIconStrings.de.resx</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -194,6 +199,7 @@
     <Compile Include="Utility\ParseInputBox.cs" />
     <Compile Include="Utility\PreventMultipleStarts.cs" />
     <Compile Include="Utility\ShutdownOptions.cs" />
+    <Compile Include="ViewModels\AboutViewModel.cs" />
     <Compile Include="ViewModels\CustomMessageBoxViewModel.cs" />
     <Compile Include="ViewModels\NotifyIconViewModel.cs" />
     <Compile Include="ViewModels\ClockViewModel.cs" />
@@ -202,6 +208,9 @@
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\SettingsViewModel.cs" />
     <Compile Include="ViewModels\TimerViewModel.cs" />
+    <Compile Include="Views\AboutView.xaml.cs">
+      <DependentUpon>AboutView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\ClockView.xaml.cs">
       <DependentUpon>ClockView.xaml</DependentUpon>
     </Compile>
@@ -239,6 +248,10 @@
     <Compile Include="Views\ToggleButton.xaml.cs">
       <DependentUpon>ToggleButton.xaml</DependentUpon>
     </Compile>
+    <Page Include="Views\AboutView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -338,9 +351,14 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Resource Include="Resources\Images\information-button.png" />
     <EmbeddedResource Include="Properties\ConstTemplates.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>ConstTemplates.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\AboutStrings\AboutStrings.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>AboutStrings.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\ClockStrings\ClockStrings.de.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

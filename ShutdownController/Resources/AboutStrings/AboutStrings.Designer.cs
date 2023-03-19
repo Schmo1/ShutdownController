@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ShutdownController.Resources.NotifyIcon {
+namespace ShutdownController.Resources.AboutStrings {
     using System;
     
     
@@ -22,14 +22,14 @@ namespace ShutdownController.Resources.NotifyIcon {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class NotifyIconStrings {
+    public class AboutStrings {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal NotifyIconStrings() {
+        internal AboutStrings() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace ShutdownController.Resources.NotifyIcon {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("ShutdownController.Resources.NotifyIcon.NotifyIconStrings", typeof(NotifyIconStrings).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("ShutdownController.Resources.AboutStrings.AboutStrings", typeof(AboutStrings).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -57,51 +57,6 @@ namespace ShutdownController.Resources.NotifyIcon {
             }
             set {
                 resourceCulture = value;
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die About ähnelt.
-        /// </summary>
-        public static string about {
-            get {
-                return ResourceManager.GetString("about", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die Exit ähnelt.
-        /// </summary>
-        public static string exit {
-            get {
-                return ResourceManager.GetString("exit", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die Hide window ähnelt.
-        /// </summary>
-        public static string hideWindow {
-            get {
-                return ResourceManager.GetString("hideWindow", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die Settings ähnelt.
-        /// </summary>
-        public static string settings {
-            get {
-                return ResourceManager.GetString("settings", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die Show window ähnelt.
-        /// </summary>
-        public static string showWindow {
-            get {
-                return ResourceManager.GetString("showWindow", resourceCulture);
             }
         }
     }

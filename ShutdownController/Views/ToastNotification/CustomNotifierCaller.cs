@@ -1,9 +1,4 @@
-﻿using ShutdownController.Resources.ClockStrings;
-using ShutdownController.Resources.DiskStrings;
-using ShutdownController.Resources.DownUploadStrings;
-using ShutdownController.Resources.MainWindowStrings;
-using ShutdownController.Resources.TimerStrings;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Windows;
@@ -13,6 +8,12 @@ using ToastNotifications.Lifetime;
 using ToastNotifications.Lifetime.Clear;
 using ToastNotifications.Position;
 using Window = System.Windows.Window;
+using ShutdownController.Resources.ClockStrings;
+using ShutdownController.Resources.DiskStrings;
+using ShutdownController.Resources.DownUploadStrings;
+using ShutdownController.Resources.MainWindowStrings;
+using ShutdownController.Resources.TimerStrings;
+using ShutdownController.Resources.SettingsStrings;
 
 namespace ShutdownController.Views.ToastNotification
 {
@@ -61,7 +62,7 @@ namespace ShutdownController.Views.ToastNotification
 
         internal static void ShowSettingsInfo(Window window)
         {
-            ShowCustomMessage(520, 400, window, string.Empty, "On closing programm is minimized in your system tray on your taskbar", CustomNotificationArrowPosition.Right);
+            ShowCustomMessage(520, 400, window, string.Empty, SettingsStrings.toastNotificationOnClosing, CustomNotificationArrowPosition.Right);
         }
 
         internal static void ShowTimerInfo(Window window)

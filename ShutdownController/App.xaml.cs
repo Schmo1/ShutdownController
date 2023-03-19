@@ -24,6 +24,8 @@ namespace ShutdownController
 
         public TaskbarIcon TaskbarIcon { get; set; }
 
+        public static AboutView AboutView { get; set; }
+
         public static AutoStartController AutoStartController { get; set; }
         private static PreventMultipleStarts multipleStarts;
 
