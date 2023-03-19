@@ -97,7 +97,7 @@ namespace ShutdownController.Resources.MainWindowStrings {
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die Action will perform in ... ähnelt.
+        ///   Sucht eine lokalisierte Zeichenfolge, die action will perform in ... ähnelt.
         /// </summary>
         public static string MBActionWillPerformIn {
             get {

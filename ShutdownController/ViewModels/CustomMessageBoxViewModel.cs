@@ -1,9 +1,9 @@
 ﻿using System;
-using System.Threading;
 using System.Windows;
 using System.Windows.Threading;
 using ShutdownController.Core;
 using ShutdownController.Utility;
+using ShutdownController.Resources.MainWindowStrings;
 
 namespace ShutdownController.ViewModels
 {
@@ -20,7 +20,18 @@ namespace ShutdownController.ViewModels
         {
             get { return _timeLeft; }
             set { _timeLeft = value; OnPropertyChanged(); }
+        }
 
+        public string ActionToPerforme 
+        { get
+            {
+                if (Properties.Settings.Default.IsRestartSelected)
+                    return MainWindowStrings.restart;
+                else if(Properties.Settings.Default.IsShutdownSelected) 
+                    return MainWindowStrings.shutdown;
+
+                return MainWindowStrings.sleep;
+            } 
         }
 
         public CommandHandler AbortAction { get; set; }

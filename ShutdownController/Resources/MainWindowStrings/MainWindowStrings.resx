@@ -130,7 +130,7 @@
     <value />
   </data>
   <data name="MBActionWillPerformIn" xml:space="preserve">
-    <value>Action will perform in ...</value>
+    <value>action will perform in ...</value>
   </data>
   <data name="pressMe" xml:space="preserve">
     <value>Press me...</value>

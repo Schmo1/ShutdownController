@@ -26,9 +26,16 @@
             </Grid.RowDefinitions>
             
             <!-- Main text -->
-            <TextBlock Text="{x:Static strings:MainWindowStrings.MBActionWillPerformIn}" 
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Grid.Row="1">
+                <TextBlock Text="{Binding ActionToPerforme, FallbackValue=Shutdown}"
+                           Style="{StaticResource optionButtonText}" 
+                           HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,4,0"/>
+                           
+                <TextBlock Text="{x:Static strings:MainWindowStrings.MBActionWillPerformIn}" 
                        Style="{StaticResource optionButtonText}" 
-                       HorizontalAlignment="Center" Grid.Row="1" VerticalAlignment="Center"/>
+                       HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            </StackPanel>
+                
 
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Grid.Row="2">
                 <TextBlock Text="{Binding Path=TimeLeft, FallbackValue=10}" Style="{StaticResource optionButtonText}" />
