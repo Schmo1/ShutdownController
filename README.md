@@ -5,7 +5,7 @@ ShutdownController is a little tool to manage the time when the PC should shut d
 ## Features include:
 
 ### General
-- You can choose between Sleep Mode, Restart or ShutdownManager
+- You can choose between Sleep Mode, Restart or Shutdown
 - The tool generates a trayicon and you will get some balloon tips, if you want to see them
 - You can add the tool to autostart by activating it in the settings
 - There is also an option to allow running the application in the background
