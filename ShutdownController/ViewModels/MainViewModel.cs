@@ -162,12 +162,6 @@ namespace ShutdownController.ViewModels
 
         }
 
-        private void ShowInfoMessages()
-        {
-           
-      
-        }
-
 
         public override void OnPropertyChanged([CallerMemberName] string name = null)
         {
@@ -213,22 +207,22 @@ namespace ShutdownController.ViewModels
         {
             if (TimerVM.TimerStarted &! TimerVM.TimerPaused)
             {
-                MyLogger.Instance().Info("HideWindow because Timer is running");
+                MyLogger.Instance().Debug("HideWindow because Timer is running");
                 System.Windows.Application.Current.MainWindow.Close();
             }
             else if (ClockVM.ClockActive)
             {
-                MyLogger.Instance().Info("HideWindow because Clock is running");
+                MyLogger.Instance().Debug("HideWindow because Clock is running");
                 Application.Current.MainWindow.Close();
             }
             else if (Properties.Settings.Default.OnClosingRunInBackground)
             {
-                MyLogger.Instance().Info("HideWindow pressed on MainWindow"); 
+                MyLogger.Instance().Debug("HideWindow pressed on MainWindow"); 
                 Application.Current.MainWindow.Close();
             }
             else
             {
-                MyLogger.Instance().Info("Close Application pressed on MainWindow");
+                MyLogger.Instance().Debug("Close Application pressed on MainWindow");
                 Application.Current.Shutdown();
             }
         }

@@ -35,7 +35,7 @@ namespace ShutdownController.ViewModels
                 {
                     CommandAction = () =>
                     {
-                        MyLogger.Instance().Info("Show Window pressed");
+                        MyLogger.Instance().Debug("Show Window pressed");
                         App.OpenMainWindow();
                     },
 
@@ -59,7 +59,7 @@ namespace ShutdownController.ViewModels
                 {
                     CommandAction = () => 
                     { 
-                        MyLogger.Instance().Info("Hide Window pressed");
+                        MyLogger.Instance().Debug("Hide Window pressed");
                         Application.Current.MainWindow?.Close();
                     },
                     CanExecuteFunc = () => 
@@ -81,7 +81,7 @@ namespace ShutdownController.ViewModels
                 {
                     CommandAction = () =>
                     {
-                        MyLogger.Instance().Info("Show settings pressed");
+                        MyLogger.Instance().Debug("Show settings pressed");
 
                         App.AboutView = new Views.AboutView();
                         App.AboutView.Show();
@@ -106,7 +106,7 @@ namespace ShutdownController.ViewModels
                 {
                     CommandAction = () =>
                     {
-                        MyLogger.Instance().Info("Show about pressed");
+                        MyLogger.Instance().Debug("Show about pressed");
                         App.OpenMainWindow();
                         MainViewModel mwModel = (MainViewModel)Application.Current.MainWindow.DataContext;
 
@@ -140,7 +140,7 @@ namespace ShutdownController.ViewModels
 
                     CommandAction = () =>
                     {
-                        MyLogger.Instance().Info("DoubleClick on TrayIcon Pressed => Open MainWindow");
+                        MyLogger.Instance().Debug("DoubleClick on TrayIcon Pressed => Open MainWindow");
                         App.OpenMainWindow();
                     },
 

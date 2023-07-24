@@ -3,8 +3,6 @@ using System.IO;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Windows.Threading;
-using System.Windows.Navigation;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace ShutdownController.Utility

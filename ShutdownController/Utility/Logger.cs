@@ -22,8 +22,6 @@ namespace ShutdownController.Utility
 
         }
 
-
-
         public static MyLogger Instance()
         {
             //Creates a new Instance if it's null
@@ -101,12 +99,6 @@ namespace ShutdownController.Utility
             Diagn.Debug.WriteLine(logMessage, "Warn");
 #endif
         }
-
-
-
-
-
-
 
         private string CreateLogString(string message, string nameOfCaller, string sourceFilePath, int lineNumberOfCaller)
         {

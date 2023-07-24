@@ -54,9 +54,9 @@ namespace ShutdownController.ViewModels
                 if (_internetConnectionExist != value)
                 {
                     if (value)
-                        MyLogger.Instance().Info("Internet Connection Exist");
+                        MyLogger.Instance().Debug("Internet Connection Exist");
                     else
-                        MyLogger.Instance().Info("No Internet Connection Exist");
+                        MyLogger.Instance().Debug("No Internet Connection Exist");
                 }
 
                 _internetConnectionExist = value;
@@ -229,9 +229,6 @@ namespace ShutdownController.ViewModels
             DownloadObservingCommand = new CommandHandler(() => DownloadObservingnPressed(), () => !DownloadObservingPressed);
 
             UploadObservingCommand = new CommandHandler(() => UploadObservingnPressed(), () => !UploadObservingPressed);
-
-
-
         }
 
         private void NetworkInterfacesHasChanged(object sender, EventArgs e)
@@ -309,7 +306,7 @@ namespace ShutdownController.ViewModels
             {
                 ObserveActive = false;
                 ClearObservationValues();
-                MyLogger.Instance().Info("Down Upload is running out");
+                MyLogger.Instance().Debug("Down Upload is running out");
                 ShutdownOptions.Instance.ShowDialog();
             }
            

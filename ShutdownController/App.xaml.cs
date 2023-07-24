@@ -45,7 +45,7 @@ namespace ShutdownController
             AppDomain currentDomain = AppDomain.CurrentDomain;
             currentDomain.UnhandledException += new UnhandledExceptionEventHandler(UnhandledEceptionLogger);
 
-            MyLogger.Instance().Info("App is starting...");
+            MyLogger.Instance().Debug("App is starting...");
 
             
             AutoStartController = new AutoStartController(" " + ShutdownController.Properties.ConstTemplates.ArgWithoutUI);
@@ -84,7 +84,7 @@ namespace ShutdownController
             TaskbarIcon?.Dispose();
             multipleStarts?.StopListening();
             AccurateTimerTick.DisposeAll();
-            MyLogger.Instance().Info("App is closing...");
+            MyLogger.Instance().Debug("App is closing...");
             base.OnExit(e);
         }
 
@@ -146,7 +146,7 @@ namespace ShutdownController
 
         public static void OpenMainWindow()
         {
-            MyLogger.Instance().Info("Open main window");
+            MyLogger.Instance().Debug("Open main window");
 
             
             if (Current.MainWindow == null || Current.MainWindow.IsVisible == false || Current.MainWindow.Title != "") //If its main window, then the Tile is empty

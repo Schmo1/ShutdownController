@@ -75,7 +75,7 @@ namespace ShutdownController.Utility
 
         public void Shutdown()
         {
-            MyLogger.Instance().Info("Execute Action: 'Shutdown' ....");
+            MyLogger.Instance().Debug("Execute Action: 'Shutdown' ....");
             if (_testingModeActiv)
             {
                 PushMessages.ShowBalloonTip("Debug", "Shutdown!", BalloonIcon.Info);
@@ -97,7 +97,7 @@ namespace ShutdownController.Utility
 
         public void Restart()
         { 
-            MyLogger.Instance().Info("Execute Action: 'Restart' ....");
+            MyLogger.Instance().Debug("Execute Action: 'Restart' ....");
             if (_testingModeActiv)
             {
                 PushMessages.ShowBalloonTip("Debug", "Restart!", BalloonIcon.Info);
@@ -118,7 +118,7 @@ namespace ShutdownController.Utility
 
         public void Sleep()
         {
-            MyLogger.Instance().Info("Execute Action: 'Sleep' ....");
+            MyLogger.Instance().Debug("Execute Action: 'Sleep' ....");
             if (_testingModeActiv)
             {
                 PushMessages.ShowBalloonTip("Debug", "Sleep!", BalloonIcon.Info);
