@@ -5,9 +5,10 @@ using ShutdownController.Configuration;
 using ShutdownController.ViewModels;
 using ShutdownController.Views;
 using System.IO;
-using System.Reflection;
+using Serilog;
 using System.Windows;
 using System.Windows.Threading;
+using ShutdownController.Services;
 
 namespace ShutdownController;
 
@@ -16,22 +17,34 @@ public partial class App : Application
 {
 	private IHost _host;
 
-	private void OnStartup(object sender, StartupEventArgs e)
+	private async void OnStartup(object sender, StartupEventArgs e)
 	{
-		var appLocation = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
 
 		_host = Host.CreateDefaultBuilder(e.Args)
 			   .ConfigureAppConfiguration(c =>
 			   {
-				   c.SetBasePath(appLocation);
+				   c.SetBasePath(Directory.GetCurrentDirectory())
+				   .AddJsonFile("appsettings.json", false, false)
+				   .AddJsonFile($"appsettings.{Environment.GetEnvironmentVariable("DEBUG") ?? "Production"}.json", true);
 			   })
 			   .ConfigureServices(ConfigureServices)
 			   .Build();
+
+		await _host.StartAsync();
 	}
 
-	private void ConfigureServices(HostBuilderContext context, IServiceCollection services)
+	private static void ConfigureServices(HostBuilderContext context, IServiceCollection services)
 	{
+		// Configure Serilog
+		Log.Logger = new LoggerConfiguration()
+			.ReadFrom.Configuration(context.Configuration)
+			.CreateLogger();
+
+		services.AddSingleton<ILogger>(Log.Logger);
+
+		services.AddHostedService<ApplicationHostService>();
 		services.AddSingleton<MainWindow>();
+
 		services.AddSingleton<MainViewModel>();
 
 		services.Configure<AppConfig>(context.Configuration.GetSection(nameof(AppConfig)));

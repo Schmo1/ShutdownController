@@ -10,10 +10,16 @@
 
   <ItemGroup>
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
-    <PackageReference Include="Microsoft.Extensions.Configuration" Version="9.0.7" />
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.7" />
-    <PackageReference Include="Microsoft.Extensions.Hosting" Version="9.0.7" />
-    <PackageReference Include="Microsoft.Extensions.Logging" Version="9.0.7" />
+    <PackageReference Include="FontAwesome" Version="4.7.0" />
+    <PackageReference Include="Hardcodet.NotifyIcon.Wpf" Version="2.0.1" />
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="9.0.8" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.8" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="9.0.8" />
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="9.0.8" />
+    <PackageReference Include="Serilog" Version="4.3.0" />
+    <PackageReference Include="Serilog.Settings.Configuration" Version="9.0.0" />
+    <PackageReference Include="ToastNotifications" Version="2.5.1" />
+    <PackageReference Include="ToastNotifications.Messages" Version="2.5.1" />
   </ItemGroup>
 
   <ItemGroup>
@@ -21,9 +27,176 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Resources\Images\close.png" />
+    <Resource Include="Resources\Images\Download.png" />
+    <Resource Include="Resources\Images\Hide.png" />
+    <Resource Include="Resources\Images\HideDisabled.png" />
+    <Resource Include="Resources\Images\hosting.png" />
+    <Resource Include="Resources\Images\Icons\Exit.ico" />
+    <Resource Include="Resources\Images\Icons\Hide.ico" />
+    <Resource Include="Resources\Images\Icons\HideDisabled.ico" />
+    <Resource Include="Resources\Images\Icons\Settings.ico" />
+    <Resource Include="Resources\Images\Icons\Show.ico" />
+    <Resource Include="Resources\Images\Icons\ShowDisabled.ico" />
+    <Resource Include="Resources\Images\Icons\Shutdown 124x124.ico" />
+    <Resource Include="Resources\Images\Icons\Shutdown 256x256.ico" />
+    <Resource Include="Resources\Images\Icons\Shutdown 32x32.ico" />
+    <Resource Include="Resources\Images\Icons\ShutdownManager.ico" />
+    <Resource Include="Resources\Images\information-button.png" />
+    <Resource Include="Resources\Images\moon.png" />
+    <Resource Include="Resources\Images\on-off-button.png" />
+    <Resource Include="Resources\Images\Pause.png" />
+    <Resource Include="Resources\Images\Play.png" />
+    <Resource Include="Resources\Images\read.png" />
+    <Resource Include="Resources\Images\restart.png" />
+    <Resource Include="Resources\Images\settings.png" />
+    <Resource Include="Resources\Images\settingsNotification.png" />
+    <Resource Include="Resources\Images\show.png" />
+    <Resource Include="Resources\Images\showDisabled.png" />
+    <Resource Include="Resources\Images\Shutdown.png" />
+    <Resource Include="Resources\Images\Stop.png" />
+    <Resource Include="Resources\Images\timer.png" />
+    <Resource Include="Resources\Images\Upload.png" />
+    <Resource Include="Resources\Images\upside-down.png" />
+    <Resource Include="Resources\Images\wall-clock.png" />
+    <Resource Include="Resources\Images\write.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Resources\AboutStrings\AboutStrings.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>AboutStrings.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\ClockStrings\ClockStrings.de.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Update="Resources\ClockStrings\ClockStrings.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>ClockStrings.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\DiskStrings\DiskStrings.de.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Update="Resources\DiskStrings\DiskStrings.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>DiskStrings.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\DownUploadStrings\DownUploadStrings.de.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Update="Resources\DownUploadStrings\DownUploadStrings.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>DownUploadStrings.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\MainWindowStrings\MainWindowStrings.de.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Update="Resources\MainWindowStrings\MainWindowStrings.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>MainWindowStrings.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\NotifyIcon\NotifyIconStrings.de.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Update="Resources\NotifyIcon\NotifyIconStrings.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>NotifyIconStrings.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\SettingsStrings\SettingsStrings.de.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Update="Resources\SettingsStrings\SettingsStrings.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>SettingsStrings.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\TimerStrings\TimerStrings.de.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Update="Resources\TimerStrings\TimerStrings.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>TimerStrings.resx</DependentUpon>
+    </Compile>
     <Compile Update="View\MainWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Resources\AboutStrings\AboutStrings.resx">
+      <LastGenOutput>AboutStrings.Designer.cs</LastGenOutput>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\ClockStrings\ClockStrings.de.resx">
+      <LastGenOutput>ClockStrings.de.Designer.cs</LastGenOutput>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\ClockStrings\ClockStrings.resx">
+      <LastGenOutput>ClockStrings.Designer.cs</LastGenOutput>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\DiskStrings\DiskStrings.de.resx">
+      <LastGenOutput>DiskStrings.de.Designer.cs</LastGenOutput>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\DiskStrings\DiskStrings.resx">
+      <LastGenOutput>DiskStrings.Designer.cs</LastGenOutput>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\DownUploadStrings\DownUploadStrings.de.resx">
+      <LastGenOutput>DownUploadStrings.de.Designer.cs</LastGenOutput>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\DownUploadStrings\DownUploadStrings.resx">
+      <LastGenOutput>DownUploadStrings.Designer.cs</LastGenOutput>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\MainWindowStrings\MainWindowStrings.de.resx">
+      <LastGenOutput>MainWindowStrings.de.Designer.cs</LastGenOutput>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\MainWindowStrings\MainWindowStrings.resx">
+      <LastGenOutput>MainWindowStrings.Designer.cs</LastGenOutput>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\NotifyIcon\NotifyIconStrings.de.resx">
+      <LastGenOutput>NotifyIconStrings.de.Designer.cs</LastGenOutput>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\NotifyIcon\NotifyIconStrings.resx">
+      <LastGenOutput>NotifyIconStrings.Designer.cs</LastGenOutput>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\SettingsStrings\SettingsStrings.de.resx">
+      <LastGenOutput>SettingsStrings.de.Designer.cs</LastGenOutput>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\SettingsStrings\SettingsStrings.resx">
+      <LastGenOutput>SettingsStrings.Designer.cs</LastGenOutput>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\TimerStrings\TimerStrings.de.resx">
+      <LastGenOutput>TimerStrings.de.Designer.cs</LastGenOutput>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\TimerStrings\TimerStrings.resx">
+      <LastGenOutput>TimerStrings.Designer.cs</LastGenOutput>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
   </ItemGroup>
 
   <ItemGroup>
