@@ -2,17 +2,22 @@
 
 using ShutdownController.Views;
 using ShutdownController.ViewModels;
+using Microsoft.Extensions.DependencyInjection;
+using ShutdownController.Services.Abstraction;
 
 namespace ShutdownController.Services;
 
 public class ApplicationHostService : IHostedService
 {
     private readonly IServiceProvider _serviceProvider;
+    private readonly IPersistAndRestoreService _persistAndRestoreService;
     private bool _isInitialized;
+    private MainWindow _mainWindow;
 
-    public ApplicationHostService(IServiceProvider serviceProvider)
+    public ApplicationHostService(IServiceProvider serviceProvider, IPersistAndRestoreService persistAndRestoreService)
     {
         _serviceProvider = serviceProvider;
+        this._persistAndRestoreService = persistAndRestoreService;
     }
 
     public async Task StartAsync(CancellationToken cancellationToken)
@@ -29,7 +34,7 @@ public class ApplicationHostService : IHostedService
 
     public Task StopAsync(CancellationToken cancellationToken)
     {
-        //_persistAndRestoreService.PersistData();
+        _persistAndRestoreService.PersistData();
         return Task.CompletedTask;
     }
 
@@ -37,7 +42,7 @@ public class ApplicationHostService : IHostedService
     {
         if (!_isInitialized)
         {
-            //_persistAndRestoreService.RestoreData();
+            _persistAndRestoreService.RestoreData();
         }
         return Task.CompletedTask;
     }
@@ -61,15 +66,12 @@ public class ApplicationHostService : IHostedService
         //}
 
 
-        //if (App.Current.Windows.OfType<IShellWindow>().Count() == 0)
-        //{
-        //    // Default activation that navigates to the apps default page
-        //    //_shellWindow = _serviceProvider.GetService(typeof(IShellWindow)) as IShellWindow;
-        //    //_navigationService.Initialize(_shellWindow.GetNavigationFrame());
-        //    //_shellWindow.ShowWindow();
-        //    //_navigationService.NavigateTo(typeof(MainViewModel).FullName);
-        //    //await Task.CompletedTask;
-        //}
+        if (!System.Windows.Application.Current.Windows.OfType<MainWindow>().Any())
+        {
+            _mainWindow = _serviceProvider.GetRequiredService<MainWindow>();
+            _mainWindow.Show();
+            return Task.CompletedTask;
+        }
         return Task.CompletedTask;
 	}
 }

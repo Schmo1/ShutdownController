@@ -4,6 +4,7 @@ using Microsoft.Extensions.Hosting;
 using Serilog;
 using ShutdownController.Configuration;
 using ShutdownController.Services;
+using ShutdownController.Services.Abstraction;
 using ShutdownController.ViewModels;
 using ShutdownController.Views;
 using System.IO;
@@ -35,25 +36,24 @@ public partial class App : Application
 		Services = _host.Services;
 
 		await _host.StartAsync();
-
-		MainWindow mainWindow = _host.Services.GetRequiredService<MainWindow>();
-		mainWindow.Show();
 	}
 
 	private static void ConfigureServices(HostBuilderContext context, IServiceCollection services)
 	{
-		// Configure Serilog
-		Log.Logger = new LoggerConfiguration()
+        services.AddHostedService<ApplicationHostService>();
+       
+        Log.Logger = new LoggerConfiguration()
 			.ReadFrom.Configuration(context.Configuration)
 			.CreateLogger();
-		
-		services.AddSingleton(Log.Logger);
+        services.AddHostedService<ApplicationHostService>();
+        services.AddSingleton<IFileService, FileService>();
+        services.AddSingleton<IPersistAndRestoreService, PersistAndRestoreService>();
+        services.AddSingleton(Log.Logger);
 		services.AddSingleton<MainWindow>();
-
 		services.AddSingleton<MainWindowViewModel>();
 
 		services.Configure<AppConfig>(context.Configuration.GetSection(nameof(AppConfig)));
-		services.AddHostedService<ApplicationHostService>();
+		
 	}
 	
 
