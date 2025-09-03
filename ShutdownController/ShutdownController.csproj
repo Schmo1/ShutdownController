@@ -3,6 +3,7 @@
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <TargetFramework>net9.0-windows</TargetFramework>
+
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UseWPF>true</UseWPF>
@@ -18,8 +19,7 @@
     <PackageReference Include="Microsoft.Extensions.Logging" Version="9.0.8" />
     <PackageReference Include="Serilog" Version="4.3.0" />
     <PackageReference Include="Serilog.Settings.Configuration" Version="9.0.0" />
-    <PackageReference Include="ToastNotifications" Version="2.5.1" />
-    <PackageReference Include="ToastNotifications.Messages" Version="2.5.1" />
+    <PackageReference Include="Serilog.Sinks.File" Version="7.0.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -63,80 +63,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="Resources\AboutStrings\AboutStrings.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>AboutStrings.resx</DependentUpon>
-    </Compile>
-    <Compile Update="Resources\ClockStrings\ClockStrings.de.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-    </Compile>
-    <Compile Update="Resources\ClockStrings\ClockStrings.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>ClockStrings.resx</DependentUpon>
-    </Compile>
-    <Compile Update="Resources\DiskStrings\DiskStrings.de.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-    </Compile>
-    <Compile Update="Resources\DiskStrings\DiskStrings.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>DiskStrings.resx</DependentUpon>
-    </Compile>
-    <Compile Update="Resources\DownUploadStrings\DownUploadStrings.de.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-    </Compile>
-    <Compile Update="Resources\DownUploadStrings\DownUploadStrings.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>DownUploadStrings.resx</DependentUpon>
-    </Compile>
-    <Compile Update="Resources\MainWindowStrings\MainWindowStrings.de.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-    </Compile>
-    <Compile Update="Resources\MainWindowStrings\MainWindowStrings.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>MainWindowStrings.resx</DependentUpon>
-    </Compile>
-    <Compile Update="Resources\NotifyIcon\NotifyIconStrings.de.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-    </Compile>
-    <Compile Update="Resources\NotifyIcon\NotifyIconStrings.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>NotifyIconStrings.resx</DependentUpon>
-    </Compile>
-    <Compile Update="Resources\SettingsStrings\SettingsStrings.de.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-    </Compile>
-    <Compile Update="Resources\SettingsStrings\SettingsStrings.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>SettingsStrings.resx</DependentUpon>
-    </Compile>
-    <Compile Update="Resources\TimerStrings\TimerStrings.de.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-    </Compile>
-    <Compile Update="Resources\TimerStrings\TimerStrings.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>TimerStrings.resx</DependentUpon>
-    </Compile>
-    <Compile Update="View\MainWindow.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
-  </ItemGroup>
-
-  <ItemGroup>
     <EmbeddedResource Update="Resources\AboutStrings\AboutStrings.resx">
       <LastGenOutput>AboutStrings.Designer.cs</LastGenOutput>
       <Generator>PublicResXFileCodeGenerator</Generator>
@@ -171,14 +97,6 @@
     </EmbeddedResource>
     <EmbeddedResource Update="Resources\MainWindowStrings\MainWindowStrings.resx">
       <LastGenOutput>MainWindowStrings.Designer.cs</LastGenOutput>
-      <Generator>PublicResXFileCodeGenerator</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Resources\NotifyIcon\NotifyIconStrings.de.resx">
-      <LastGenOutput>NotifyIconStrings.de.Designer.cs</LastGenOutput>
-      <Generator>PublicResXFileCodeGenerator</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Resources\NotifyIcon\NotifyIconStrings.resx">
-      <LastGenOutput>NotifyIconStrings.Designer.cs</LastGenOutput>
       <Generator>PublicResXFileCodeGenerator</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Resources\SettingsStrings\SettingsStrings.de.resx">
