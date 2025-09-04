@@ -5,6 +5,7 @@
         xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ShutdownController.Views"
+        xmlns:viewModels="clr-namespace:ShutdownController.ViewModels"
         mc:Ignorable="d"
         Width="830" Height="550" WindowStartupLocation="CenterScreen"
         MinWidth="830" MaxWidth="800" MaxHeight="550" MinHeight="550" 
@@ -37,8 +38,12 @@
                 <ColumnDefinition Width="180"/>
             </Grid.ColumnDefinitions>
             
-            <Border Grid.Column="2" CornerRadius="25" Style="{StaticResource borderbrightBlueTheme}" Margin="10,20,10,20">
-                <ContentControl Content="{Binding ShutdownOptionsViewModel}" HorizontalAlignment="Center"/>
+            <Border Grid.Column="2" CornerRadius="25" Style="{StaticResource borderbrightBlueTheme}" Margin="10,20,10,20">            
+                <local:ShutdownOptionsView>
+                    <local:ShutdownOptionsView.DataContext>
+                        <viewModels:ShutdownOptionsViewModel />
+                    </local:ShutdownOptionsView.DataContext>
+                </local:ShutdownOptionsView>
             </Border>
 
 

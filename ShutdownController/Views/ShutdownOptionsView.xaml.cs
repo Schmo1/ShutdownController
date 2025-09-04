@@ -12,7 +12,6 @@ public partial class ShutdownOptionsView : UserControl
     public ShutdownOptionsView()
     {
         InitializeComponent();
-		DataContext = App.Services.GetRequiredService<ShutdownOptionsViewModel>();
 	}
 }
 
