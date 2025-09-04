@@ -2,11 +2,99 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ShutdownController.Views"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        
-    </Grid>
+        Width="830" Height="550" WindowStartupLocation="CenterScreen"
+        MinWidth="830" MaxWidth="800" MaxHeight="550" MinHeight="550" 
+        WindowStyle="None" AllowsTransparency="True" ResizeMode="CanMinimize"
+        Background="Transparent"
+        Name="window" >
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding LoadedCommand}" />
+        </i:EventTrigger>
+        <i:EventTrigger EventName="Closing">
+            <i:InvokeCommandAction Command="{Binding ClosingCommand}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <Border Background="#ffffff"
+         Padding="20"
+         CornerRadius="25"
+         MouseDown="Border_MouseDown"
+         Margin="5">
+        <Border.Effect>
+            <DropShadowEffect ShadowDepth="1"
+                           BlurRadius="5"
+                           Opacity="0.5"/>
+        </Border.Effect>
+
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="83"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="180"/>
+            </Grid.ColumnDefinitions>
+            
+            <Border Grid.Column="2" CornerRadius="25" Style="{StaticResource borderbrightBlueTheme}" Margin="10,20,10,20">
+                <ContentControl Content="{Binding ShutdownOptionsViewModel}" HorizontalAlignment="Center"/>
+            </Border>
+
+
+            <Border Grid.ColumnSpan="2" CornerRadius="25" Margin="5,20,10,20">
+                <Border.Effect>
+                    <DropShadowEffect ShadowDepth="1"
+                                    BlurRadius="20"
+                                    Opacity="0.4"/>
+                </Border.Effect>
+
+                <Border.Background>
+                    <LinearGradientBrush StartPoint="0.5,0" EndPoint="1,1">
+                        <GradientStop Color="#b3e6ff" Offset="0.0" />
+                        <GradientStop Color="#e3f6ff" Offset="1.0" />
+                    </LinearGradientBrush>
+                </Border.Background>
+            </Border>
+
+            <Border CornerRadius="10" Background="#3253f1">
+                <Border.Effect>
+                    <DropShadowEffect ShadowDepth="1"
+                                      BlurRadius="20"
+                                      Opacity="0.4"/>
+                </Border.Effect>
+
+                <Grid>
+                    <StackPanel>
+                        <Button Style="{StaticResource menuButton}" Margin="15,25,15,20" Command="{Binding TimerViewCommand}" >
+                            <Image Source="/Resources/Images/timer.png" Width="23" />                     
+                        </Button>
+                        <Button Style="{StaticResource menuButton}"  Command="{Binding ClockViewCommand}">
+                            <Image Source="/Resources/Images/wall-clock.png" Width="23" />                          
+                        </Button>
+                        <Button Style="{StaticResource menuButton}"  Command="{Binding DownUploadViewCommand}" >
+                            <Image Source="/Resources/Images/upside-down.png" Width="23" />                           
+                        </Button>
+                        <Button Style="{StaticResource menuButton}" Command="{Binding DiskViewCommand}">
+                            <Image Source="/Resources/Images/hosting.png" Width="23" />
+                        </Button>
+
+                    </StackPanel>
+
+                    <StackPanel VerticalAlignment="Bottom">
+                        <Button Style="{StaticResource menuButton}" Command="{Binding SettingsViewCommand}">
+                            <Image Source="/Resources/Images/settings.png" Width="28" />                          
+                        </Button>
+
+                        <Button Style="{StaticResource menuButton}" VerticalAlignment="Bottom" Command="{Binding CloseAppCommand}">
+                            <Image Source="/Resources/Images/close.png" Width="28" />                         
+                        </Button>
+                    </StackPanel>
+
+
+                </Grid>
+
+            </Border>
+        </Grid>
+    </Border>
 </Window>

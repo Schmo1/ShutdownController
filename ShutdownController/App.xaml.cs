@@ -50,7 +50,10 @@ public partial class App : Application
         services.AddSingleton<IPersistAndRestoreService, PersistAndRestoreService>();
         services.AddSingleton(Log.Logger);
 		services.AddSingleton<MainWindow>();
+		services.AddSingleton<ShutdownOptionsView>();
+
 		services.AddSingleton<MainWindowViewModel>();
+		services.AddSingleton<ShutdownOptionsViewModel>();
 
 		services.Configure<AppConfig>(context.Configuration.GetSection(nameof(AppConfig)));
 		

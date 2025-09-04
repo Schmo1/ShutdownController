@@ -1,0 +1,43 @@
+﻿<UserControl x:Class="ShutdownController.Views.ShutdownOptionsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ShutdownController.Views"
+             xmlns:converters="clr-namespace:ShutdownController.Converters"
+             mc:Ignorable="d">
+
+    <UserControl.Resources>
+        <converters:BoolInvertConverter x:Key="MyBoolInvertConverter"/>
+    </UserControl.Resources>
+
+    <Grid>
+        <Button Style="{StaticResource optionButton}" Margin="15,25,15,20" VerticalAlignment="Top" 
+                IsEnabled="{Binding IsShutdownButtonSelected, Converter={StaticResource MyBoolInvertConverter}}"
+                Command="{Binding ShutdownButtonCommand}">
+            <StackPanel>
+                <Image Source="/Resources/Images/on-off-button.png" Width="28" />
+                <TextBlock Text="Shutdown" Margin="0,10,0,0" Style="{StaticResource optionButtonText}"/>
+            </StackPanel>
+
+        </Button>
+        <Button Style="{StaticResource optionButton}" Margin="15,25,15,20" VerticalAlignment="Center" 
+                IsEnabled="{Binding IsRestartButtonSelected, Converter={StaticResource MyBoolInvertConverter}}"
+                Command="{Binding RestartButtonCommand}">
+            <StackPanel>
+                <Image Source="/Resources/Images/restart.png" Width="28" />
+                <TextBlock Text="Restart" Margin="0,10,0,0" Style="{StaticResource optionButtonText}"/>
+            </StackPanel>
+
+        </Button>
+        <Button Style="{StaticResource optionButton}" Margin="15,25,15,20" VerticalAlignment="Bottom"
+                IsEnabled="{Binding IsSleepButtonSelected, Converter={StaticResource MyBoolInvertConverter}}"
+                Command="{Binding SleepButtonCommand}">
+            <StackPanel>
+                <Image Source="/Resources/Images/moon.png" Width="28" />
+                <TextBlock Text="Sleep" Margin="0,10,0,0" Style="{StaticResource optionButtonText}"/>
+            </StackPanel>
+
+        </Button>
+    </Grid>
+</UserControl>
