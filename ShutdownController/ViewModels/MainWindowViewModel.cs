@@ -7,23 +7,21 @@ namespace ShutdownController.ViewModels;
 public partial class MainWindowViewModel : ObservableObject
 {
 	private readonly ILogger _logger;
-
+	private readonly SettingsViewModel _settingsViewModel;
 	[ObservableProperty]
 	private object _currentView;
 
-	[ObservableProperty]
-	private ShutdownOptionsViewModel _shutdownOptionsViewModel;
 
 
 	public bool TestingModeActiv { get; }
 
-	public MainWindowViewModel(ILogger logger, ShutdownOptionsViewModel optionsViewModel)
+	public MainWindowViewModel(ILogger logger, SettingsViewModel settingsViewModel)
 	{
 		_logger = logger;
+		_settingsViewModel = settingsViewModel;
 #if DEBUG
 		TestingModeActiv = true;
 #endif
-		ShutdownOptionsViewModel = optionsViewModel;
 	}
 
 	[RelayCommand]
@@ -51,10 +49,12 @@ public partial class MainWindowViewModel : ObservableObject
 		return Task.CompletedTask;
 	}
 
+	private bool IsSettingsViewInActive() { return CurrentView != _settingsViewModel; }
 
-	[RelayCommand]
+	[RelayCommand(CanExecute = nameof(IsSettingsViewInActive))]
 	public Task OnSettingsView()
 	{
+		CurrentView = _settingsViewModel;
 		return Task.CompletedTask;
 	}
 

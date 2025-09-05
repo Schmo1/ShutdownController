@@ -24,8 +24,12 @@
             <DataTemplate DataType="{x:Type viewModels:ShutdownOptionsViewModel}">
                 <view:ShutdownOptionsView/>
             </DataTemplate>
-            
-            
+
+            <DataTemplate DataType="{x:Type viewModels:SettingsViewModel}">
+                <view:SettingsView/>
+            </DataTemplate>
+
+
         </ResourceDictionary> 
 
     </Application.Resources>

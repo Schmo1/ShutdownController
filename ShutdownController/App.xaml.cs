@@ -51,9 +51,11 @@ public partial class App : Application
         services.AddSingleton(Log.Logger);
 		services.AddSingleton<MainWindow>();
 		services.AddSingleton<ShutdownOptionsView>();
+		services.AddSingleton<SettingsView>();
 
 		services.AddSingleton<MainWindowViewModel>();
 		services.AddSingleton<ShutdownOptionsViewModel>();
+		services.AddSingleton<SettingsViewModel>();
 
 		services.Configure<AppConfig>(context.Configuration.GetSection(nameof(AppConfig)));
 		

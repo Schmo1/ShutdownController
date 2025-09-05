@@ -60,6 +60,8 @@
                         <GradientStop Color="#e3f6ff" Offset="1.0" />
                     </LinearGradientBrush>
                 </Border.Background>
+
+                <ContentControl Content="{Binding CurrentView}" Margin="78 0 0 0"></ContentControl>
             </Border>
 
             <Border CornerRadius="10" Background="#3253f1">
