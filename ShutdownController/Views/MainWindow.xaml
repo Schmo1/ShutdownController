@@ -12,6 +12,7 @@
         WindowStyle="None" AllowsTransparency="True" ResizeMode="CanMinimize"
         Background="Transparent"
         Name="window" >
+    
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
             <i:InvokeCommandAction Command="{Binding LoadedCommand}" />

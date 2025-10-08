@@ -52,10 +52,18 @@ public partial class App : Application
 		services.AddSingleton<MainWindow>();
 		services.AddSingleton<ShutdownOptionsView>();
 		services.AddSingleton<SettingsView>();
+		services.AddSingleton<DownUploadView>();
+		services.AddSingleton<DiskView>();
+		services.AddSingleton<TimerView>();
+		services.AddSingleton<ClockView>();
 
 		services.AddSingleton<MainWindowViewModel>();
 		services.AddSingleton<ShutdownOptionsViewModel>();
+		services.AddSingleton<DiskViewModel>();
+		services.AddSingleton<DownUploadViewModel>();
 		services.AddSingleton<SettingsViewModel>();
+		services.AddSingleton<TimerViewModel>();
+		services.AddSingleton<ClockViewModel>();
 
 		services.Configure<AppConfig>(context.Configuration.GetSection(nameof(AppConfig)));
 		

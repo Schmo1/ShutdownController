@@ -12,7 +12,13 @@ public partial class MainWindowViewModel : ObservableObject
 	private readonly DownUploadViewModel _downUploadViewModel;
 	private readonly ClockViewModel _clockViewModel;
 	private readonly TimerViewModel _timerViewModel;
+
 	[ObservableProperty]
+	[NotifyCanExecuteChangedFor(nameof(DiskViewCommand))]
+	[NotifyCanExecuteChangedFor(nameof(ClockViewCommand))]
+	[NotifyCanExecuteChangedFor(nameof(DownUploadViewCommand))]
+	[NotifyCanExecuteChangedFor(nameof(SettingsViewCommand))]
+	[NotifyCanExecuteChangedFor(nameof(TimerViewCommand))]
 	private object _currentView;
 
 
@@ -43,8 +49,10 @@ public partial class MainWindowViewModel : ObservableObject
 	private bool IsTimerViewInActive() { return CurrentView != _timerViewModel; }
 
 	[RelayCommand(CanExecute = nameof(IsTimerViewInActive))]
+	
 	public Task OnTimerView()
 	{
+		CurrentView = _timerViewModel;
 		return Task.CompletedTask;
 	}
 
@@ -53,6 +61,7 @@ public partial class MainWindowViewModel : ObservableObject
 	[RelayCommand(CanExecute = nameof(IsClockViewActive))]
 	public Task OnClockView()
 	{
+		CurrentView = _clockViewModel;
 		return Task.CompletedTask;
 	}
 
@@ -62,6 +71,7 @@ public partial class MainWindowViewModel : ObservableObject
 	[RelayCommand(CanExecute = nameof(IsDownUploadViewInActive))]
 	public Task OnDownUploadView()
 	{
+		CurrentView = _downUploadViewModel;
 		return Task.CompletedTask;
 	}
 
@@ -71,6 +81,7 @@ public partial class MainWindowViewModel : ObservableObject
 	[RelayCommand(CanExecute = nameof(IsDiskViewInActive))]
 	public Task OnDiskView()
 	{
+		CurrentView = _diskViewModel;
 		return Task.CompletedTask;
 	}
 
@@ -82,6 +93,8 @@ public partial class MainWindowViewModel : ObservableObject
 		CurrentView = _settingsViewModel;
 		return Task.CompletedTask;
 	}
+
+	
 
 	[RelayCommand]
 	public Task OnCloseApp()

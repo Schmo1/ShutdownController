@@ -29,7 +29,22 @@
                 <view:SettingsView/>
             </DataTemplate>
 
+            <DataTemplate DataType="{x:Type viewModels:TimerViewModel}">
+                <view:TimerView/>
+            </DataTemplate>
 
+            <DataTemplate DataType="{x:Type viewModels:ClockViewModel}">
+                <view:ClockView/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type viewModels:DiskViewModel}">
+                <view:DiskView/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type viewModels:DownUploadViewModel}">
+                <view:DownUploadView/>
+            </DataTemplate>
+            
         </ResourceDictionary> 
 
     </Application.Resources>
