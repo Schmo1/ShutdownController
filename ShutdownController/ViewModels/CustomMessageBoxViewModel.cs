@@ -20,10 +20,12 @@ public partial class CustomMessageBoxViewModel : ObservableObject
 
     public string ActionToPerforme { get; }
 
+
 	public CustomMessageBoxViewModel(ShutdownOptionsViewModel shutdownOptionsView)
     {
         IsActive = true;  
         StartTimer();
+
         if (shutdownOptionsView.IsSleepButtonSelected)
         {
             ActionToPerforme = "Sleep";
@@ -51,7 +53,7 @@ public partial class CustomMessageBoxViewModel : ObservableObject
 
     public void StartTimer()
     {
-        _timer.Interval = new TimeSpan(0,0,1);
+        _timer.Interval = TimeSpan.FromSeconds(1);
         _timer.Tick += SubtractSecond;      
         _timer.Start();
     }
@@ -75,13 +77,12 @@ public partial class CustomMessageBoxViewModel : ObservableObject
 
 	private void SubtractSecond(object? sender, EventArgs args)
     {
-        TimeLeft -= 1;
+		WaitingTimeBeforInvokeAction --;
 
-        if(TimeLeft <= 0)
+        if(WaitingTimeBeforInvokeAction <= 0)
         {
             StopAction();
             WeakReferenceMessenger.Default.Send(new InvokeActionMessage());
 		}
     }
-
 }

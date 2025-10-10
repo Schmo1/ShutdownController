@@ -107,6 +107,7 @@ public partial class MainWindowViewModel : ObservableObject
 	[RelayCommand]
 	public Task OnLoaded()
 	{
+		_clockViewModel.Init();
 		return Task.CompletedTask;
 	}
 

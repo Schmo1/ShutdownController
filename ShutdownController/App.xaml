@@ -44,7 +44,10 @@
             <DataTemplate DataType="{x:Type viewModels:DownUploadViewModel}">
                 <view:DownUploadView/>
             </DataTemplate>
-            
+
+
+       
+
         </ResourceDictionary> 
 
     </Application.Resources>

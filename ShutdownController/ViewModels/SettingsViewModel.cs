@@ -1,6 +1,7 @@
 ﻿
 
 using CommunityToolkit.Mvvm.ComponentModel;
+using ShutdownController.Util;
 
 namespace ShutdownController.ViewModels;
 
@@ -23,55 +24,43 @@ public partial class SettingsViewModel : ObservableObject
 	private int _waitingTimeBeforInvokeAction;
 
 
+	public void Init()
+	{
+		LoadSettings();
+	}
+
+	partial void OnAutoStartActiveChanged(bool value)
+	{
+		App.Current.Properties[nameof(AutoStartActive)] = value;
+	}
+
+	partial void OnStartMinimizedChanged(bool value)
+	{
+		App.Current.Properties[nameof(StartMinimized)] = value;
+	}
+
+	partial void OnDisablePushMessagesChanged(bool value)
+	{
+		App.Current.Properties[nameof(DisablePushMessages)] = value;
+	}
+
+	partial void OnWaitingTimeBeforInvokeActionChanged(int value)
+	{
+		App.Current.Properties[nameof(WaitingTimeBeforInvokeAction)] = value;	
+	}
+
+	partial void OnOnClosingRunInBackgroundChanged(bool value)
+	{
+		App.Current.Properties[nameof(OnClosingRunInBackground)] = value;
+	}
 
 
 	private void LoadSettings()
 	{
-		string? loadedValue = App.Current.Properties[nameof(AutoStartActive)]?.ToString();
-		if (!string.IsNullOrEmpty(loadedValue) && bool.TryParse(loadedValue, out bool autoValue))
-		{			
-			AutoStartActive = autoValue;			
-		}
-
-		loadedValue = App.Current.Properties[nameof(StartMinimized)]?.ToString();
-		if (!string.IsNullOrEmpty(loadedValue) && bool.TryParse(loadedValue, out bool value))
-		{
-			StartMinimized = value;
-		}
-
-		loadedValue = App.Current.Properties[nameof(DisablePushMessages)]?.ToString();
-		if (!string.IsNullOrEmpty(loadedValue) && bool.TryParse(loadedValue, out bool disableValue))
-		{
-			DisablePushMessages = disableValue;
-		}
-
-		loadedValue = App.Current.Properties[nameof(OnClosingRunInBackground)]?.ToString();
-		if (!string.IsNullOrEmpty(loadedValue) && bool.TryParse(loadedValue, out bool onClosing))
-		{
-			DisablePushMessages = onClosing;
-		}
-
-		loadedValue = App.Current.Properties[nameof(WaitingTimeBeforInvokeAction)]?.ToString();
-		if (!string.IsNullOrEmpty(loadedValue) && int.TryParse(loadedValue, out int waitingTime))
-		{
-			WaitingTimeBeforInvokeAction = waitingTime;
-		}
-		else
-		{
-			WaitingTimeBeforInvokeAction = 30;
-		}
+		AutoStartActive = PropertyParser.GetBoolProperty(nameof(AutoStartActive), false);
+		StartMinimized = PropertyParser.GetBoolProperty(nameof(StartMinimized), false);	
+		OnClosingRunInBackground = PropertyParser.GetBoolProperty(nameof(OnClosingRunInBackground), true);
+		DisablePushMessages = PropertyParser.GetBoolProperty(nameof(DisablePushMessages), false);
+		WaitingTimeBeforInvokeAction = PropertyParser.GetIntProperty(nameof(WaitingTimeBeforInvokeAction), 30);
 	}
-
-
-
-	private void SaveSettings()
-	{
-		App.Current.Properties[nameof(AutoStartActive)] = AutoStartActive;
-		App.Current.Properties[nameof(StartMinimized)] = StartMinimized;
-		App.Current.Properties[nameof(DisablePushMessages)] = DisablePushMessages;
-		App.Current.Properties[nameof(WaitingTimeBeforInvokeAction)] = WaitingTimeBeforInvokeAction;
-		App.Current.Properties[nameof(OnClosingRunInBackground)] = OnClosingRunInBackground;
-	}
-
-
 }

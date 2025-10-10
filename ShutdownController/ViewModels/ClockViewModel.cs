@@ -2,6 +2,7 @@
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.DependencyInjection;
 using ShutdownController.Services.Abstraction;
+using ShutdownController.Util;
 using ShutdownController.Views.MessageBox;
 
 
@@ -24,7 +25,6 @@ public partial class ClockViewModel : ObservableObject
 	[ObservableProperty]
 	private int _clockSetSeconds;
 
-
 	[ObservableProperty]
 	private bool _clockActive;
 
@@ -34,7 +34,8 @@ public partial class ClockViewModel : ObservableObject
 		_timerTick = timerTick;
 		_serviceProvider = serviceProvider;
 		_timerTick.Tick += OnTimerTick;
-		_timerTick.Start();
+		CurrentTime = string.Empty;
+
 	}
 
 	private void OnTimerTick(object? sender, System.Timers.ElapsedEventArgs e)
@@ -42,6 +43,30 @@ public partial class ClockViewModel : ObservableObject
 		var currentTime = DateTimeOffset.Now;
 		CurrentTime = currentTime.ToString("HH:mm:ss");
 		CompareClock(currentTime);
+	}
+
+	internal void Init()
+	{
+		_timerTick.Start();
+
+		ClockSetHours = PropertyParser.GetIntProperty(nameof(ClockSetHours));
+		ClockSetMinutes = PropertyParser.GetIntProperty(nameof(ClockSetMinutes));
+		ClockSetSeconds = PropertyParser.GetIntProperty(nameof(ClockSetSeconds));
+	}
+
+	partial void OnClockSetHoursChanged(int value)
+	{
+		App.Current.Properties[nameof(ClockSetHours)] = value;
+	}
+
+	partial void OnClockSetMinutesChanged(int value)
+	{
+		App.Current.Properties[nameof(ClockSetMinutes)] = value;
+	}
+
+	partial void OnClockSetSecondsChanged(int value)
+	{
+		App.Current.Properties[nameof(ClockSetSeconds)] = value;
 	}
 
 	private void CompareClock(DateTimeOffset currentTime)

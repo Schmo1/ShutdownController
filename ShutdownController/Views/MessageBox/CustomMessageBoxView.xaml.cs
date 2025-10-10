@@ -23,5 +23,4 @@ public partial class CustomMessageBoxView : Window
             DragMove();
         }
     }
-
 }

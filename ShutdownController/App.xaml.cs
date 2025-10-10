@@ -10,7 +10,6 @@ using ShutdownController.ViewModels;
 using ShutdownController.Views;
 using ShutdownController.Views.MessageBox;
 using System.IO;
-using System.Numerics;
 using System.Windows;
 using System.Windows.Threading;
 
@@ -47,7 +46,8 @@ public partial class App : Application
         Log.Logger = new LoggerConfiguration()
 			.ReadFrom.Configuration(context.Configuration)
 			.CreateLogger();
-        services.AddHostedService<ApplicationHostService>();
+		services.AddServices();
+		services.AddHostedService<ApplicationHostService>();
         services.AddSingleton<IFileService, FileService>();
         services.AddSingleton<IPersistAndRestoreService, PersistAndRestoreService>();
         services.AddSingleton(Log.Logger);
@@ -66,8 +66,9 @@ public partial class App : Application
 		services.AddSingleton<DownUploadViewModel>();
 		services.AddSingleton<SettingsViewModel>();
 		services.AddSingleton<TimerViewModel>();
+		services.AddSingleton<ClockViewModel>();
 
-		services.AddServices();
+
 
 		services.Configure<AppConfig>(context.Configuration.GetSection(nameof(AppConfig)));
 		
