@@ -5,8 +5,10 @@ using Serilog;
 using ShutdownController.Configuration;
 using ShutdownController.Services;
 using ShutdownController.Services.Abstraction;
+using ShutdownController.Services.Extensions;
 using ShutdownController.ViewModels;
 using ShutdownController.Views;
+using ShutdownController.Views.MessageBox;
 using System.IO;
 using System.Numerics;
 using System.Windows;
@@ -56,6 +58,7 @@ public partial class App : Application
 		services.AddSingleton<DiskView>();
 		services.AddSingleton<TimerView>();
 		services.AddSingleton<ClockView>();
+		services.AddSingleton<CustomMessageBoxView>();
 
 		services.AddSingleton<MainWindowViewModel>();
 		services.AddSingleton<ShutdownOptionsViewModel>();
@@ -63,7 +66,8 @@ public partial class App : Application
 		services.AddSingleton<DownUploadViewModel>();
 		services.AddSingleton<SettingsViewModel>();
 		services.AddSingleton<TimerViewModel>();
-		services.AddSingleton<ClockViewModel>();
+
+		services.AddServices();
 
 		services.Configure<AppConfig>(context.Configuration.GetSection(nameof(AppConfig)));
 		

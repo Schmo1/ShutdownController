@@ -1,9 +1,13 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.Messaging;
+using ShutdownController.Messages;
+using ShutdownController.Services;
+using System.Windows;
 
 namespace ShutdownController.ViewModels;
 
-public partial class ShutdownOptionsViewModel : ObservableObject
+public partial class ShutdownOptionsViewModel : ObservableObject, IRecipient<InvokeActionMessage>
 {
 
 	[ObservableProperty]
@@ -19,6 +23,7 @@ public partial class ShutdownOptionsViewModel : ObservableObject
 	public ShutdownOptionsViewModel()
 	{
 		LoadSettings();
+		WeakReferenceMessenger.Default.Register(this);	
 	}
 
 
@@ -82,4 +87,34 @@ public partial class ShutdownOptionsViewModel : ObservableObject
 		App.Current.Properties[nameof(IsSleepButtonSelected)] = IsSleepButtonSelected;
 	}
 
+	public void Receive(InvokeActionMessage message)
+	{
+		try
+		{
+#if !DEBUG
+			if (IsSleepButtonSelected)
+			{
+				ShutdownOptionInvoker.Sleep();
+			}
+			else if (IsRestartButtonSelected)
+			{
+				ShutdownOptionInvoker.Restart();
+			}
+			else if (IsShutdownButtonSelected)
+			{
+				ShutdownOptionInvoker.Shutdown();
+			}
+			else
+				//default action
+				ShutdownOptionInvoker.Sleep();
+#else
+			MessageBox.Show("Debug mode - action skipped");
+#endif
+		}
+		catch (Exception)
+		{
+
+			//todo implement logging
+		}
+	}
 }
