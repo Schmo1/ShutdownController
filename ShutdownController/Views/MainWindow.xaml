@@ -62,7 +62,15 @@
                     </LinearGradientBrush>
                 </Border.Background>
 
-                <ContentControl Content="{Binding CurrentView}" Margin="78 0 0 0"></ContentControl>
+                <Grid Margin="78 0 0 0">
+                    <ContentControl Content="{Binding CurrentView}"/>
+                    <Button Style="{StaticResource menuButton}" Command="{Binding ShowAboutCommand}"
+                            Width="26" Height="26" Margin="0,12,18,0"
+                            HorizontalAlignment="Right" VerticalAlignment="Top"
+                            ToolTip="About">
+                        <Image Source="/Resources/Images/information-button.png" Width="22"/>
+                    </Button>
+                </Grid>
             </Border>
 
             <Border CornerRadius="10" Background="#3253f1">

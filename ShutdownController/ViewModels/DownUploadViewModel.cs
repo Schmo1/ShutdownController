@@ -1,12 +1,68 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using CommunityToolkit.Mvvm.ComponentModel;
+using ShutdownController.Services.Abstraction;
+using System.Net.NetworkInformation;
 
 namespace ShutdownController.ViewModels;
 
-public partial class DownUploadViewModel : ObservableObject
+public partial class DownUploadViewModel : ObservingViewModelBase
 {
+	private const double BytesPerMegaByte = 1024 * 1024;
+
+	private long _previousReceived;
+	private long _previousSent;
+
+	[ObservableProperty]
+	private List<NetworkInterface> _adapters;
+
+	[ObservableProperty]
+	private NetworkInterface? _selectedAdapter;
+
+	public DownUploadViewModel(IEachSecondTick tick, IServiceProvider serviceProvider)
+		: base(tick, serviceProvider)
+	{
+		_adapters = NetworkInterface.GetAllNetworkInterfaces()
+			.Where(adapter => adapter.OperationalStatus == OperationalStatus.Up
+							  && adapter.NetworkInterfaceType != NetworkInterfaceType.Loopback)
+			.ToList();
+
+		_selectedAdapter = _adapters.FirstOrDefault();
+	}
+
+	protected override string SettingsPrefix => "DownUpload";
+
+	protected override void InitializeSource()
+	{
+		(_previousReceived, _previousSent) = ReadRawBytes();
+	}
+
+	protected override (double primary, double secondary) ReadSpeed()
+	{
+		(long received, long sent) = ReadRawBytes();
+
+		double downloadPerSecond = Math.Max(0, received - _previousReceived) / BytesPerMegaByte;
+		double uploadPerSecond = Math.Max(0, sent - _previousSent) / BytesPerMegaByte;
+
+		_previousReceived = received;
+		_previousSent = sent;
+
+		return (downloadPerSecond, uploadPerSecond);
+	}
+
+	private (long received, long sent) ReadRawBytes()
+	{
+		if (SelectedAdapter is null)
+		{
+			return (0, 0);
+		}
+
+		try
+		{
+			IPInterfaceStatistics statistics = SelectedAdapter.GetIPStatistics();
+			return (statistics.BytesReceived, statistics.BytesSent);
+		}
+		catch (NetworkInformationException)
+		{
+			return (0, 0);
+		}
+	}
 }

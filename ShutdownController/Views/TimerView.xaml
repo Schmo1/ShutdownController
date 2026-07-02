@@ -1,11 +1,55 @@
-﻿<UserControl x:Class="ShutdownController.Views.TimerView"
+<UserControl x:Class="ShutdownController.Views.TimerView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ShutdownController.Views"
-        mc:Ignorable="d">
+        mc:Ignorable="d"
+        d:DesignHeight="450" d:DesignWidth="500">
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Countdown display -->
+        <Border Style="{StaticResource borderBlueTheme}" Margin="40 40 60 0" Height="130" VerticalAlignment="Top">
+            <TextBlock Text="{Binding TimerDisplay, FallbackValue=00:00:00}" Style="{StaticResource textBlockCounter}"
+                       HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        </Border>
+
+        <!-- Sliders -->
+        <Border Style="{StaticResource borderbrightBlueTheme}" Grid.Row="1" Margin="55 -30 75 15" HorizontalAlignment="Center" Width="340">
+            <Grid Margin="0 40 0 15">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <StackPanel>
+                    <Slider Style="{DynamicResource SliderStyleModern}" Orientation="Vertical" Height="120" HorizontalAlignment="Center"
+                        IsSelectionRangeEnabled="True" IsMoveToPointEnabled="True"
+                        Value="{Binding TimerSetHours}" Maximum="23"/>
+                    <TextBlock Text="hrs" HorizontalAlignment="Center" Margin="0 8 0 0" Style="{StaticResource textBlockSlider}"/>
+                </StackPanel>
+                <StackPanel Grid.Column="1">
+                    <Slider Style="{DynamicResource SliderStyleModern}" Orientation="Vertical" Height="120" HorizontalAlignment="Center"
+                        IsSelectionRangeEnabled="True" IsMoveToPointEnabled="True"
+                        Value="{Binding TimerSetMinutes}" Maximum="59"/>
+                    <TextBlock Text="min" HorizontalAlignment="Center" Margin="0 8 0 0" Style="{StaticResource textBlockSlider}"/>
+                </StackPanel>
+                <StackPanel Grid.Column="2">
+                    <Slider Style="{DynamicResource SliderStyleModern}" Orientation="Vertical" Height="120" HorizontalAlignment="Center"
+                        IsSelectionRangeEnabled="True" IsMoveToPointEnabled="True"
+                        Value="{Binding TimerSetSeconds}" Maximum="59"/>
+                    <TextBlock Text="sec" HorizontalAlignment="Center" Margin="0 8 0 0" Style="{StaticResource textBlockSlider}"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <!-- Start / Stop button -->
+        <Button Grid.Row="2" HorizontalAlignment="Center" Margin="0 5 20 20"
+                Style="{StaticResource startStopButton}" Command="{Binding StartStopCommand}"/>
     </Grid>
 </UserControl>

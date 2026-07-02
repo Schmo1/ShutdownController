@@ -37,12 +37,12 @@
                 
 
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Grid.Row="2">
-                <TextBlock Text="{Binding Path=TimeLeft, FallbackValue=10}" Style="{StaticResource optionButtonText}" />
+                <TextBlock Text="{Binding Path=WaitingTimeBeforInvokeAction, FallbackValue=10}" Style="{StaticResource optionButtonText}" />
                 <TextBlock Text="s" Style="{StaticResource optionButtonText}" Margin="2,0,0,0" />
             </StackPanel>
 
             <!-- abort button-->
-            <Button HorizontalAlignment="Center" Grid.Row="3" Command="{Binding AbortAction}">
+            <Button HorizontalAlignment="Center" Grid.Row="3" Command="{Binding AbortActionCommand}">
                 <Button.Style>
                     <Style TargetType="Button">
                         <Setter Property="Content" Value="Abort"/>

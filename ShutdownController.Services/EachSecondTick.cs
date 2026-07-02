@@ -35,6 +35,16 @@ public class EachSecondTick : IEachSecondTick
 		_timer.Start();
 	}
 
+	public void Stop()
+	{
+		if (!_timer.Enabled)
+		{
+			return;
+		}
+		_timer.Stop();
+		_timer.Enabled = false;
+	}
+
 	protected virtual void Dispose(bool disposing)
 	{
 		if (!_disposedValue)

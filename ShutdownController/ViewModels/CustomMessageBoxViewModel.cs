@@ -2,7 +2,9 @@
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using ShutdownController.Messages;
+using ShutdownController.Views.MessageBox;
 using System;
+using System.Linq;
 using System.Windows;
 using System.Windows.Threading;
 
@@ -58,11 +60,13 @@ public partial class CustomMessageBoxViewModel : ObservableObject
         _timer.Start();
     }
 
-    public void StopAction() 
+    public void StopAction()
     {
         _timer?.Stop();
         IsActive = false;
-		foreach (Window window in Application.Current.Windows)
+
+		// Only close the message box windows, never the main window.
+		foreach (Window window in Application.Current.Windows.OfType<CustomMessageBoxView>().ToList())
 		{
 			window.Close();
 		}

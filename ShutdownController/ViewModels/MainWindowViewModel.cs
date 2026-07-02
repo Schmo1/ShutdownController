@@ -103,6 +103,20 @@ public partial class MainWindowViewModel : ObservableObject
 		return Task.CompletedTask;
 	}
 
+	[RelayCommand]
+	public Task OnShowAbout()
+	{
+		System.Windows.MessageBox.Show(
+			"ShutdownController\n\n" +
+			"A little tool to manage when the PC should shut down, go to sleep or restart.\n" +
+			"Trigger the action with a timer, an exact clock time, or by observing your " +
+			"network or disk activity.",
+			"About ShutdownController",
+			System.Windows.MessageBoxButton.OK,
+			System.Windows.MessageBoxImage.Information);
+		return Task.CompletedTask;
+	}
+
 
 	[RelayCommand]
 	public Task OnLoaded()

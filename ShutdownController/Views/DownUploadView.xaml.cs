@@ -1,32 +1,18 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection;
 using ShutdownController.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
-namespace ShutdownController.Views
+namespace ShutdownController.Views;
+
+/// <summary>
+/// Interaction logic for DownUploadView.xaml
+/// </summary>
+public partial class DownUploadView : UserControl
 {
-	/// <summary>
-	/// Interaction logic for DownUploadView.xaml
-	/// </summary>
-	public partial class DownUploadView : UserControl
+	public DownUploadView()
 	{
-		public DownUploadView()
-		{
-			InitializeComponent();
+		InitializeComponent();
 
-			DataContext = App.Services.GetRequiredService<DownUploadViewModel>();
-		}
+		DataContext = App.Services.GetRequiredService<DownUploadViewModel>();
 	}
 }

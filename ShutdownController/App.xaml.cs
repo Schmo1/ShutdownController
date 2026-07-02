@@ -41,9 +41,7 @@ public partial class App : Application
 
 	private static void ConfigureServices(HostBuilderContext context, IServiceCollection services)
 	{
-        services.AddHostedService<ApplicationHostService>();
-       
-        Log.Logger = new LoggerConfiguration()
+            Log.Logger = new LoggerConfiguration()
 			.ReadFrom.Configuration(context.Configuration)
 			.CreateLogger();
 		services.AddServices();
@@ -58,7 +56,11 @@ public partial class App : Application
 		services.AddSingleton<DiskView>();
 		services.AddSingleton<TimerView>();
 		services.AddSingleton<ClockView>();
-		services.AddSingleton<CustomMessageBoxView>();
+
+		// The message box window is closed after every trigger, so a fresh
+		// instance (with a fresh countdown) is needed for each activation.
+		services.AddTransient<CustomMessageBoxView>();
+		services.AddTransient<CustomMessageBoxViewModel>();
 
 		services.AddSingleton<MainWindowViewModel>();
 		services.AddSingleton<ShutdownOptionsViewModel>();

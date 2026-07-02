@@ -7,4 +7,6 @@ public interface IEachSecondTick: IDisposable
 	event ElapsedEventHandler? Tick;
 
 	void Start();
+
+	void Stop();
 }
