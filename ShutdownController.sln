@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 18
 VisualStudioVersion = 18.1.11312.151 d18.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShutdownControllerAlt", "ShutdownControllerAlt\ShutdownControllerAlt.csproj", "{FC9938EA-9E6A-44CD-B912-498EABF82274}"
-EndProject
 Project("{C7167F0D-BC9F-4E6E-AFE1-012C56B48DB5}") = "ShutdownControllerInstaller", "ShutdownControllerInstaller\ShutdownControllerInstaller.wapproj", "{99A6B202-30F4-4CE8-B2C1-54732D3CB32C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShutdownController", "ShutdownController\ShutdownController.csproj", "{74A1233A-E78F-4BB5-A4CE-48B65DDBC505}"
