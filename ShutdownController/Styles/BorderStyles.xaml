@@ -1,40 +1,26 @@
-﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
+    <!-- Primary card: flat accent-blue surface that always carries white text/icons. -->
     <Style x:Key="borderBlueTheme" TargetType="Border">
-        <Setter Property="CornerRadius" Value="20" />
-        <Setter Property="Background">
-            <Setter.Value>
-                <LinearGradientBrush StartPoint="0.3,0" EndPoint="0.6,1">
-                    <GradientStop Color="#3253f1" Offset="0.0" />
-                    <GradientStop Color="#5573ff" Offset="1.0" />
-                </LinearGradientBrush>
-            </Setter.Value>
-        </Setter>
+        <Setter Property="CornerRadius" Value="16" />
+        <Setter Property="Background" Value="{DynamicResource Brush.CardPrimary}" />
         <Setter Property="Effect">
             <Setter.Value>
-                <DropShadowEffect ShadowDepth="1" BlurRadius="20" Opacity="0.4"/>
+                <DropShadowEffect ShadowDepth="0" BlurRadius="18" Opacity="0.18"/>
             </Setter.Value>
         </Setter>
     </Style>
 
+    <!-- Secondary card: slightly lighter flat surface for grouped settings/sliders. -->
     <Style x:Key="borderbrightBlueTheme" TargetType="Border">
-        <Setter Property="CornerRadius" Value="20" />
-        <Setter Property="Background">
-            <Setter.Value>
-                <LinearGradientBrush StartPoint="0.3,0" EndPoint="0.6,1">
-                    <GradientStop Color="#33bbff" Offset="0.0" />
-                    <GradientStop Color="#55ddff" Offset="1.0" />
-                </LinearGradientBrush>
-            </Setter.Value>
-        </Setter>
+        <Setter Property="CornerRadius" Value="16" />
+        <Setter Property="Background" Value="{DynamicResource Brush.CardSecondary}" />
         <Setter Property="Effect">
             <Setter.Value>
-                <DropShadowEffect ShadowDepth="1" BlurRadius="20" Opacity="0.4"/>
+                <DropShadowEffect ShadowDepth="0" BlurRadius="18" Opacity="0.18"/>
             </Setter.Value>
         </Setter>
     </Style>
-    
- 
 
 </ResourceDictionary>

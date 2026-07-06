@@ -129,10 +129,17 @@ public abstract partial class ObservingViewModelBase : ObservableObject
 		}
 
 		_isMonitoring = true;
-		InitializeSource();
 		RedrawGraph();
 		UpdateThresholdIndicator();
-		_tick.Start();
+
+		// Priming the source (e.g. the disk performance counters) can block for
+		// several seconds the first time, so do it off the UI thread and only
+		// start ticking once it is ready.
+		Task.Run(() =>
+		{
+			InitializeSource();
+			_tick.Start();
+		});
 	}
 
 	/// <summary>Re-primes the source and clears the graph after the drive/adapter changed.</summary>
@@ -142,13 +149,14 @@ public abstract partial class ObservingViewModelBase : ObservableObject
 		_secondaryHistory.Clear();
 		_belowThresholdCounter = 0;
 
-		if (_isMonitoring)
-		{
-			InitializeSource();
-		}
-
 		RedrawGraph();
 		UpdateThresholdIndicator();
+
+		if (_isMonitoring)
+		{
+			// Re-priming can be slow as well; keep it off the UI thread.
+			Task.Run(InitializeSource);
+		}
 	}
 
 	[RelayCommand]

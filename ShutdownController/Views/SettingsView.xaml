@@ -1,15 +1,47 @@
-﻿<UserControl x:Class="ShutdownController.Views.SettingsView"
+<UserControl x:Class="ShutdownController.Views.SettingsView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:ShutdownController.Views"
-             mc:Ignorable="d" 
+             xmlns:converters="clr-namespace:ShutdownController.Converters"
+             mc:Ignorable="d"
              d:DesignHeight="450" d:DesignWidth="500">
+
+    <UserControl.Resources>
+        <converters:EnumToBooleanConverter x:Key="EnumToBool"/>
+
+        <!-- Segmented control button used for the Light / Dark / System choice. -->
+        <Style x:Key="themeSegment" TargetType="RadioButton">
+            <Setter Property="Foreground" Value="{DynamicResource Brush.TextOnColored}"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="RadioButton">
+                        <Border x:Name="seg" CornerRadius="9" Background="Transparent" Padding="16 7">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="seg" Property="Background" Value="#26FFFFFF"/>
+                            </Trigger>
+                            <Trigger Property="IsChecked" Value="True">
+                                <Setter TargetName="seg" Property="Background" Value="{DynamicResource Brush.OnAccent}"/>
+                                <Setter Property="Foreground" Value="{DynamicResource Brush.Accent}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="1.3*"/>
+            <RowDefinition Height="1.6*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
@@ -42,6 +74,7 @@
                     <RowDefinition Height="40"/>
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
                 <Border Style="{StaticResource borderBlueTheme}" Width="auto" HorizontalAlignment="Left" >
                     <TextBlock Style="{StaticResource textBlockSettings}" Text="Application settings"/>
@@ -54,9 +87,24 @@
                     <TextBlock Text="On closing" VerticalAlignment="Center" Style="{StaticResource textBlockSettings}" />
                     <local:ToggleButton Height="55" Width="70" Grid.Row="1" HorizontalAlignment="Right" Margin="0 0 40 0"  Toggled="{Binding OnClosingRunInBackground}"/>
                 </Grid>
+
+                <!-- Theme selector: Light / Dark / System -->
+                <Grid Grid.Row="3">
+                    <TextBlock Text="Theme" VerticalAlignment="Center" Style="{StaticResource textBlockSettings}"/>
+                    <Border CornerRadius="12" Background="#22000000" Padding="4"
+                            HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0 0 30 0">
+                        <StackPanel Orientation="Horizontal">
+                            <RadioButton Style="{StaticResource themeSegment}" Content="Light"
+                                         IsChecked="{Binding ThemeMode, Converter={StaticResource EnumToBool}, ConverterParameter=Light}"/>
+                            <RadioButton Style="{StaticResource themeSegment}" Content="Dark"
+                                         IsChecked="{Binding ThemeMode, Converter={StaticResource EnumToBool}, ConverterParameter=Dark}"/>
+                            <RadioButton Style="{StaticResource themeSegment}" Content="System"
+                                         IsChecked="{Binding ThemeMode, Converter={StaticResource EnumToBool}, ConverterParameter=System}"/>
+                        </StackPanel>
+                    </Border>
+                </Grid>
             </Grid>
         </Border>
-
 
     </Grid>
 </UserControl>

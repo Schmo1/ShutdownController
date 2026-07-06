@@ -11,13 +11,18 @@ public class ApplicationHostService : IHostedService
 {
     private readonly IServiceProvider _serviceProvider;
     private readonly IPersistAndRestoreService _persistAndRestoreService;
+    private readonly IThemeService _themeService;
     private bool _isInitialized;
     private MainWindow _mainWindow;
 
-    public ApplicationHostService(IServiceProvider serviceProvider, IPersistAndRestoreService persistAndRestoreService)
+    public ApplicationHostService(
+        IServiceProvider serviceProvider,
+        IPersistAndRestoreService persistAndRestoreService,
+        IThemeService themeService)
     {
         _serviceProvider = serviceProvider;
         this._persistAndRestoreService = persistAndRestoreService;
+        _themeService = themeService;
     }
 
     public async Task StartAsync(CancellationToken cancellationToken)
@@ -43,6 +48,8 @@ public class ApplicationHostService : IHostedService
         if (!_isInitialized)
         {
             _persistAndRestoreService.RestoreData();
+            // Apply the persisted theme before the main window is shown.
+            _themeService.Initialize();
         }
         return Task.CompletedTask;
     }

@@ -31,10 +31,10 @@
                 <Grid>
                     <TextBlock Text="Overview" Style="{StaticResource textBlockTitel}" FontSize="16" Margin="0" VerticalAlignment="Center"/>
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
-                        <Rectangle Width="12" Height="12" RadiusX="3" RadiusY="3" Fill="#8fdc8f" VerticalAlignment="Center"/>
-                        <TextBlock Text="Read" Foreground="White" FontSize="12" Margin="5 0 15 0" VerticalAlignment="Center"/>
-                        <Rectangle Width="12" Height="12" RadiusX="3" RadiusY="3" Fill="#f0a94a" VerticalAlignment="Center"/>
-                        <TextBlock Text="Write" Foreground="White" FontSize="12" Margin="5 0 0 0" VerticalAlignment="Center"/>
+                        <Rectangle Width="12" Height="12" RadiusX="3" RadiusY="3" Fill="{DynamicResource Brush.GraphPrimary}" VerticalAlignment="Center"/>
+                        <TextBlock Text="Read" Foreground="{DynamicResource Brush.TextOnColored}" FontSize="12" Margin="5 0 15 0" VerticalAlignment="Center"/>
+                        <Rectangle Width="12" Height="12" RadiusX="3" RadiusY="3" Fill="{DynamicResource Brush.GraphSecondary}" VerticalAlignment="Center"/>
+                        <TextBlock Text="Write" Foreground="{DynamicResource Brush.TextOnColored}" FontSize="12" Margin="5 0 0 0" VerticalAlignment="Center"/>
                     </StackPanel>
                 </Grid>
 
@@ -61,10 +61,10 @@
                         <Line X1="0" Y1="0" X2="430" Y2="0" Stroke="White" StrokeThickness="1" Opacity="0.25"/>
                         <Line X1="0" Y1="70" X2="430" Y2="70" Stroke="White" StrokeThickness="1" Opacity="0.25"/>
                         <Line X1="0" Y1="140" X2="430" Y2="140" Stroke="White" StrokeThickness="1" Opacity="0.4"/>
-                        <Polygon Points="{Binding PrimaryArea}" Fill="#458fdc8f"/>
-                        <Polygon Points="{Binding SecondaryArea}" Fill="#45f0a94a"/>
-                        <Polyline Points="{Binding PrimaryPoints}" Stroke="#8fdc8f" StrokeThickness="2"/>
-                        <Polyline Points="{Binding SecondaryPoints}" Stroke="#f0a94a" StrokeThickness="2"/>
+                        <Polygon Points="{Binding PrimaryArea}" Fill="{DynamicResource Brush.GraphPrimaryFill}"/>
+                        <Polygon Points="{Binding SecondaryArea}" Fill="{DynamicResource Brush.GraphSecondaryFill}"/>
+                        <Polyline Points="{Binding PrimaryPoints}" Stroke="{DynamicResource Brush.GraphPrimary}" StrokeThickness="2"/>
+                        <Polyline Points="{Binding SecondaryPoints}" Stroke="{DynamicResource Brush.GraphSecondary}" StrokeThickness="2"/>
                         <!-- Threshold marker: green while below the limit, red once exceeded -->
                         <Line X1="0" X2="430" Y1="{Binding ThresholdLineY}" Y2="{Binding ThresholdLineY}"
                               Stroke="{Binding ThresholdBrush}" StrokeThickness="2" StrokeDashArray="4 3"/>

@@ -1,0 +1,56 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!-- ============================================================= -->
+    <!-- LIGHT THEME  –  modern flat, blue accent                      -->
+    <!-- Every key defined here must also exist in DarkTheme.xaml.      -->
+    <!-- ============================================================= -->
+
+    <!-- Raw colours (needed for gradient stops, ellipses, animations) -->
+    <Color x:Key="Color.Accent">#2D57E1</Color>
+    <Color x:Key="Color.AccentSoft">#2D57E1</Color>
+
+    <!-- Structural surfaces -->
+    <SolidColorBrush x:Key="Brush.Window" Color="#EAEFF7"/>
+    <SolidColorBrush x:Key="Brush.Surface" Color="#F6F8FC"/>
+    <SolidColorBrush x:Key="Brush.Sidebar" Color="#274CC4"/>
+
+    <!-- Coloured cards that always carry white text / white icons -->
+    <SolidColorBrush x:Key="Brush.CardPrimary" Color="#2D57E1"/>
+    <SolidColorBrush x:Key="Brush.CardSecondary" Color="#3E74E6"/>
+
+    <!-- Accent (primary buttons, highlights) -->
+    <SolidColorBrush x:Key="Brush.Accent" Color="#2D57E1"/>
+    <SolidColorBrush x:Key="Brush.AccentHover" Color="#3E6BEC"/>
+    <SolidColorBrush x:Key="Brush.AccentPressed" Color="#1F45C4"/>
+
+    <!-- Foreground -->
+    <SolidColorBrush x:Key="Brush.OnAccent" Color="#FFFFFF"/>
+    <SolidColorBrush x:Key="Brush.TextOnColored" Color="#FFFFFF"/>
+    <SolidColorBrush x:Key="Brush.TextPrimary" Color="#1A2333"/>
+    <SolidColorBrush x:Key="Brush.TextSecondary" Color="#59647A"/>
+
+    <!-- Lines / inputs / controls -->
+    <SolidColorBrush x:Key="Brush.Border" Color="#DCE3EE"/>
+    <SolidColorBrush x:Key="Brush.Input" Color="#4C79E6"/>
+    <SolidColorBrush x:Key="Brush.InputHover" Color="#5E88EE"/>
+    <SolidColorBrush x:Key="Brush.Track" Color="#DCE6F5"/>
+    <SolidColorBrush x:Key="Brush.TrackFill" Color="#8FB0FF"/>
+    <SolidColorBrush x:Key="Brush.ToggleOff" Color="#8094B4"/>
+
+    <!-- Semantic state -->
+    <SolidColorBrush x:Key="Brush.Success" Color="#21B36B"/>
+    <SolidColorBrush x:Key="Brush.Danger" Color="#E5484D"/>
+
+    <!-- Graph series -->
+    <SolidColorBrush x:Key="Brush.GraphPrimary" Color="#3FA76A"/>
+    <SolidColorBrush x:Key="Brush.GraphSecondary" Color="#E39A3C"/>
+    <SolidColorBrush x:Key="Brush.GraphPrimaryFill" Color="#453FA76A"/>
+    <SolidColorBrush x:Key="Brush.GraphSecondaryFill" Color="#45E39A3C"/>
+    <SolidColorBrush x:Key="Brush.GraphGrid" Color="#FFFFFF"/>
+
+    <!-- Popup (combo box drop down) -->
+    <SolidColorBrush x:Key="Brush.PopupSurface" Color="#FFFFFF"/>
+    <SolidColorBrush x:Key="Brush.PopupText" Color="#1A2333"/>
+
+</ResourceDictionary>

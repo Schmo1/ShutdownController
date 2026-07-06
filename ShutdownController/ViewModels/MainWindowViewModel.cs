@@ -122,6 +122,12 @@ public partial class MainWindowViewModel : ObservableObject
 	public Task OnLoaded()
 	{
 		_clockViewModel.Init();
+
+		// Start recording disk and network activity from launch so the graphs and
+		// the shutdown watch keep working even while their view is not the active one.
+		_diskViewModel.Activate();
+		_downUploadViewModel.Activate();
+
 		return Task.CompletedTask;
 	}
 

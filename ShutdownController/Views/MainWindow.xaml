@@ -22,7 +22,7 @@
             <i:InvokeCommandAction Command="{Binding ClosingCommand}" />
         </i:EventTrigger>
     </i:Interaction.Triggers>
-    <Border Background="#ffffff"
+    <Border Background="{DynamicResource Brush.Window}"
          Padding="20"
          CornerRadius="25"
          MouseDown="Border_MouseDown"
@@ -49,24 +49,19 @@
             </Border>
 
 
-            <Border Grid.ColumnSpan="2" CornerRadius="25" Margin="5,20,10,20">
+            <Border Grid.ColumnSpan="2" CornerRadius="25" Margin="5,20,10,20"
+                    Background="{DynamicResource Brush.Surface}">
                 <Border.Effect>
-                    <DropShadowEffect ShadowDepth="1"
+                    <DropShadowEffect ShadowDepth="0"
                                     BlurRadius="20"
-                                    Opacity="0.4"/>
+                                    Opacity="0.18"/>
                 </Border.Effect>
-
-                <Border.Background>
-                    <LinearGradientBrush StartPoint="0.5,0" EndPoint="1,1">
-                        <GradientStop Color="#b3e6ff" Offset="0.0" />
-                        <GradientStop Color="#e3f6ff" Offset="1.0" />
-                    </LinearGradientBrush>
-                </Border.Background>
 
                 <Grid Margin="78 0 0 0">
                     <ContentControl Content="{Binding CurrentView}"/>
                     <Button Style="{StaticResource menuButton}" Command="{Binding ShowAboutCommand}"
-                            Width="26" Height="26" Margin="0,12,18,0"
+                            Background="{DynamicResource Brush.Accent}"
+                            Width="30" Height="30" Margin="0,12,18,0"
                             HorizontalAlignment="Right" VerticalAlignment="Top"
                             ToolTip="About">
                         <Image Source="/Resources/Images/information-button.png" Width="22"/>
@@ -74,11 +69,11 @@
                 </Grid>
             </Border>
 
-            <Border CornerRadius="10" Background="#3253f1">
+            <Border CornerRadius="16" Background="{DynamicResource Brush.Sidebar}">
                 <Border.Effect>
-                    <DropShadowEffect ShadowDepth="1"
+                    <DropShadowEffect ShadowDepth="0"
                                       BlurRadius="20"
-                                      Opacity="0.4"/>
+                                      Opacity="0.25"/>
                 </Border.Effect>
 
                 <Grid>

@@ -48,6 +48,7 @@ public partial class App : Application
 		services.AddHostedService<ApplicationHostService>();
         services.AddSingleton<IFileService, FileService>();
         services.AddSingleton<IPersistAndRestoreService, PersistAndRestoreService>();
+        services.AddSingleton<IThemeService, ThemeService>();
         services.AddSingleton(Log.Logger);
 		services.AddSingleton<MainWindow>();
 		services.AddSingleton<ShutdownOptionsView>();

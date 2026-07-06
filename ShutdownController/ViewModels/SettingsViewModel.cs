@@ -1,12 +1,19 @@
 ﻿
 
 using CommunityToolkit.Mvvm.ComponentModel;
+using ShutdownController.Services.Abstraction;
+using ShutdownController.Theming;
 using ShutdownController.Util;
 
 namespace ShutdownController.ViewModels;
 
 public partial class SettingsViewModel : ObservableObject
 {
+	private readonly IThemeService _themeService;
+
+	[ObservableProperty]
+	private AppTheme _themeMode;
+
 	[ObservableProperty]
 	private bool _autoStartActive;
 
@@ -23,11 +30,18 @@ public partial class SettingsViewModel : ObservableObject
 	[ObservableProperty]
 	private int _waitingTimeBeforInvokeAction;
 
+	public SettingsViewModel(IThemeService themeService)
+	{
+		_themeService = themeService;
+		_themeMode = themeService.Current;
+	}
 
 	public void Init()
 	{
 		LoadSettings();
 	}
+
+	partial void OnThemeModeChanged(AppTheme value) => _themeService.Apply(value);
 
 	partial void OnAutoStartActiveChanged(bool value)
 	{
