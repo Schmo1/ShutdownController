@@ -61,6 +61,8 @@
                         <Line X1="0" Y1="0" X2="430" Y2="0" Stroke="White" StrokeThickness="1" Opacity="0.25"/>
                         <Line X1="0" Y1="70" X2="430" Y2="70" Stroke="White" StrokeThickness="1" Opacity="0.25"/>
                         <Line X1="0" Y1="140" X2="430" Y2="140" Stroke="White" StrokeThickness="1" Opacity="0.4"/>
+                        <Polygon Points="{Binding PrimaryArea}" Fill="#458fdc8f"/>
+                        <Polygon Points="{Binding SecondaryArea}" Fill="#45f0a94a"/>
                         <Polyline Points="{Binding PrimaryPoints}" Stroke="#8fdc8f" StrokeThickness="2"/>
                         <Polyline Points="{Binding SecondaryPoints}" Stroke="#f0a94a" StrokeThickness="2"/>
                     </Canvas>

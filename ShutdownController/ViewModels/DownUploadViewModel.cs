@@ -20,12 +20,28 @@ public partial class DownUploadViewModel : ObservingViewModelBase
 	public DownUploadViewModel(IEachSecondTick tick, IServiceProvider serviceProvider)
 		: base(tick, serviceProvider)
 	{
+		// Order by the amount of traffic seen so far so the real, active adapter
+		// (e.g. Wi-Fi) is preselected instead of an idle virtual one.
 		_adapters = NetworkInterface.GetAllNetworkInterfaces()
 			.Where(adapter => adapter.OperationalStatus == OperationalStatus.Up
 							  && adapter.NetworkInterfaceType != NetworkInterfaceType.Loopback)
+			.OrderByDescending(TotalBytes)
 			.ToList();
 
 		_selectedAdapter = _adapters.FirstOrDefault();
+	}
+
+	private static long TotalBytes(NetworkInterface adapter)
+	{
+		try
+		{
+			IPInterfaceStatistics statistics = adapter.GetIPStatistics();
+			return statistics.BytesReceived + statistics.BytesSent;
+		}
+		catch (NetworkInformationException)
+		{
+			return 0;
+		}
 	}
 
 	protected override string SettingsPrefix => "DownUpload";

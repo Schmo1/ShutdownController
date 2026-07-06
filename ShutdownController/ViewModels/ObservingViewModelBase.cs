@@ -49,6 +49,12 @@ public abstract partial class ObservingViewModelBase : ObservableObject
 	private PointCollection _secondaryPoints = new();
 
 	[ObservableProperty]
+	private PointCollection _primaryArea = new();
+
+	[ObservableProperty]
+	private PointCollection _secondaryArea = new();
+
+	[ObservableProperty]
 	private string _yAxisMaxLabel = "1 MB/s";
 
 	[ObservableProperty]
@@ -121,11 +127,16 @@ public abstract partial class ObservingViewModelBase : ObservableObject
 
 		(double primary, double secondary) = ReadSpeed();
 
-		Append(_primaryHistory, primary);
-		Append(_secondaryHistory, secondary);
+		// The timer fires on a thread-pool thread; marshal to the UI thread so the
+		// bound polylines refresh reliably and freezables are created there.
+		App.Current.Dispatcher.Invoke(() =>
+		{
+			Append(_primaryHistory, primary);
+			Append(_secondaryHistory, secondary);
 
-		RedrawGraph();
-		EvaluateThreshold(IsPrimarySelected ? primary : secondary);
+			RedrawGraph();
+			EvaluateThreshold(IsPrimarySelected ? primary : secondary);
+		});
 	}
 
 	private static void Append(List<double> history, double value)
@@ -153,19 +164,45 @@ public abstract partial class ObservingViewModelBase : ObservableObject
 
 		PrimaryPoints = BuildPoints(_primaryHistory, yMax);
 		SecondaryPoints = BuildPoints(_secondaryHistory, yMax);
+		PrimaryArea = BuildArea(_primaryHistory, yMax);
+		SecondaryArea = BuildArea(_secondaryHistory, yMax);
 		YAxisMaxLabel = $"{yMax:0.#} MB/s";
 		YAxisMidLabel = $"{yMax / 2:0.#} MB/s";
 	}
+
+	private static double MapX(int index) => index * PlotWidth / (WindowSeconds - 1);
+
+	private static double MapY(double value, double yMax) =>
+		PlotHeight - Math.Min(value / yMax, 1.0) * PlotHeight;
 
 	private static PointCollection BuildPoints(List<double> history, double yMax)
 	{
 		var points = new PointCollection();
 		for (int i = 0; i < history.Count; i++)
 		{
-			double x = i * PlotWidth / (WindowSeconds - 1);
-			double y = PlotHeight - Math.Min(history[i] / yMax, 1.0) * PlotHeight;
-			points.Add(new System.Windows.Point(x, y));
+			points.Add(new System.Windows.Point(MapX(i), MapY(history[i], yMax)));
 		}
+
+		points.Freeze();
+		return points;
+	}
+
+	// Closed polygon following the line and going back along the baseline, used
+	// to fill the area under the curve so the current value stays clearly visible.
+	private static PointCollection BuildArea(List<double> history, double yMax)
+	{
+		var points = new PointCollection();
+		if (history.Count < 2)
+		{
+			return points;
+		}
+
+		points.Add(new System.Windows.Point(MapX(0), PlotHeight));
+		for (int i = 0; i < history.Count; i++)
+		{
+			points.Add(new System.Windows.Point(MapX(i), MapY(history[i], yMax)));
+		}
+		points.Add(new System.Windows.Point(MapX(history.Count - 1), PlotHeight));
 
 		points.Freeze();
 		return points;
@@ -188,11 +225,10 @@ public abstract partial class ObservingViewModelBase : ObservableObject
 		}
 
 		StopObserving();
-		App.Current.Dispatcher.Invoke(() =>
-		{
-			CustomMessageBoxView? messageBox = _serviceProvider.GetService<CustomMessageBoxView>();
-			messageBox?.Show();
-		});
+
+		// Already on the UI thread (called from the marshalled tick handler).
+		CustomMessageBoxView? messageBox = _serviceProvider.GetService<CustomMessageBoxView>();
+		messageBox?.Show();
 	}
 
 	private static double GetDoubleProperty(string key, double defaultValue)
