@@ -42,7 +42,6 @@
                     <RowDefinition Height="40"/>
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
                 <Border Style="{StaticResource borderBlueTheme}" Width="auto" HorizontalAlignment="Left" >
                     <TextBlock Style="{StaticResource textBlockSettings}" Text="Application settings"/>
@@ -54,10 +53,6 @@
                 <Grid Grid.Row="2">
                     <TextBlock Text="On closing" VerticalAlignment="Center" Style="{StaticResource textBlockSettings}" />
                     <local:ToggleButton Height="55" Width="70" Grid.Row="1" HorizontalAlignment="Right" Margin="0 0 40 0"  Toggled="{Binding OnClosingRunInBackground}"/>
-                </Grid>
-                <Grid Grid.Row="3">
-                    <TextBlock Text="Save Performance" VerticalAlignment="Center" Style="{StaticResource textBlockSettings}"/>
-                    <local:ToggleButton Height="55" Width="70" Grid.Row="1" HorizontalAlignment="Right" Margin="0 0 40 0"  Toggled="{Binding SavePerformance}"/>
                 </Grid>
             </Grid>
         </Border>

@@ -12,7 +12,7 @@
         <converters:StringToDoubleConverter x:Key="MyStringToDoubleConverter"/>
     </UserControl.Resources>
 
-    <Grid Margin="15 20 30 15">
+    <Grid Margin="15 10 30 8">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
@@ -65,6 +65,9 @@
                         <Polygon Points="{Binding SecondaryArea}" Fill="#45f0a94a"/>
                         <Polyline Points="{Binding PrimaryPoints}" Stroke="#8fdc8f" StrokeThickness="2"/>
                         <Polyline Points="{Binding SecondaryPoints}" Stroke="#f0a94a" StrokeThickness="2"/>
+                        <!-- Threshold marker: green while below the limit, red once exceeded -->
+                        <Line X1="0" X2="430" Y1="{Binding ThresholdLineY}" Y2="{Binding ThresholdLineY}"
+                              Stroke="{Binding ThresholdBrush}" StrokeThickness="2" StrokeDashArray="4 3"/>
                     </Canvas>
 
                     <!-- X axis labels -->
@@ -85,7 +88,7 @@
         </Border>
 
         <!-- Controls -->
-        <Grid Grid.Row="1" Margin="0 15 0 0">
+        <Grid Grid.Row="1" Margin="0 8 0 0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="auto"/>
@@ -139,7 +142,7 @@
         </Grid>
 
         <!-- Start / Stop -->
-        <Button Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0 10 0 5"
+        <Button Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0 6 0 0"
                 Style="{StaticResource startStopButton}" Command="{Binding StartStopCommand}"/>
     </Grid>
 </UserControl>

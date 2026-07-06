@@ -46,6 +46,8 @@ public partial class DownUploadViewModel : ObservingViewModelBase
 
 	protected override string SettingsPrefix => "DownUpload";
 
+	partial void OnSelectedAdapterChanged(NetworkInterface? value) => RestartSource();
+
 	protected override void InitializeSource()
 	{
 		(_previousReceived, _previousSent) = ReadRawBytes();

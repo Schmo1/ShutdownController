@@ -13,6 +13,10 @@ public partial class DiskView : UserControl
 	{
 		InitializeComponent();
 
-		DataContext = App.Services.GetRequiredService<DiskViewModel>();
+		DiskViewModel viewModel = App.Services.GetRequiredService<DiskViewModel>();
+		DataContext = viewModel;
+
+		// Begin live sampling so the graph shows data without pressing Start.
+		viewModel.Activate();
 	}
 }

@@ -13,6 +13,10 @@ public partial class DownUploadView : UserControl
 	{
 		InitializeComponent();
 
-		DataContext = App.Services.GetRequiredService<DownUploadViewModel>();
+		DownUploadViewModel viewModel = App.Services.GetRequiredService<DownUploadViewModel>();
+		DataContext = viewModel;
+
+		// Begin live sampling so the graph shows data without pressing Start.
+		viewModel.Activate();
 	}
 }

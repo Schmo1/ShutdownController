@@ -31,6 +31,8 @@ public partial class DiskViewModel : ObservingViewModelBase
 
 	protected override string SettingsPrefix => "Disk";
 
+	partial void OnSelectedDriveChanged(DiskDriveItem? value) => RestartSource();
+
 	protected override void InitializeSource()
 	{
 		_readCounter?.Dispose();

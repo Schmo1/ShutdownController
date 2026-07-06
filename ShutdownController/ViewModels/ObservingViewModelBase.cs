@@ -26,6 +26,12 @@ public abstract partial class ObservingViewModelBase : ObservableObject
 	private readonly List<double> _primaryHistory = new();
 	private readonly List<double> _secondaryHistory = new();
 	private int _belowThresholdCounter;
+	private bool _isMonitoring;
+
+	// Colours for the threshold marker line: green while the observed speed stays
+	// below the limit, red once it is reached or exceeded.
+	private static readonly Brush BelowThresholdBrush = CreateFrozenBrush(0x5f, 0xd3, 0x5f);
+	private static readonly Brush AboveThresholdBrush = CreateFrozenBrush(0xff, 0x4d, 0x4d);
 
 	[ObservableProperty]
 	private bool _isRunning;
@@ -60,6 +66,14 @@ public abstract partial class ObservingViewModelBase : ObservableObject
 	[ObservableProperty]
 	private string _yAxisMidLabel = "0,5 MB/s";
 
+	// Vertical position (in canvas pixels) of the horizontal threshold marker line.
+	[ObservableProperty]
+	private double _thresholdLineY = PlotHeight;
+
+	// Brush the threshold marker line is drawn with (green below, red above the limit).
+	[ObservableProperty]
+	private Brush _thresholdBrush = BelowThresholdBrush;
+
 	protected ObservingViewModelBase(IEachSecondTick tick, IServiceProvider serviceProvider)
 	{
 		_tick = tick;
@@ -82,17 +96,60 @@ public abstract partial class ObservingViewModelBase : ObservableObject
 
 	partial void OnSecondsChanged(int value) => App.Current.Properties[$"{SettingsPrefix}Seconds"] = value;
 
-	partial void OnObservingSpeedChanged(double value) =>
+	partial void OnObservingSpeedChanged(double value)
+	{
 		App.Current.Properties[$"{SettingsPrefix}ObservingSpeed"] = value;
+		// Reposition and recolour the marker line for the new limit.
+		RedrawGraph();
+		UpdateThresholdIndicator();
+	}
 
-	partial void OnIsPrimarySelectedChanged(bool value) =>
+	partial void OnIsPrimarySelectedChanged(bool value)
+	{
 		App.Current.Properties[$"{SettingsPrefix}IsPrimarySelected"] = value;
+		// The limit is checked against the selected series, so its colour may change.
+		UpdateThresholdIndicator();
+	}
 
 	[RelayCommand]
 	private void SelectPrimary() => IsPrimarySelected = true;
 
 	[RelayCommand]
 	private void SelectSecondary() => IsPrimarySelected = false;
+
+	/// <summary>
+	/// Starts the continuous sampling so the graph shows live data even while the
+	/// auto-shutdown watch (Start button) is not armed. Called when the view is shown.
+	/// </summary>
+	public void Activate()
+	{
+		if (_isMonitoring)
+		{
+			return;
+		}
+
+		_isMonitoring = true;
+		InitializeSource();
+		RedrawGraph();
+		UpdateThresholdIndicator();
+		_tick.Start();
+	}
+
+	/// <summary>Re-primes the source and clears the graph after the drive/adapter changed.</summary>
+	protected void RestartSource()
+	{
+		_primaryHistory.Clear();
+		_secondaryHistory.Clear();
+		_belowThresholdCounter = 0;
+
+		if (_isMonitoring)
+		{
+			InitializeSource();
+		}
+
+		RedrawGraph();
+		UpdateThresholdIndicator();
+	}
 
 	[RelayCommand]
 	private void StartStop()
@@ -103,28 +160,20 @@ public abstract partial class ObservingViewModelBase : ObservableObject
 			return;
 		}
 
-		_primaryHistory.Clear();
-		_secondaryHistory.Clear();
+		// The graph is already live; pressing Start only arms the auto-shutdown watch.
 		_belowThresholdCounter = 0;
-		InitializeSource();
-
+		Activate();
 		IsRunning = true;
-		_tick.Start();
 	}
 
 	private void StopObserving()
 	{
-		_tick.Stop();
+		// Keep sampling so the graph stays live; only disarm the shutdown watch.
 		IsRunning = false;
 	}
 
 	private void OnTick(object? sender, System.Timers.ElapsedEventArgs e)
 	{
-		if (!IsRunning)
-		{
-			return;
-		}
-
 		(double primary, double secondary) = ReadSpeed();
 
 		// The timer fires on a thread-pool thread; marshal to the UI thread so the
@@ -135,7 +184,13 @@ public abstract partial class ObservingViewModelBase : ObservableObject
 			Append(_secondaryHistory, secondary);
 
 			RedrawGraph();
-			EvaluateThreshold(IsPrimarySelected ? primary : secondary);
+			UpdateThresholdIndicator();
+
+			// Only the armed Start button drives the shutdown countdown.
+			if (IsRunning)
+			{
+				EvaluateThreshold(IsPrimarySelected ? primary : secondary);
+			}
 		});
 	}
 
@@ -160,12 +215,14 @@ public abstract partial class ObservingViewModelBase : ObservableObject
 			max = Math.Max(max, value);
 		}
 
-		double yMax = Math.Max(1.0, Math.Ceiling(max));
+		// Keep the threshold within the visible range so its marker line is always shown.
+		double yMax = Math.Max(1.0, Math.Ceiling(Math.Max(max, ObservingSpeed)));
 
 		PrimaryPoints = BuildPoints(_primaryHistory, yMax);
 		SecondaryPoints = BuildPoints(_secondaryHistory, yMax);
 		PrimaryArea = BuildArea(_primaryHistory, yMax);
 		SecondaryArea = BuildArea(_secondaryHistory, yMax);
+		ThresholdLineY = MapY(ObservingSpeed, yMax);
 		YAxisMaxLabel = $"{yMax:0.#} MB/s";
 		YAxisMidLabel = $"{yMax / 2:0.#} MB/s";
 	}
@@ -229,6 +286,28 @@ public abstract partial class ObservingViewModelBase : ObservableObject
 		// Already on the UI thread (called from the marshalled tick handler).
 		CustomMessageBoxView? messageBox = _serviceProvider.GetService<CustomMessageBoxView>();
 		messageBox?.Show();
+	}
+
+	private double CurrentObservedValue
+	{
+		get
+		{
+			List<double> history = IsPrimarySelected ? _primaryHistory : _secondaryHistory;
+			return history.Count > 0 ? history[^1] : 0;
+		}
+	}
+
+	private void UpdateThresholdIndicator()
+	{
+		// Below the limit → green (idle, counts towards shutdown); at/above → red.
+		ThresholdBrush = CurrentObservedValue < ObservingSpeed ? BelowThresholdBrush : AboveThresholdBrush;
+	}
+
+	private static Brush CreateFrozenBrush(byte r, byte g, byte b)
+	{
+		var brush = new SolidColorBrush(Color.FromRgb(r, g, b));
+		brush.Freeze();
+		return brush;
 	}
 
 	private static double GetDoubleProperty(string key, double defaultValue)

@@ -11,6 +11,7 @@
         MinWidth="830" MaxWidth="800" MaxHeight="550" MinHeight="550" 
         WindowStyle="None" AllowsTransparency="True" ResizeMode="CanMinimize"
         Background="Transparent"
+        Icon="/Resources/Images/Icons/ShutdownManager.ico"
         Name="window" >
     
     <i:Interaction.Triggers>
